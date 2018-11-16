@@ -28,5 +28,5 @@ public class AcademyUI {
 		System.out.println("====================================");
 	}
 	
-
+ 
 }
