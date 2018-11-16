@@ -1,6 +1,6 @@
-package VO;
+package com.ojt.nexture.www.entity;
 
-public class Human {
+public class HumanVO {
 	
 	private String name;
 	private int age;
