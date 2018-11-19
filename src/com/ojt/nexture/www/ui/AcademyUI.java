@@ -12,7 +12,6 @@ public class AcademyUI {
 		//メインメニュー表示するためのループ文
 		while (flag) {
 			menu();
-			
 			int choice=0;
 			try {
 				choice = sc.nextInt();
@@ -62,9 +61,12 @@ public class AcademyUI {
 	
 					break;
 				case 2:
-					
+					String userName;
+					String password;
 					System.out.println("ログイン画面へ移行");
-					
+					System.out.println("会員ID（名前）");
+					userName = sc.nextLine();
+					password = sc.nextLine();
 					break;
 				case 3:
 					
@@ -87,6 +89,13 @@ public class AcademyUI {
 	public void typeSelMenu() {
 		System.out.println("==============会員タイプ選択============= \n１．教授　２．学生　３．スタッフ　４．取り消し"
 				+ "\n======================================");
+	}
+	
+	public void loginComplMenu(String name) {
+		System.out.println("============================================= \n\n"
+				+"\t\tようこそ！"+ name + "様!\n\n"
+				+"１．担当講義一覧     ２．情報修正     ３．退会     ４．ログアウト\n"
+				+ "\n=============================================");
 	}
 	
 	public void missMatchExCler() {
