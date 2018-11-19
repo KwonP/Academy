@@ -9,15 +9,15 @@ package com.ojt.nexture.www.entity;
 public class StaffVO extends HumanVO {
 
 	private String department;
-	
+
 	public StaffVO(String name, int age, String phoneNum, String department) {
 		super(name, age, phoneNum);
 		this.department = department;
 	}
-	
+
 	public StaffVO() {
-        super();
-    }
+		super();
+	}
 
 	public String getDepartment() {
 		return department;
