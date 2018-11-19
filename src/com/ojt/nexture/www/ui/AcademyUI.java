@@ -73,6 +73,13 @@ public class AcademyUI {
 				+ "\n=============================================");
 	}
 	
+	public void loginComplMenu(String name) {
+		System.out.println("============================================= \n\n"
+				+"\t\tようこそ！"+ name + "様!\n\n"
+				+"１．担当講義一覧     ２．情報修正     ３．退会     ４．ログアウト\n"
+				+ "\n=============================================");
+	}
+	
 	public void missMatchExCler() {
 		sc.nextLine();
 		System.out.println("メニュー選択は数字を入力してください。");
