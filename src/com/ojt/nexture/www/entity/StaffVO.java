@@ -10,8 +10,8 @@ public class StaffVO extends HumanVO {
 
 	private String department;
 
-	public StaffVO(String name, int age, String phoneNum, String department) {
-		super(name, age, phoneNum);
+	public StaffVO(String name, String password, int age, String phoneNum, String department) {
+		super(name, password, age, phoneNum);
 		this.department = department;
 	}
 
