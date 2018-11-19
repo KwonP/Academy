@@ -11,9 +11,10 @@ public class HumanVO {
 	private String password;
 	private int age;
 	private String phoneNum;
-	public HumanVO(String name, int age, String phoneNum) {
+	public HumanVO(String name, String password, int age, String phoneNum) {
 		super();
 		this.name = name;
+		this.password = password;
 		this.age = age;
 		this.phoneNum = phoneNum;
 	}
@@ -38,6 +39,13 @@ public class HumanVO {
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	
 	
 }
