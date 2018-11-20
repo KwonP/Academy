@@ -9,34 +9,27 @@ public class HumanVO {
 
 	private String name;
 	private int age;
-	private int personId;
 	private String password;
-	private int age;
 	private String phoneNum;
-	public HumanVO(String name, String password,int age, String phoneNum) {
+	
+	public HumanVO() {
 		super();
 	}
 
-	public HumanVO(String name, int age, int personId, String password, int code) {
+	public HumanVO(String name, int age, String password, String phoneNum) {
+		super();
 		this.name = name;
-		this.password = password;
 		this.age = age;
-		this.personId = personId;
 		this.password = password;
-		this.code = code;
+		this.phoneNum = phoneNum;
 	}
 
-	
-	public int getCode() {
-		return code;
+	public String getName() {
+		return name;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	public int getPersonId() {
-		return personId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getAge() {
@@ -54,6 +47,15 @@ public class HumanVO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
 	
 	
+
 }
