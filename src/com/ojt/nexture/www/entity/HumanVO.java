@@ -6,46 +6,69 @@
 package com.ojt.nexture.www.entity;
 
 public class HumanVO {
-	
+
 	private String name;
-	private String password;
 	private int age;
-	private String phoneNum;
-	public HumanVO(String name, String password, int age, String phoneNum) {
-		super();
-		this.name = name;
-		this.password = password;
-		this.age = age;
-		this.phoneNum = phoneNum;
-	}
+	private int personId;
+	private String password;
+	private int code;
+
 	public HumanVO() {
 		super();
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
+
+	public HumanVO(String name, int age, int personId, String password, int code) {
 		this.name = name;
+		this.age = age;
+		this.personId = personId;
+		this.password = password;
+		this.code = code;
 	}
+
+	
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public int getPersonId() {
+		return personId;
+	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getPhoneNum() {
-		return phoneNum;
-	}
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s|%s|%s|%s", name, age, personId, password);
+	}
+
 }

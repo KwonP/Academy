@@ -6,29 +6,20 @@
 
 package com.ojt.nexture.www.entity;
 
-
-
 public class ProfessorVO extends HumanVO {
-	//department 부서
 	private String department;
-	
+
 	public ProfessorVO() {
 		super();
 	}
-	public ProfessorVO(String name,int age, String phoneNum,String department) {
-		super(name,age,phoneNum);
+
+	public ProfessorVO(String name, int age, int personId, String password, String department, int code) {
+		super(name, age, personId, password, code);
 		this.department = department;
 	}
 
-	public String getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
 	@Override
 	public String toString() {
-		return super.toString()+"|"+department;
-	}		
+		return super.toString() + "|" + department;
+	}
 }
