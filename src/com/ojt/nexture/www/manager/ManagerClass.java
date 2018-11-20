@@ -1,87 +1,114 @@
 package com.ojt.nexture.www.manager;
 
+import java.util.ArrayList;
+
 import com.ojt.nexture.www.entity.HumanVO;
-import com.ojt.nexture.www.main.AcademyMain;
 
+/**
+ * 배열을 이용한 Manager
+ * 
+ * @author david
+ * @jdkVersion 1.8.0_162
+ * @date 2018. 4. 8.
+ */
 public class ManagerClass implements StaffManager {
+
 	int index;
-	HumanVO[] humans;
-	String name;
+	HumanVO[] persons;
 
+	/**
+	 * Default Constructor
+	 */
 	public ManagerClass() {
-		
-	} //매개변수 없는 생성자
-	
-	public ManagerClass(int length) {
-		humans = new HumanVO[length];
-		// TODO Auto-generated method stub
-	} //HumanVO를 배열로 만들고, 그 배열의 크기를 매개변수로 정해주는 생성자
 
-	@Override
-	public void addClass() {
-		// TODO Auto-generated method stub
 	}
-	//강의추가 메소드 미구현
 
+	/**
+	 * 생성자. 길이를 받아 그 길이만큼의 배열을 초기화 한다.
+	 * 
+	 * @param length 생성할 배열의 길이
+	 */
+	public ManagerClass(int length) {
+		persons = new HumanVO[length];
+	}
+
+	/**
+	 * Person 저장
+	 */
 	@Override
-	public boolean insertPerson(HumanVO newHuman) {
-		if (humans.length == index) {
-			return false; 
-		} 
-		//index 값이 length와 같다면, 즉 humanVO 배열이 가득 차있다면 실패
-		
-		for (int i = 0; i < index; i++) {
-			if (humans[i].getPhoneNum() == newHuman.getPhoneNum()) {
-				return false; 
-			}
-			// humanVO 배열을 처음부터 비교하여 전화번호가 같다면 가입 실패 (중복 방지 요소가 핸드폰번호밖에 없음)
+	public boolean insertPerson(HumanVO newPerson) {
+		if (persons.length == index) {
+			return false;
 		}
-		
-		humans[index] = newHuman;
+		for (int i = 0; i < index; i++) {
+			if (persons[i].getPersonId() == newPerson.getPersonId()) {
+				return false;
+			}
+		}
+		persons[index] = newPerson;
 		index++;
 		return true;
-		//모두 일치하다면 humanVO의 index번 배열에 추가 후 index값 1증가
-		
-	} //회원가입 기능
-
-	public HumanVO login(String humanName, String password) {
-		for (int i = 0; i < index; i++) {
-			if (humans[i].getName() == humanName) {
-				if (humans[i].getPassword() == password) {
-					name = humanName;
-					return humans[i];
-				}
-				//입력한 name과 password가 humanVO 배열에 있을 시 로그인, 이때 로그인 한 이름을 name 값에 저장
-				
-				else {
-					System.out.println("비밀번호 틀림");
-				}
-			} else {
-				System.out.println("아이디 틀림");
-			}
-			//이름이나 비밀번호가 틀릴 경우 false
-		}
-		return null;
-	} //로그인
-
-	@Override
-	public boolean updatePerson(HumanVO updateHuman) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
+	/**
+	 * Person 삭제
+	 */
 	@Override
-	public boolean deletePerson(String humanName, String password) {
+	public boolean deletePerson(int personId) {
 		for (int i = 0; i < index; i++) {
-			if (humans[i].getName() == name) {
-				for(int a = i; a < index; a++) {
-					humans[a] = humans[a + 1];
-				}
+			if (persons[i].getPersonId() == personId) {
+				persons[i] = persons[i + 1];
 				index--;
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Person 조회
+	 */
+
+	/**
+	 * 저장소 반환 배열을 ArrayList로 Wrapping하여 return 배열 전체를 담을 경우, 빈 공간이 남아
+	 * NullPointerException 발생 index까지 돌면서 ArrayList에 추가
+	 */
+	@Override
+	public ArrayList selectAllPerson() {
+		ArrayList result = new ArrayList();
+		for (int i = 0; i < index; i++) {
+			result.add(persons[i]);
+		}
+		return result;
+	}
+
+	@Override
+	public HumanVO selectPerson(int personId) {
+		for (int i = 0; i < index; i++) {
+			if (persons[i].getPersonId() == personId) {
+				return persons[i];
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public HumanVO logIn(String name, String password) {
+		int i, j;
+		for (i = 0; i < index; i++) {
+			if (persons[i].getPassword().equals(password)) {
+				return persons[i];
+			}
+		}
+		for (j = 0; j < index; j++) {
+			if (persons[j].getName().equals(name)) {
+				return persons[j];
+			}
+		}
+		if (persons[i].equals(persons[j])) {
+			return persons[i];
+		}
+		return null;
 	}
 
 }

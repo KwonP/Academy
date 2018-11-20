@@ -2,199 +2,241 @@ package com.ojt.nexture.www.ui;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StaffVO;
 import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ManagerClass;
-
-import sun.applet.Main;
+import com.ojt.nexture.www.manager.StaffManager;
 
 public class AcademyUI {
-	
-	String name = null;
-	String password = null;
-	int age = 0;
-	String phoneNum = null;
-	String additionalInfo1 = "";
-	String additionalInfo2 = "";
-	boolean flag = false;
-	boolean flag2 = false;
+	private String doubleLine = "=========================================================";
+	private String singleLine = "---------------------------------------------------------";
+	private String listFormat = "%10s%10s%10s%20s%20s\n";
+	private String personName, personPassword;
 
-	Scanner sc = new Scanner(System.in);
-	ManagerClass manager = new ManagerClass();
+	Scanner scanner = new Scanner(System.in);
+	StaffManager manager = new ManagerClass(10);
 
 	public AcademyUI() {
-		flag = true;
-		// メインメニュー表示するためのループ文
-		while (flag) {
-			menu();
-			int choice = 0;
-			try {
-				choice = sc.nextInt();
-			} catch (InputMismatchException e) {
-				missMatchExCler();
-			}
-
-			switch (choice) {
+		while (true) {
+			printTitle();
+			printSubTitle("메 인 메 뉴");
+			int mainTask = inputFromList(new String[] { " ", "회원가입", "로그인" });
+			switch (mainTask) {
 			case 1:
-				System.out.println("会員登録へ移動");
-
-				flag2 = true;
-				while (flag2) {
-					typeSelMenu();
-					System.out.println("タイプを入力ください");
-					int choice2 = 0;
-					try {
-						choice2 = sc.nextInt();
-					} catch (Exception e) {
-						missMatchExCler();
-					}
-					switch (choice2) {
-					case 1:
-						// Professor登録
-						insertPerson();
-						break;
-					case 2:
-						// Student登録
-						insertPerson();
-						break;
-					case 3:
-						// Staff登録
-						insertPerson();
-						break;
-					case 4:
-						flag2 = false;
-						break;
-
-					default:
-						System.out.println("正しくない命令です。");
-						break;
-					}
-
-				}
-
+				insertPerson();
 				break;
-
 			case 2:
-				String userName;
-				String password;
-				System.out.println("ログイン画面へ移行");
-				System.out.println("会員ID（名前）");
-				System.out.println("");
-				userName = sc.nextLine();
-				password = sc.nextLine();
-				break;
-			case 3:
-
+				logIn();
 				break;
 			default:
-				System.out.println("正しいメニューを選択してください。");
+				System.out.println("뭘 입력한거니?");
 				break;
 			}
 
-		}
+		} // while
+	} // TUI()
 
-	}
-
-	// 회원 정보 등록
 	public void insertPerson() {
-		System.out.println("===========情報を入力してください=========== \n");
-		HumanVO newHuman = null;
+		while (true) {
+			printTitle();
+			printSubTitle("직 업 선 택");
+			int occupation = inputFromList(new String[] { "", "학생", "교사", "임직원", "이전메뉴" });
+			if (occupation == 4) {
+				return;
+			}
 
-		name = inputString(" 이름 : ");
-		password = inputString(" 패스워드 :");
-		age = inputInt(" 나이 :");
-		phoneNum = inputString(" 전화번호 : ");
-		additionalInfo1 = "";
-		additionalInfo2 = "";
+			HumanVO newPerson = null;
 
-		switch (1) {
-		case 1:
-			System.out.println("case1");
-			additionalInfo1 = inputString(" 부서 : ");
-			newHuman = new ProfessorVO(name, password, age, phoneNum, additionalInfo1);
-			break;
-		case 2:
-			System.out.println("case2");
-			additionalInfo1 = inputString(" 전공 : ");
-			additionalInfo2 = inputString(" 학번 : ");
-			newHuman = new StudentVO(name, password, age, phoneNum, additionalInfo1, additionalInfo2);
-			break;
-		case 3:
-			System.out.println("case3");
-			additionalInfo1 = inputString(" 부서 : ");
-			newHuman = new StaffVO(name, password, age, phoneNum, additionalInfo1);
-			break;
-		} // switch
+			String name = inputString(" 이름 : ");
+			int age = inputInt(" 나이 :");
+			String password = inputString(" 비밀번호 : ");
+			int personId = inputInt(" 주민번호 :");
+			int code;
 
-		insertCheck();
-	}
+			String additionalInfo = "";
 
-	public void insertCheck() {
-		System.out.println("====================================== \n");
-		System.out.println("이름 : " + name + ", 나이 : " + age + ", 전화번호 : " + phoneNum);
-		System.out.println("======================================");
-		System.out.println("여기까지 회원정보가 맞습니까?");
-		String check = inputString("Y/N");
-		if (check.equals("y")) {
-			flag2 = false;
-} else {
+			switch (occupation) {
+			case 1:
+				code = 1; //학생 = 1
+				additionalInfo = inputString(" 학번 : ");
+				newPerson = new StudentVO(name, age, personId, password, additionalInfo, code);
+				break;
+			case 2:
+				code = 2; //교수 =2
+				additionalInfo = inputString(" 교과목 : ");
+				newPerson = new ProfessorVO(name, age, personId, password, additionalInfo, code);
+				break;
+			case 3:
+				code = 3; //staff=3
+				additionalInfo = inputString(" 부서 : ");
+				newPerson = new StaffVO(name, age, personId, password, additionalInfo, code);
+				break;
+			} // switch
+			System.out.println("====================================== \n");
+			System.out.println("이름 : " + name + ",    나이 : " + age + ",    비밀번호 : " + password);
+			System.out.println("======================================");
+			System.out.print("ここまま会員登録を進めましょうか。");
+			String check = inputString("(Y/N)");
+			if (check.equals("y")) {
+				if (manager.insertPerson(newPerson)) {
+					printSystemMessage("등록되었습니다.", true);
+				} else {
+					printSystemMessage("등록할 수 없습니다.", true);
+				}
+			} else {
+
+			}
+		} // while
+	} // insertPerson()
+
+	public void deletePerson() {
+		while (true) {
+			printTitle();
+			printSubTitle(" 삭 제 하 기");
+			int personId = inputInt(" 삭제할 사람의 주민번호를 입력하여 주십시오. (0 : 이전메뉴) ");
+			if (personId == 0) {
+				return;
+			}
+
+			if (manager.deletePerson(personId)) {
+				printSystemMessage("삭제되었습니다.", true);
+			} else {
+				printSystemMessage("존재하는 ID가 없습니다.", true);
+			}
 		}
-	}
+	} // deletePerson()
 
-	public void menu() {
-		System.out.println("===========アカデミー管理システム=========== \n");
-		System.out.println("\t1．会員登録　　　2．ログイン \n");
-		System.out.println("======================================");
-	}
+	public void logIn() {
 
-	public void typeSelMenu() {
-		System.out.println("==============会員タイプ選択============= \n１．教授　２．学生　３．スタッフ　４．取り消し"
-				+ "\n======================================");
-	}
+		personName = inputString(" 이름 : ");
+		System.out.println(personName);
+		personPassword = inputString(" 비밀번호 : ");
+		System.out.println(personPassword);
+		HumanVO persons = manager.logIn(personName, personPassword);
+		printTitle();
+		printSubTitle(" 로그인");
+		if (persons != null) {
+//			printSystemMessage("로그인에 성공했습니다.", true);
+			mainLogin();
+		} else {
+			printSystemMessage("존재하는 ID가 없습니다.", true);
+		}
 
-	public void loginComplMenu(String name) {
-		System.out.println("============================================= \n\n" + "\t\tようこそ！" + name + "様!\n\n"
-				+ "１．担当講義一覧     ２．情報修正     ３．退会     ４．ログアウト\n" + "\n=============================================");
-	}
+	} // selectPerson()
 
-	public void missMatchExCler() {
-		sc.nextLine();
-		System.out.println("メニュー選択は数字を入力してください。");
-	}
+	public int inputFromList(String[] lists) {
+		int result = 0;
+		for (int i = 1; i < lists.length; i++) {
+			System.out.printf(" %d. %s\n", i, lists[i]);
+		}
+		System.out.println(singleLine);
+		while (true) {
+			result = inputInt("무엇을 하시겠습니까 ?");
+			if (result > lists.length - 1) {
+				printSystemMessage("잘못된 번호입니다.");
+				continue;
+			}
+			return result;
+		}
 
-	public String inputString(String inputMessage) {
-		System.out.print(inputMessage);
-		return sc.next();
+	} // inputFromList
+
+	public String personToString(HumanVO person) {
+		StringTokenizer st = new StringTokenizer(person.toString(), "|");
+		return String.format(listFormat, st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
+				st.nextToken());
 	}
 
 	public int inputInt(String inputMessage) {
 		while (true) {
 			try {
 				System.out.print(inputMessage + " ");
-				return sc.nextInt();
+				return scanner.nextInt();
 			} catch (InputMismatchException e) {
 				printSystemMessage("숫자를 입력하여 주십시오.");
-				sc.next();
+				scanner.next();
 			} // try
 		} // while
 	} // inputInt()
+
+	public String inputString(String inputMessage) {
+		System.out.print(inputMessage);
+		return scanner.next();
+	} // inputString()
+
+	public void printTitle() {
+		clearScreen();
+		System.out.println(doubleLine);
+		System.out.println(" 학 사 관 리 ");
+		System.out.println(doubleLine);
+	} // printTitle()
+
+	public void printSubTitle(String subTitle) {
+		System.out.println(singleLine);
+		System.out.println(" " + subTitle);
+		System.out.println(singleLine);
+	} // printSubTitle
 
 	public void printSystemMessage(String message) {
 		System.out.println(" System : " + message);
 	}
 
 	public void printSystemMessage(String message, boolean isPause) {
-		System.out.println("----------------------------------");
+		System.out.println(singleLine);
 		printSystemMessage(message);
-		System.out.println("----------------------------------");
+		System.out.println(singleLine);
 		if (isPause) {
-			System.out.println(" 아무키나 누르시면 메인으로 돌아갑니다.");
+			System.out.println(" 계속하시려면 아무거나 입력하여 주십시오.");
 			// scanner.skip("[\\n\\r]");
-			sc.next();
+			scanner.next();
 			// System.out.println("DEBUG @22222");
 		}
 	}
+	
+	public void mainLogin() {
+		while (true) {
+			System.out.println(" \n\n" + "\t\tようこそ！" + personName + "様!\n\n");
+			int mainTask = inputFromList(new String[] { " ", "担当講義一覧", "情報修正 ", "退会", "ログアウト" });
+			if (mainTask == 4) {
+				printSystemMessage("로그아웃 되었습니다.", true);
+				return;
+			}
+			switch (mainTask) {
+			case 1:
+				insertPerson();
+				break;
+			case 2:
+				updatePerson();
+				break;
+			case 3:
+				deletePerson();
+				break;
+			default:
+				System.out.println("뭘 입력한거니?");
+				break;
+			}
+
+		} // while
+	} // TUI()
+
+	private void updatePerson() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void logOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void clearScreen() {
+		for (int i = 0; i < 50; i++) {
+			System.out.println();
+		}
+	} // clearScreen
+
 }

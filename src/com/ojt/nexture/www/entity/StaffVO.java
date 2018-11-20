@@ -10,26 +10,17 @@ public class StaffVO extends HumanVO {
 
 	private String department;
 
-	public StaffVO(String name, String password, int age, String phoneNum, String department) {
-		super(name, password, age, phoneNum);
-		this.department = department;
-	}
-
 	public StaffVO() {
 		super();
 	}
 
-	public String getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(String department) {
+	public StaffVO(String name, int age, int personId, String password, String department, int code) {
+		super(name, age, personId, password, code);
 		this.department = department;
 	}
 
 	@Override
 	public String toString() {
-		return "所属学部=" + department + "]";
+		return super.toString() + "|" + department;
 	}
-
 }

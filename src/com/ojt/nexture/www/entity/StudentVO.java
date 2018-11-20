@@ -7,39 +7,20 @@ package com.ojt.nexture.www.entity;
 
 public class StudentVO extends HumanVO {
 
-	private String major;
-	private String student_Num;
+	private String studentId;
 
-	public StudentVO(String name, String password, int age, String phoneNum, String major, String student_Num) {
-		super(name, password, age, phoneNum);
-		this.major = major;
-		this.student_Num = student_Num;
-	}
+    public StudentVO() {
+        super();
+    }
 
-	public StudentVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public StudentVO(String name, int age, int personId, String password, String studentId, int code) {
+        super(name, age, personId, password, code);
+        this.studentId = studentId;
+    }
 
-	public String getMajor() {
-		return major;
-	}
-
-	public void setMajor(String major) {
-		this.major = major;
-	}
-
-	public String getStudent_Num() {
-		return student_Num;
-	}
-
-	public void setStudent_Num(String student_Num) {
-		this.student_Num = student_Num;
-	}
-
-	@Override
+    @Override
 	public String toString() {
-		return "[専攻=" + major + ", 学番=" + student_Num + "]";
+		return super.toString() + "|" + studentId;
 	}
 
 }
