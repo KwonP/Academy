@@ -8,11 +8,10 @@ import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StaffVO;
 import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ManagerClass;
-
-import sun.applet.Main;
+import com.ojt.nexture.www.manager.StaffManager;
 
 public class AcademyUI {
-	
+
 	String name = null;
 	String password = null;
 	int age = 0;
@@ -21,16 +20,17 @@ public class AcademyUI {
 	String additionalInfo2 = "";
 	boolean flag = false;
 	boolean flag2 = false;
+	int choice = 0;
 
 	Scanner sc = new Scanner(System.in);
-	ManagerClass manager = new ManagerClass();
+	StaffManager manager = new ManagerClass();
 
 	public AcademyUI() {
 		flag = true;
 		// メインメニュー表示するためのループ文
 		while (flag) {
 			menu();
-			int choice = 0;
+			choice = 0;
 			try {
 				choice = sc.nextInt();
 			} catch (InputMismatchException e) {
@@ -39,42 +39,7 @@ public class AcademyUI {
 
 			switch (choice) {
 			case 1:
-				System.out.println("会員登録へ移動");
-
-				flag2 = true;
-				while (flag2) {
-					typeSelMenu();
-					System.out.println("タイプを入力ください");
-					int choice2 = 0;
-					try {
-						choice2 = sc.nextInt();
-					} catch (Exception e) {
-						missMatchExCler();
-					}
-					switch (choice2) {
-					case 1:
-						// Professor登録
-						insertPerson();
-						break;
-					case 2:
-						// Student登録
-						insertPerson();
-						break;
-					case 3:
-						// Staff登録
-						insertPerson();
-						break;
-					case 4:
-						flag2 = false;
-						break;
-
-					default:
-						System.out.println("正しくない命令です。");
-						break;
-					}
-
-				}
-
+				insertPerson();
 				break;
 
 			case 2:
@@ -100,47 +65,80 @@ public class AcademyUI {
 
 	// 회원 정보 등록
 	public void insertPerson() {
-		System.out.println("===========情報を入力してください=========== \n");
-		HumanVO newHuman = null;
 
-		name = inputString(" 이름 : ");
-		password = inputString(" 패스워드 :");
-		age = inputInt(" 나이 :");
-		phoneNum = inputString(" 전화번호 : ");
-		additionalInfo1 = "";
-		additionalInfo2 = "";
+		System.out.println("会員登録へ移動");
 
-		switch (1) {
-		case 1:
-			System.out.println("case1");
-			additionalInfo1 = inputString(" 부서 : ");
-			newHuman = new ProfessorVO(name, password, age, phoneNum, additionalInfo1);
-			break;
-		case 2:
-			System.out.println("case2");
-			additionalInfo1 = inputString(" 전공 : ");
-			additionalInfo2 = inputString(" 학번 : ");
-			newHuman = new StudentVO(name, password, age, phoneNum, additionalInfo1, additionalInfo2);
-			break;
-		case 3:
-			System.out.println("case3");
-			additionalInfo1 = inputString(" 부서 : ");
-			newHuman = new StaffVO(name, password, age, phoneNum, additionalInfo1);
-			break;
-		} // switch
+		flag2 = true;
+		while (flag2) {
+//			typeSelMenu();
+			System.out.println("=============================================");
+			int occupation = inputFromList(new String[] { "取り消し", "教授", "学生", "スタッフ" });
+			if (occupation == 0) {
+				return;
+			}
+//			int choice2 = 0;
+//			try {
+//				occupation = sc.nextInt();
+//			} catch (Exception e) {
+//				missMatchExCler();
+//			}
 
-		insertCheck();
+			System.out.println("===========情報を入力してください=========== \n");
+			HumanVO newHuman = null;
+
+			name = inputString("名前 : ");
+			password = inputString("パスワード :");
+			age = inputInt("年齢 :");
+			phoneNum = inputString("電話番号  : ");
+			additionalInfo1 = "";
+			additionalInfo2 = "";
+
+			switch (occupation) {
+			case 1:
+				additionalInfo1 = inputString("所属学部  : ");
+				newHuman = new ProfessorVO(name, password, age, phoneNum, additionalInfo1);
+				break;
+
+			case 2:
+				additionalInfo1 = inputString("専攻  : ");
+				additionalInfo2 = inputString("学番  : ");
+				newHuman = new StudentVO(name, password, age, phoneNum, additionalInfo1, additionalInfo2);
+				break;
+
+			case 3:
+				additionalInfo1 = inputString("所属学部  : ");
+				newHuman = new StaffVO(name, password, age, phoneNum, additionalInfo1);
+				break;
+
+			default:
+				System.out.println("正しくない命令です。");
+				break;
+			} // switch
+			
+			if (manager.insertPerson(newHuman)) {
+				printSystemMessage("등록되었습니다.", true);
+			} else {
+				printSystemMessage("등록할 수 없습니다.", true);
+			}
+//			choice = 0;
+//			insertCheck();
+		}
+
 	}
 
 	public void insertCheck() {
 		System.out.println("====================================== \n");
-		System.out.println("이름 : " + name + ", 나이 : " + age + ", 전화번호 : " + phoneNum);
+		System.out.println("名前 : " + name + ", 年齢 : " + age + ", 電話番号 : " + phoneNum);
 		System.out.println("======================================");
-		System.out.println("여기까지 회원정보가 맞습니까?");
-		String check = inputString("Y/N");
+		System.out.print("ここまま会員登録を進めましょうか。");
+		String check = inputString("(Y/N)");
 		if (check.equals("y")) {
-			flag2 = false;
-} else {
+			System.out.println("=======================");
+			System.out.println("会員登録が完了しました。");
+			System.out.println("=======================");
+
+			sc.next();
+		} else {
 		}
 	}
 
@@ -148,11 +146,6 @@ public class AcademyUI {
 		System.out.println("===========アカデミー管理システム=========== \n");
 		System.out.println("\t1．会員登録　　　2．ログイン \n");
 		System.out.println("======================================");
-	}
-
-	public void typeSelMenu() {
-		System.out.println("==============会員タイプ選択============= \n１．教授　２．学生　３．スタッフ　４．取り消し"
-				+ "\n======================================");
 	}
 
 	public void loginComplMenu(String name) {
@@ -197,4 +190,21 @@ public class AcademyUI {
 			// System.out.println("DEBUG @22222");
 		}
 	}
+
+	public int inputFromList(String[] lists) {
+		int result = 0;
+		for (int i = 0; i < lists.length; i++) {
+			System.out.printf(" %d. %s\n", i, lists[i]);
+		}
+		System.out.println("=============================================");
+		while (true) {
+			result = inputInt("");
+			if (result > lists.length - 1) {
+				printSystemMessage("正しくない命令です。");
+				continue;
+			}
+			return result;
+		}
+
+	} // inputFromList
 }
