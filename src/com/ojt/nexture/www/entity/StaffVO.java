@@ -6,11 +6,17 @@
 
 package com.ojt.nexture.www.entity;
 
-public class StaffVO extends HumanVO{
-	
+public class StaffVO extends HumanVO {
+
 	private String department;
 
+	public StaffVO() {
 
-	
-	
+	}
+
+	public StaffVO(String name, int age, String password, String phoneNum, String department) {
+		super();
+		this.department = department;
+	}
+
 }
