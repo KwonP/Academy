@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.LectureVO;
 
 public class AcademyUI {
 	
 	Scanner sc = new Scanner(System.in);	
 	List<HumanVO> userList = new ArrayList<>();
-	
+	List<LectureVO> lecList = new ArrayList<>();
 	public AcademyUI() {
 		boolean flag = true;
 		//メインメニュー表示するためのループ文

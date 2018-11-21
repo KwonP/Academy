@@ -1,5 +1,5 @@
 /*
-	담당강의열람, 정보수정, 탈퇴
+	담당강의열람, 가입, 정보수정, 탈퇴
 */
 package com.ojt.nexture.www.manager;
 
