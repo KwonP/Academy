@@ -3,6 +3,23 @@
 */
 package com.ojt.nexture.www.manager;
 
+import com.ojt.nexture.www.entity.HumanVO;
+
 public interface StudentManager {
+
+	// 회원가입
+	public boolean joinStudent();
+
+	// 로그인
+	public HumanVO LoginStudent();
+
+	// 강의목록열람
+	public boolean leadingStudent();
+
+	// 정보수정
+	public boolean fixStudent();
+
+	// 탈퇴
+	public boolean deleteStudent();
 
 }
