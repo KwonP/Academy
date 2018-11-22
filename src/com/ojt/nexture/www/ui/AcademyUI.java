@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.entity.StaffVO;
+import com.ojt.nexture.www.manager.ProfessorManagerClass;
 import com.ojt.nexture.www.manager.StaffManagerClass;
 import com.ojt.nexture.www.manager.StudentManagerClass;
 
@@ -18,9 +19,16 @@ public class AcademyUI {
 	List<LectureVO> lecList = new ArrayList<>();
 	
 	HumanVO human = null;
+	ProfessorManagerClass professor = new ProfessorManagerClass();
 	StudentManagerClass student = new StudentManagerClass();
 	StaffManagerClass staff = new StaffManagerClass();
 
+	String name;
+	int age = 0;
+	String password;
+	String phoneNum;
+	String department;
+	
 	public AcademyUI() {
 		boolean flag = true;
 		// メインメニュー表示するためのループ文
@@ -51,11 +59,36 @@ public class AcademyUI {
 					switch (choice2) {
 					case 1:
 						// Professor登録
+						System.out.println("情報を入力してください。");
 
+						name = inputString("名前 : ");
+						do {
+							age = inputInt("年齢 : ");
+						} while (age == 0);
+						// age 값이 scan 받을 때 nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때 까지 반복하도록 하는 문
+						password = inputString("パスワード : ");
+						phoneNum = inputString("電話番号 : ");
+						department = inputString("所属学部 : ");
+						System.out.println("----------------------------------------------------------");
+						System.out.println("名前 : " + name + ",   年齢 : " + age + ",   電話番号 : " + phoneNum + ",   所属学部 :"
+								+ department);
+						System.out.println("----------------------------------------------------------");
+						System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
+						String check = null;
+
+						check = sc.next();
+						if (check.equals("y") || check.equals("Y")) {
+							human = new StaffVO(name, age, password, phoneNum, department);
+							professor.joinProfessor(userList, human);
+//							flag2 = false;
+							
+						} else {
+							System.out.println("また入力してください。");
+						}
 						break;
 					case 2:
 						// Student登録
-						student.joinStudent();
+						//student.joinStudent();
 						// userList.add((HumanVO) student.getStudentList());
 
 						break;
@@ -85,7 +118,7 @@ public class AcademyUI {
 								+ department);
 						System.out.println("----------------------------------------------------------");
 						System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
-						String check = null;
+						check = null;
 
 						check = sc.next();
 						if (check.equals("y") || check.equals("Y")) {
