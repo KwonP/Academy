@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
-
-import com.ojt.nexture.www.manager.StudentManager;
+import com.ojt.nexture.www.manager.StaffManagerClass;
 import com.ojt.nexture.www.manager.StudentManagerClass;
 
 public class AcademyUI {
@@ -18,6 +17,7 @@ public class AcademyUI {
 	List<LectureVO> lecList = new ArrayList<>();
 	
 	StudentManagerClass student = new StudentManagerClass();
+	StaffManagerClass staff = new StaffManagerClass();
 	
 	public AcademyUI() {
 		boolean flag = true;
@@ -60,7 +60,11 @@ public class AcademyUI {
 	
 						case 3:
 							//Staff登録
-
+							staff.joinStaff();
+							userList.add(staff.getHuman());
+							for(int i=0; i<userList.size(); i++) {
+								System.out.println(userList.get(i));
+							}
 							break;
 	
 						case 4:
@@ -107,4 +111,23 @@ public class AcademyUI {
 		sc.nextLine();
 		System.out.println("メニュー選択は数字を入力してください。");
 	}
+
+	public List<HumanVO> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<HumanVO> userList) {
+		this.userList = userList;
+	}
+
+	public List<LectureVO> getLecList() {
+		return lecList;
+	}
+
+	public void setLecList(List<LectureVO> lecList) {
+		this.lecList = lecList;
+	}
+	
+	
+	
 }

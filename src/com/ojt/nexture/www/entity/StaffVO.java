@@ -19,4 +19,12 @@ public class StaffVO extends HumanVO {
 		this.department = department;
 	}
 
+	@Override
+	public String toString() {
+		return "StaffVO [department=" + department + "]";
+	}
+	//배열에 저장되는지 확인하기 위함
+	
+	
+
 }
