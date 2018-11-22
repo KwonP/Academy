@@ -14,7 +14,7 @@ public interface StaffManager {
 	public boolean deleteStaff();
 	//탈퇴
 	
-	public void logIn();
+	public void logInStaff();
 	//로그인
 	
 	public void addClass();
