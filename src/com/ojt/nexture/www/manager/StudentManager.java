@@ -9,7 +9,7 @@ import com.ojt.nexture.www.entity.StudentVO;
 public interface StudentManager {
 
 	// 회원가입
-	public boolean joinStudent(StudentVO students);
+	public boolean joinStudent();
 
 	// 로그인
 	public HumanVO loginStudent();

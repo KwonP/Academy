@@ -7,14 +7,17 @@ import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
-import com.ojt.nexture.www.manager.StaffManagerClass;
+
+import com.ojt.nexture.www.manager.StudentManager;
+import com.ojt.nexture.www.manager.StudentManagerClass;
 
 public class AcademyUI {
 	
 	Scanner sc = new Scanner(System.in);	
 	List<HumanVO> userList = new ArrayList<>();
 	List<LectureVO> lecList = new ArrayList<>();
-	StaffManagerClass staff = new StaffManagerClass();
+	
+	StudentManagerClass student = new StudentManagerClass();
 	
 	public AcademyUI() {
 		boolean flag = true;
@@ -50,12 +53,14 @@ public class AcademyUI {
 							break;
 						case 2:
 							//Student登録
+							student.joinStudent();
+							//userList.add((HumanVO) student.getStudentList());
 							
 							break;
 	
 						case 3:
 							//Staff登録
-							staff.joinStaff();
+
 							break;
 	
 						case 4:
