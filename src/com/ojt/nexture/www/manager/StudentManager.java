@@ -4,14 +4,15 @@
 package com.ojt.nexture.www.manager;
 
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.StudentVO;
 
 public interface StudentManager {
 
 	// 회원가입
-	public boolean joinStudent();
+	public boolean joinStudent(StudentVO students);
 
 	// 로그인
-	public HumanVO LoginStudent();
+	public HumanVO loginStudent();
 
 	// 강의목록열람
 	public boolean leadingStudent();
