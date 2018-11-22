@@ -3,12 +3,16 @@
 */
 package com.ojt.nexture.www.manager;
 
+import java.util.List;
+
+import com.ojt.nexture.www.entity.HumanVO;
+
 public interface StaffManager {
 	
 	public boolean fixStaff();
 	//정보수정
 	
-	public boolean joinStaff();
+	public boolean joinStaff(List<HumanVO> userList, HumanVO human);
 	//가입
 	
 	public boolean deleteStaff();

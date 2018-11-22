@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
-import com.ojt.nexture.www.entity.StudentVO;
+import com.ojt.nexture.www.entity.StaffVO;
 import com.ojt.nexture.www.manager.StaffManagerClass;
 import com.ojt.nexture.www.manager.StudentManagerClass;
 
@@ -16,9 +16,8 @@ public class AcademyUI {
 	Scanner sc = new Scanner(System.in);
 	List<HumanVO> userList = new ArrayList<>();
 	List<LectureVO> lecList = new ArrayList<>();
-
-	HumanVO human = new HumanVO();
-
+	
+	HumanVO human = null;
 	StudentManagerClass student = new StudentManagerClass();
 	StaffManagerClass staff = new StaffManagerClass();
 
@@ -56,37 +55,48 @@ public class AcademyUI {
 						break;
 					case 2:
 						// Student登録
-						System.out.println("情報を入力してください。");
-						String name = inputString("名前：");
-						String password = inputString("パスワード");
-						int age = inputInt("年齢：");
-						String phoneNum = inputString("電話番号：");
-						String major = inputString("専攻：");
-						String student_Num = inputString("学番：");
+						student.joinStudent();
+						// userList.add((HumanVO) student.getStudentList());
 
-						System.out.println("======================================");
-						System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" + major + "、学番："
-								+ student_Num);
-						System.out.println("======================================");
-						System.out.println("このまま会員登録を進めましょうか。(Y/N)");
-						String check = sc.next();
-
-						if (check.equals("y") || check.equals("Y")) {
-							human = new StudentVO(name, age, password, phoneNum, major, student_Num);
-							System.out.println(human);
-							System.out.println("会員登録が完了しました。");
-							flag2 = false;
-						} else {
-						}
 						break;
 
 					case 3:
 						// Staff登録
-						staff.joinStaff(); // Staff의 joinStaff 메소드 실행 (회원가입 실행)
-						userList.add(staff.getHuman()); // 값 받아와서 HumanVO List에 저장
-						if (staff.isFlag3()) {
-							flag2 = false;
+						
+						
+						String name;
+						int age = 0;
+						String password;
+						String phoneNum;
+						String department;
+
+						System.out.println("情報を入力してください。");
+
+						name = inputString("名前 : ");
+						do {
+							age = inputInt("年齢 : ");
+						} while (age == 0);
+						// age 값이 scan 받을 때 nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때 까지 반복하도록 하는 문
+						password = inputString("パスワード : ");
+						phoneNum = inputString("電話番号 : ");
+						department = inputString("所属学部 : ");
+						System.out.println("----------------------------------------------------------");
+						System.out.println("名前 : " + name + ",   年齢 : " + age + ",   電話番号 : " + phoneNum + ",   所属学部 :"
+								+ department);
+						System.out.println("----------------------------------------------------------");
+						System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
+						String check = null;
+
+						check = sc.next();
+						if (check.equals("y") || check.equals("Y")) {
+							human = new StaffVO(name, age, password, phoneNum, department);
+							staff.joinStaff(userList, human);
+//							flag2 = false;
+							
+						} else {
+							System.out.println("また入力してください。");
 						}
+
 						break;
 
 					case 4:
@@ -134,22 +144,6 @@ public class AcademyUI {
 		System.out.println("メニュー選択は数字を入力してください。");
 	}
 
-	public List<HumanVO> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(List<HumanVO> userList) {
-		this.userList = userList;
-	}
-
-	public List<LectureVO> getLecList() {
-		return lecList;
-	}
-
-	public void setLecList(List<LectureVO> lecList) {
-		this.lecList = lecList;
-	}
-
 	public String inputString(String message) {
 		System.out.println(message);
 		String inputString = null;
@@ -164,9 +158,25 @@ public class AcademyUI {
 			inputInt = sc.nextInt();
 		} catch (InputMismatchException e) {
 			sc = new Scanner(System.in);
-			System.out.println("数字を入力してください。");
+			System.out.println("誤入力しました。");
 		}
 		return inputInt;
+	}
+
+	public List<HumanVO> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<HumanVO> userList) {
+		this.userList = userList;
+	}
+
+	public List<LectureVO> getLecList() {
+		return lecList;
+	}
+
+	public void setLecList(List<LectureVO> lecList) {
+		this.lecList = lecList;
 	}
 
 }

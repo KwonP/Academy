@@ -1,58 +1,39 @@
 package com.ojt.nexture.www.manager;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
-import com.ojt.nexture.www.entity.StaffVO;
-import com.ojt.nexture.www.ui.AcademyUI;
 
 public class StaffManagerClass implements StaffManager {
-	HumanVO human = new HumanVO();
-	Scanner sc = new Scanner(System.in);
-	String name;
-	int age = 0;
-	String password;
-	String phoneNum;
-	String department;
-	boolean flag3;
+	String checkPhoneNum1;
 
 	@Override
+
 	public boolean fixStaff() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	// 회원가입
 	@Override
-	public boolean joinStaff() {
+	public boolean joinStaff(List<HumanVO> userList, HumanVO human) {
 		// TODO Auto-generated method stub
-
-		System.out.println("情報を入力してください。");
-
-		name = inputString("名前 : ");
-		do {
-			age = inputInt("年齢 : ");
-		} while (age == 0 );
-		password = inputString("パスワード : ");
-		phoneNum = inputString("電話番号 : ");
-		department = inputString("所属学部 : ");
-		System.out.println("----------------------------------------------------------");
-		System.out.println("名前 : " + name + ",   年齢 : " + age + ",   電話番号 : " + phoneNum + ",   所属学部 :" + department);
-		System.out.println("----------------------------------------------------------");
-		System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
-		String check = null;
-		check = sc.next();
-
-		if (check.equals("y") || check.equals("Y")) {
-			human = new StaffVO(name, age, password, phoneNum, department);
-			System.out.println("会員登録が完了しました。");
-			flag3 = true;
-			return true;
+		if (userList.size() == 0) {
+			userList.add(human);
 		} else {
-			System.out.println("다시 입력해주십시오.");
-			flag3 = false;
-			return false;
+			for (int i = 0; i < userList.size(); i++) {
+				checkPhoneNum1 = userList.get(i).getPhoneNum();
+				System.out.println(checkPhoneNum1);
+				if (human.getPhoneNum().equals(checkPhoneNum1)){
+					System.out.println("동일한 핸드폰 번호가 존재합니다.");
+				}
+			}
 		}
+		for (int a = 0; a < userList.size(); a++) {
+			System.out.println(userList.get(a));
+		}
+
+		return true;
 	}
 
 	@Override
@@ -73,32 +54,4 @@ public class StaffManagerClass implements StaffManager {
 
 	}
 
-	public String inputString(String message) {
-		System.out.println(message);
-		String inputString = null;
-		inputString = sc.next();
-		return inputString;
-	}
-
-	public int inputInt(String message) {
-		System.out.println(message);
-		int inputInt = 0;
-		try {
-			inputInt = sc.nextInt();
-		} catch (InputMismatchException e) {
-			sc = new Scanner(System.in);
-			System.out.println("잘못입력하셨습니다.");
-		}
-		return inputInt;
-	}
-
-	public HumanVO getHuman() {
-		return human;
-	}
-
-	public boolean isFlag3() {
-		return flag3;
-	}
-	
-	
 }
