@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
+import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.StaffManagerClass;
 import com.ojt.nexture.www.manager.StudentManagerClass;
 
@@ -15,6 +16,8 @@ public class AcademyUI {
 	Scanner sc = new Scanner(System.in);
 	List<HumanVO> userList = new ArrayList<>();
 	List<LectureVO> lecList = new ArrayList<>();
+
+	HumanVO human = new HumanVO();
 
 	StudentManagerClass student = new StudentManagerClass();
 	StaffManagerClass staff = new StaffManagerClass();
@@ -53,12 +56,28 @@ public class AcademyUI {
 						break;
 					case 2:
 						// Student登録
-						student.joinStudent();
-						userList.add(student.getHuman());
-						if (student.Flag3()) {
-							flag2 = false;
-						}
+						System.out.println("情報を入力してください。");
+						String name = inputString("名前：");
+						String password = inputString("パスワード");
+						int age = inputInt("年齢：");
+						String phoneNum = inputString("電話番号：");
+						String major = inputString("専攻：");
+						String student_Num = inputString("学番：");
 
+						System.out.println("======================================");
+						System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" + major + "、学番："
+								+ student_Num);
+						System.out.println("======================================");
+						System.out.println("このまま会員登録を進めましょうか。(Y/N)");
+						String check = sc.next();
+
+						if (check.equals("y") || check.equals("Y")) {
+							human = new StudentVO(name, age, password, phoneNum, major, student_Num);
+							System.out.println(human);
+							System.out.println("会員登録が完了しました。");
+							flag2 = false;
+						} else {
+						}
 						break;
 
 					case 3:
@@ -129,6 +148,25 @@ public class AcademyUI {
 
 	public void setLecList(List<LectureVO> lecList) {
 		this.lecList = lecList;
+	}
+
+	public String inputString(String message) {
+		System.out.println(message);
+		String inputString = null;
+		inputString = sc.next();
+		return inputString;
+	}
+
+	public int inputInt(String message) {
+		System.out.println(message);
+		int inputInt = 0;
+		try {
+			inputInt = sc.nextInt();
+		} catch (InputMismatchException e) {
+			sc = new Scanner(System.in);
+			System.out.println("数字を入力してください。");
+		}
+		return inputInt;
 	}
 
 }

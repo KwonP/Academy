@@ -3,12 +3,12 @@
 */
 package com.ojt.nexture.www.manager;
 
+import java.util.List;
+
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.StudentVO;
 
 public interface StudentManager {
-
-	// 회원가입
-	public boolean joinStudent();
 
 	// 로그인
 	public HumanVO loginStudent();
@@ -21,5 +21,8 @@ public interface StudentManager {
 
 	// 탈퇴
 	public boolean deleteStudent();
+
+	// 회원가입
+	boolean joinStudent(List<HumanVO> list, StudentVO member);
 
 }
