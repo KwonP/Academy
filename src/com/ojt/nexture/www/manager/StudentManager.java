@@ -4,7 +4,6 @@
 package com.ojt.nexture.www.manager;
 
 import com.ojt.nexture.www.entity.HumanVO;
-import com.ojt.nexture.www.entity.StudentVO;
 
 public interface StudentManager {
 

@@ -54,7 +54,10 @@ public class AcademyUI {
 					case 2:
 						// Student登録
 						student.joinStudent();
-						// userList.add((HumanVO) student.getStudentList());
+						userList.add(student.getHuman());
+						if (student.Flag3()) {
+							flag2 = false;
+						}
 
 						break;
 

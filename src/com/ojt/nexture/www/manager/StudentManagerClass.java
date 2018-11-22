@@ -1,7 +1,5 @@
 package com.ojt.nexture.www.manager;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
@@ -10,25 +8,36 @@ import com.ojt.nexture.www.entity.StudentVO;
 public class StudentManagerClass implements StudentManager {
 
 	Scanner sc = new Scanner(System.in);
-	List<HumanVO> userList = new ArrayList<>();
-	List<StudentVO> studentList = new ArrayList<>();
+	HumanVO human = new HumanVO();
+	boolean flag3;
 
 	@Override
 	public boolean joinStudent() {
-		
-		String name = inputString("이름: ");
-		int age = inputInt("나이: ");
-		String password = inputString("비밀번호: ");
-		String phoneNum = inputString("핸드폰 번호: ");
-		String major = inputString("전공: ");
-		String student_Num = inputString("학번: ");
-		
-		studentList.add(new StudentVO(name, age, password, phoneNum, major, student_Num));
-		
-		for(int i=0; i<studentList.size(); i++) {
-			System.out.println(studentList.get(i));
+
+		System.out.println("情報を入力してください。");
+		String name = inputString("名前：");
+		String password = inputString("パスワード");
+		int age = inputInt("年齢：");
+		String phoneNum = inputString("電話番号：");
+		String major = inputString("専攻：");
+		String student_Num = inputString("学番：");
+
+		System.out.println("======================================");
+		System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" + major + "、学番：" + student_Num);
+		System.out.println("======================================");
+		System.out.println("このまま会員登録を進めましょうか。(Y/N)");
+		String check = sc.next();
+
+		if (check.equals("y") || check.equals("Y")) {
+			human = new StudentVO(name, age, password, phoneNum, major, student_Num);
+			System.out.println(human);
+			System.out.println("会員登録が完了しました。");
+			flag3 = true;
+			return true;
+		} else {
+			flag3 = false;
+			return false;
 		}
-		return false;
 
 	}
 
@@ -56,24 +65,33 @@ public class StudentManagerClass implements StudentManager {
 		return false;
 	}
 
-	//String값 입력
+	// String값 입력
 	private String inputString(String msg) {
 		System.out.println(msg);
 		return sc.next();
 	}
-	
-	//int값 입력
+
+	// int값 입력
 	private int inputInt(String msg) {
 		System.out.println(msg);
 		return sc.nextInt();
 	}
-	
-	//중복체크
+
+	// 중복체크
 	private HumanVO findId(String phoneNum) {
 		return null;
 	}
-
-
 	
+	public boolean Flag3() {
+		return flag3;
+	}
+
+	public HumanVO getHuman() {
+		return human;
+	}
+
+	public void setHuman(HumanVO human) {
+		this.human = human;
+	}
 
 }
