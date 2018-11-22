@@ -10,6 +10,12 @@ import com.ojt.nexture.www.ui.AcademyUI;
 public class StaffManagerClass implements StaffManager {
 	HumanVO human = new HumanVO();
 	Scanner sc = new Scanner(System.in);
+	String name;
+	int age = 0;
+	String password;
+	String phoneNum;
+	String department;
+	boolean flag3;
 
 	@Override
 	public boolean fixStaff() {
@@ -21,22 +27,30 @@ public class StaffManagerClass implements StaffManager {
 	public boolean joinStaff() {
 		// TODO Auto-generated method stub
 
-		String name = inputString("이름 : ");
-		int age = inputInt("나이 : ");
-		String password = inputString("비밀번호 : ");
-		String phoneNum = inputString("전화번호 : ");
-		String department = inputString("소속학부 : ");
+		System.out.println("情報を入力してください。");
 
-		System.out.println("======================================");
-		System.out.println("이름 : " + name + ",   나이 : " + age + ",   전화번호 : " + phoneNum + ",   소속학부 :" + department);
-		System.out.println("======================================");
-		System.out.println("이대로의 정보가 맞습니까? (Y/N)");
-		String check = sc.next();
+		name = inputString("名前 : ");
+		do {
+			age = inputInt("年齢 : ");
+		} while (age == 0 );
+		password = inputString("パスワード : ");
+		phoneNum = inputString("電話番号 : ");
+		department = inputString("所属学部 : ");
+		System.out.println("----------------------------------------------------------");
+		System.out.println("名前 : " + name + ",   年齢 : " + age + ",   電話番号 : " + phoneNum + ",   所属学部 :" + department);
+		System.out.println("----------------------------------------------------------");
+		System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
+		String check = null;
+		check = sc.next();
 
-		if (check.equals("y")) {
+		if (check.equals("y") || check.equals("Y")) {
 			human = new StaffVO(name, age, password, phoneNum, department);
+			System.out.println("会員登録が完了しました。");
+			flag3 = true;
 			return true;
 		} else {
+			System.out.println("다시 입력해주십시오.");
+			flag3 = false;
 			return false;
 		}
 	}
@@ -61,7 +75,9 @@ public class StaffManagerClass implements StaffManager {
 
 	public String inputString(String message) {
 		System.out.println(message);
-		return sc.next();
+		String inputString = null;
+		inputString = sc.next();
+		return inputString;
 	}
 
 	public int inputInt(String message) {
@@ -70,17 +86,19 @@ public class StaffManagerClass implements StaffManager {
 		try {
 			inputInt = sc.nextInt();
 		} catch (InputMismatchException e) {
-			missMatchExCler();
+			sc = new Scanner(System.in);
+			System.out.println("잘못입력하셨습니다.");
 		}
-		return sc.nextInt();
+		return inputInt;
 	}
 
 	public HumanVO getHuman() {
 		return human;
 	}
 
-	public void missMatchExCler() {
-		sc.nextLine();
-		System.out.println("メニュー選択は数字を入力してください。");
+	public boolean isFlag3() {
+		return flag3;
 	}
+	
+	
 }

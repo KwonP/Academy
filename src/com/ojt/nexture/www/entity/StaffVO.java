@@ -18,13 +18,14 @@ public class StaffVO extends HumanVO {
 		super();
 		this.department = department;
 	}
+	
 
-	@Override
-	public String toString() {
-		return "StaffVO [department=" + department + "]";
+	public String getDepartment() {
+		return department;
 	}
-	//배열에 저장되는지 확인하기 위함
-	
-	
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
 
 }
