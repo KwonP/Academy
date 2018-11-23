@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.entity.StaffVO;
+import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ProfessorManagerClass;
 import com.ojt.nexture.www.manager.StaffManagerClass;
 import com.ojt.nexture.www.manager.StudentManagerClass;
@@ -17,7 +18,7 @@ public class AcademyUI {
 	Scanner sc = new Scanner(System.in);
 	List<HumanVO> userList = new ArrayList<>();
 	List<LectureVO> lecList = new ArrayList<>();
-	
+
 	HumanVO human = null;
 	ProfessorManagerClass professor = new ProfessorManagerClass();
 	StudentManagerClass student = new StudentManagerClass();
@@ -28,7 +29,9 @@ public class AcademyUI {
 	String password;
 	String phoneNum;
 	String department;
-	
+	String major;
+	String student_Num;
+
 	public AcademyUI() {
 		boolean flag = true;
 		// メインメニュー表示するためのループ文
@@ -81,20 +84,46 @@ public class AcademyUI {
 							human = new StaffVO(name, age, password, phoneNum, department);
 							professor.joinProfessor(userList, human);
 //							flag2 = false;
-							
+
 						} else {
 							System.out.println("また入力してください。");
 						}
 						break;
+
 					case 2:
 						// Student登録
-						//student.joinStudent();
-						// userList.add((HumanVO) student.getStudentList());
 
+						System.out.println("情報を入力してください。");
+
+						name = inputString("名前：");
+						password = inputString("パスワード");
+						age = inputInt("年齢：");
+						phoneNum = inputString("電話番号：");
+						major = inputString("専攻：");
+						student_Num = inputString("学番：");
+
+						System.out.println("======================================");
+						System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" + major + "、学番："
+								+ student_Num);
+						System.out.println("======================================");
+						System.out.println("このまま会員登録を進めましょうか。(Y/N)");
+
+						check = null;
+
+						check = sc.next();
+						if (check.equals("y") || check.equals("Y")) {
+							human = new StudentVO(name, age, password, phoneNum, major, student_Num);
+							System.out.println(human);
+							System.out.println("会員登録が完了しました。");
+							flag2 = false;
+						} else {
+							System.out.println("また入力してください。");
+						}
 						break;
 
 					case 3:
 						// Staff登録
+
 						System.out.println("情報を入力してください。");
 
 						name = inputString("名前 : ");
@@ -117,7 +146,7 @@ public class AcademyUI {
 							human = new StaffVO(name, age, password, phoneNum, department);
 							staff.joinStaff(userList, human);
 //							flag2 = false;
-							
+
 						} else {
 							System.out.println("また入力してください。");
 						}
