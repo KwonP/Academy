@@ -11,11 +11,11 @@ public interface ProfessorManager {
 	
 	public void pj_Join();//당담강의열람
 
-	public HumanVO loginProfessor();//로그인
-
 	public boolean fixProfessor();//수정
 
-	public boolean deleteProfessor();//탈퇴
-
 	public boolean joinProfessor(List<HumanVO> userList, HumanVO human);//회원가입
+
+	public void loginProfessor(String userName);
+
+	public boolean deleteProfessor(String deleteCheck);
 }
