@@ -95,14 +95,6 @@ public class AcademyUI {
 
 					case 3:
 						// Staff登録
-						
-						
-						String name;
-						int age = 0;
-						String password;
-						String phoneNum;
-						String department;
-
 						System.out.println("情報を入力してください。");
 
 						name = inputString("名前 : ");
