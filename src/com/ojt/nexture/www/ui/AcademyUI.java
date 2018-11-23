@@ -172,35 +172,35 @@ public class AcademyUI {
 
 				break;
 			case 2:
-				String logInCheck = "Not";
-				String userName = inputString("名前 : ");
-				String userPassword = inputString("パスワード : ");
-				for (int i = 0; i < userList.size(); i++) {
-					if (userName.equals(userList.get(i).getName())
-							&& userPassword.equals(userList.get(i).getPassword())) {
-						logInCheck = userList.get(i).getClass().getSimpleName();
+				String mainMenu = "2";
+				Loop1: do {
+					String logInCheck = "Not";
+					System.out.println("会員でログインします。");
+					String userName = inputString("名前 : ");
+					String userPassword = inputString("パスワード : ");
+					for (int i = 0; i < userList.size(); i++) {
+						if (userName.equals(userList.get(i).getName())
+								&& userPassword.equals(userList.get(i).getPassword())) {
+							logInCheck = userList.get(i).getClass().getSimpleName();
+						}
 					}
-				}
-				if (logInCheck.equals("StaffVO")) {
-					staff.logInStaff();
-				} else if (logInCheck.equals("ProfessorVO")) {
-					professor.loginProfessor();
-				} else if (logInCheck.equals("StudentVO")) {
-					student.loginStudent();
-				} else if (logInCheck.equals("Not")) {
-					logInfail();
-					String mainMenu = inputString("");
-					if (mainMenu.equals("1")) {
-						break;
+					if (logInCheck.equals("StaffVO")) {
+						staff.logInStaff();
+						System.out.println("스태프");
+						break Loop1;
+					} else if (logInCheck.equals("ProfessorVO")) {
+						professor.loginProfessor();
+						System.out.println("프로페서");
+						break Loop1;
+					} else if (logInCheck.equals("StudentVO")) {
+						student.loginStudent();
+						System.out.println("학생");
+						break Loop1;
+					} else if (logInCheck.equals("Not")) {
+						logInfail();
+						mainMenu = inputString("");
 					}
-					if (mainMenu.equals("2")) {
-						
-					}
-				}
-
-				System.out.println("ログイン画面へ移行");
-			case 3:
-
+				} while (mainMenu.equals("2"));
 				break;
 			default:
 				System.out.println("正しいメニューを選択してください。");
@@ -228,8 +228,8 @@ public class AcademyUI {
 	}
 
 	public void logInfail() {
-		System.out.println("틀린정보입니다. 이름과 패스워드를 확인해주세요.");
-		System.out.println("메인화면으로 : 1            재입력 : 2 ");
+		System.out.println("間違った情報です。名前とパスワードを確認してください。");
+		System.out.println("メイン画面に : 1        　    再入力 : 2 ");
 	}
 
 	public String inputString(String message) {
