@@ -49,8 +49,12 @@ public class StaffManagerClass implements StaffManager {
 	}
 
 	@Override
-	public void logInStaff() {
+	public void logInStaff(String userName) {
 		// TODO Auto-generated method stub
+		System.out.println("---------------------------------");
+		System.out.println("ようこそ!" + userName + "さん!");
+		System.out.println("1.강의등록     2.정보수정     3.삭제     4.로그아웃");
+		System.out.println("---------------------------------");
 
 	}
 

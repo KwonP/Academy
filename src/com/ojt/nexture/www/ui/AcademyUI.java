@@ -185,7 +185,7 @@ public class AcademyUI {
 						}
 					}
 					if (logInCheck.equals("StaffVO")) {
-						staff.logInStaff();
+						staff.logInStaff(userName);
 						System.out.println("스태프");
 						break Loop1;
 					} else if (logInCheck.equals("ProfessorVO")) {
