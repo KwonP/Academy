@@ -7,10 +7,36 @@ import com.ojt.nexture.www.entity.StudentVO;
 public class StudentManagerClass implements StudentManager {
 
 	@Override
-	public boolean joinStudent(List<HumanVO> userList, StudentVO student) {
-		userList.add(student);
-		
-		return false;
+	public boolean joinStudent(List<HumanVO> userList, HumanVO human) {
+
+		int Check = 0;
+
+		if (userList.size() == 0) {
+			userList.add(human);
+		} else {
+
+			for (int i = 0; i < userList.size(); i++) {
+
+				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
+					Check++;
+				}
+
+			}
+			if (Check > 0) {
+				Check = 1;
+				System.out.println("同一な電話番号があります。");
+			} else {
+				Check = 0;
+				userList.add(human);
+			}
+		}
+
+		for (int k = 0; k < userList.size(); k++) {
+			System.out.println(userList.get(k));
+		}
+
+		return true;
+
 	}
 
 	@Override

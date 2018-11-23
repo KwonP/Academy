@@ -23,6 +23,6 @@ public interface StudentManager {
 	public boolean deleteStudent();
 
 	// 회원가입
-	boolean joinStudent(List<HumanVO> list, StudentVO member);
+	boolean joinStudent(List<HumanVO> list, HumanVO human);
 
 }

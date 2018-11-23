@@ -97,7 +97,9 @@ public class AcademyUI {
 
 						name = inputString("名前：");
 						password = inputString("パスワード");
-						age = inputInt("年齢：");
+						do {
+							age = inputInt("年齢 : ");
+						} while (age == 0);
 						phoneNum = inputString("電話番号：");
 						major = inputString("専攻：");
 						student_Num = inputString("学番：");
@@ -115,6 +117,7 @@ public class AcademyUI {
 							human = new StudentVO(name, age, password, phoneNum, major, student_Num);
 							System.out.println(human);
 							System.out.println("会員登録が完了しました。");
+							student.joinStudent(userList, human);
 							flag2 = false;
 						} else {
 							System.out.println("また入力してください。");
