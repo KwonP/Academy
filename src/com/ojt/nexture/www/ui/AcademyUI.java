@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
+import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StaffVO;
 import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ProfessorManagerClass;
@@ -81,9 +82,8 @@ public class AcademyUI {
 
 						check = sc.next();
 						if (check.equals("y") || check.equals("Y")) {
-							human = new StaffVO(name, age, password, phoneNum, department);
+							human = new ProfessorVO(name, age, password, phoneNum, department);
 							professor.joinProfessor(userList, human);
-//							flag2 = false;
 
 						} else {
 							System.out.println("また入力してください。");
