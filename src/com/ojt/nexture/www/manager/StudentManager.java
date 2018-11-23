@@ -6,7 +6,6 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
-import com.ojt.nexture.www.entity.StudentVO;
 
 public interface StudentManager {
 
@@ -20,7 +19,7 @@ public interface StudentManager {
 	public boolean fixStudent();
 
 	// 탈퇴
-	public boolean deleteStudent();
+	public boolean deleteStudent(List<HumanVO> userList,String userPhoneNum);
 
 	// 회원가입
 	boolean joinStudent(List<HumanVO> list, HumanVO human);

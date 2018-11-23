@@ -2,7 +2,6 @@ package com.ojt.nexture.www.manager;
 
 import java.util.List;
 import com.ojt.nexture.www.entity.HumanVO;
-import com.ojt.nexture.www.entity.StudentVO;
 
 public class StudentManagerClass implements StudentManager {
 
@@ -58,8 +57,12 @@ public class StudentManagerClass implements StudentManager {
 	}
 
 	@Override
-	public boolean deleteStudent() {
-		// TODO Auto-generated method stub
+	public boolean deleteStudent(List<HumanVO> userList,String userPhoneNum) {
+		for(int i =0; i < userList.size(); i++) {
+			if(userList.get(i).getPhoneNum().equals(userPhoneNum)) {
+				userList.remove(i);
+			}
+		}
 		return false;
 	}
 

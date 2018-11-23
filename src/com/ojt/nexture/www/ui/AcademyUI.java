@@ -241,31 +241,78 @@ public class AcademyUI {
 						professor.loginProfessor(userName);
 						System.out.println("프로페서");
 						int check = sc.nextInt();
-						switch(check) {
-							case 1:
-								professor.pj_Join();
-								System.out.println("담당강의열람");
-							case 2:
-								professor.fixProfessor();
-								System.out.println("수정");
-							case 3:
-								professor.deleteProfessor(userList,userPhoneNum);
-								break;
-							case 4:
-								System.out.println("로그아웃 합니다.");
-								break;
-							default :
-								System.out.println("잘못 입력하셨습니다.");
+						switch (check) {
+						case 1:
+							professor.pj_Join();
+							System.out.println("담당강의열람");
+						case 2:
+							professor.fixProfessor();
+							System.out.println("수정");
+						case 3:
+							professor.deleteProfessor(userList, userPhoneNum);
+							break;
+						case 4:
+							System.out.println("로그아웃 합니다.");
+							break;
+						default:
+							System.out.println("잘못 입력하셨습니다.");
 						}
 						break Loop1;
 					} else if (logInCheck.equals("StudentVO")) {
+
 						student.loginStudent();
-						System.out.println("학생");
-						break Loop1;
+
+						System.out.println(
+								"----------------------------------------------------------------------------------");
+						System.out.println("\t\t\t\t ようこそ！" + userName + "様！");
+						System.out.println("\t1．講義リスト覧　　　2．情報修正　　　3．退会　　　4．ログアウト \n");
+						System.out.println(
+								"----------------------------------------------------------------------------------");
+
+						int Student_S = 0;
+
+						try {
+							Student_S = sc.nextInt();
+						} catch (InputMismatchException e) {
+							missMatchExCler();
+						}
+
+						switch (Student_S) {
+
+						case 1:
+							System.out.println("講義リスト一です。");
+							for (int i = 0; i < lecList.size(); i++) {
+								System.out.println(lecList.get(i));
+							}
+							System.exit(0);
+						case 2:
+							System.out.println("정보수정");
+							break;
+						case 3:
+							System.out.println("탈퇴");
+							System.out.println("本当に退会しますか。 (Y/N)");
+							String check = null;
+							check = null;
+
+							check = sc.next();
+							if (check.equals("y") || check.equals("Y")) {
+								student.deleteStudent(userList, userPhoneNum);
+								System.out.println("退会が完了しました。");
+								break;
+							} else {
+								// 요우코소 부분으로 돌아가는 내용
+							}
+							break;
+						case 4:
+							System.out.println("ログアウトしました。");
+							System.exit(0);
+						}
+
 					} else if (logInCheck.equals("Not")) {
 						logInfail();
 						mainMenu = inputString("");
 					}
+					break Loop1;
 				} while (mainMenu.equals("2"));
 				break;
 			default:
