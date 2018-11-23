@@ -16,7 +16,7 @@ public interface StaffManager {
 	public boolean joinStaff(List<HumanVO> userList, HumanVO human);
 	//가입
 	
-	public boolean deleteStaff(List<HumanVO> userList, String userName, String deleteCheck);
+	public boolean deleteStaff(List<HumanVO> userList, String userPhoneNum, String deleteCheck);
 	//탈퇴
 	
 	public void logInStaff(String userName);

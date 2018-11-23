@@ -229,8 +229,8 @@ public class AcademyUI {
 							staff.fixStaff();
 							break;
 						case 3:
-							String deleteCheck = inputString("");
-							staff.deleteStaff(userList, userName, deleteCheck);
+							String deleteCheck = inputString("本当に退会しますか。 (Y/N)");
+							staff.deleteStaff(userList, userPhoneNum, deleteCheck);
 							break;
 						case 4:
 							System.out.println("ログアウトしました。");
@@ -250,7 +250,7 @@ public class AcademyUI {
 								System.out.println("수정");
 							case 3:
 								String deleteCheck = human.getPhoneNum();
-								professor.deleteProfessor(deleteCheck);
+//								professor.deleteProfessor(deleteCheck);
 								break;
 							case 4:
 								System.out.println("로그아웃 합니다.");

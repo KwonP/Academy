@@ -45,17 +45,17 @@ public class StaffManagerClass implements StaffManager {
 	}
 
 	@Override
-	public boolean deleteStaff(List<HumanVO> userList, String userName, String deleteCheck) {
+	public boolean deleteStaff(List<HumanVO> userList, String userPhoneNum, String deleteCheck) {
 		// TODO Auto-generated method stub
-		System.out.println("本当に退会しますか。 (Y/N)");
 		if (deleteCheck.equals("y") || deleteCheck.equals("Y")) {
 			for (int i = 0; i < userList.size(); i++) {
-				if (userName.equals(userList.get(i).getName())) {
+				if (userList.get(i).getPhoneNum().equals(userPhoneNum)) {
+					userList.remove(i);
+					System.out.println("退会が完了しました。");
 				}
 			}
-
 		} else {
-			System.out.println("また入力してください。");
+			System.out.println("삭제안됨");
 		}
 		return false;
 	}
