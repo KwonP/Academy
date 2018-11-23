@@ -29,7 +29,7 @@ public class StaffVO extends HumanVO {
 
 	@Override
 	public String toString() {
-		return "StudentVO [getName()=" + getName() + ", getAge()=" + getAge() + ", getPassword()=" + getPassword()
+		return "StaffVO [getName()=" + getName() + ", getAge()=" + getAge() + ", getPassword()=" + getPassword()
 		+ ", getPhoneNum()=" + getPhoneNum() + ", getDepartment()=" + getDepartment();
 	}
 

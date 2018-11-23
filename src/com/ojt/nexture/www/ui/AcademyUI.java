@@ -172,10 +172,33 @@ public class AcademyUI {
 
 				break;
 			case 2:
+				String logInCheck = "Not";
+				String userName = inputString("名前 : ");
+				String userPassword = inputString("パスワード : ");
+				for (int i = 0; i < userList.size(); i++) {
+					if (userName.equals(userList.get(i).getName())
+							&& userPassword.equals(userList.get(i).getPassword())) {
+						logInCheck = userList.get(i).getClass().getSimpleName();
+					}
+				}
+				if (logInCheck.equals("StaffVO")) {
+					staff.logInStaff();
+				} else if (logInCheck.equals("ProfessorVO")) {
+					professor.loginProfessor();
+				} else if (logInCheck.equals("StudentVO")) {
+					student.loginStudent();
+				} else if (logInCheck.equals("Not")) {
+					logInfail();
+					String mainMenu = inputString("");
+					if (mainMenu.equals("1")) {
+						break;
+					}
+					if (mainMenu.equals("2")) {
+						
+					}
+				}
 
 				System.out.println("ログイン画面へ移行");
-
-				break;
 			case 3:
 
 				break;
@@ -202,6 +225,11 @@ public class AcademyUI {
 	public void missMatchExCler() {
 		sc.nextLine();
 		System.out.println("メニュー選択は数字を入力してください。");
+	}
+
+	public void logInfail() {
+		System.out.println("틀린정보입니다. 이름과 패스워드를 확인해주세요.");
+		System.out.println("메인화면으로 : 1            재입력 : 2 ");
 	}
 
 	public String inputString(String message) {
