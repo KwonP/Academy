@@ -69,7 +69,6 @@ public class AcademyUI {
 						do {
 							age = inputInt("年齢 : ");
 						} while (age == 0);
-						// age 값이 scan 받을 때 nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때 까지 반복하도록 하는 문
 						password = inputString("パスワード : ");
 						phoneNum = inputString("電話番号 : ");
 						department = inputString("所属学部 : ");
