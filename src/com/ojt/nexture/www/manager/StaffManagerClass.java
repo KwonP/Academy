@@ -7,6 +7,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 
 public class StaffManagerClass implements StaffManager {
 	int checkNum = 0;
+	int deleteCheckFlag = 0;
 
 	@Override
 
@@ -52,10 +53,12 @@ public class StaffManagerClass implements StaffManager {
 				if (userList.get(i).getPhoneNum().equals(userPhoneNum)) {
 					userList.remove(i);
 					System.out.println("退会が完了しました。");
+					deleteCheckFlag = 0;
 				}
 			}
 		} else {
 			System.out.println("삭제안됨");
+			deleteCheckFlag = 1;
 		}
 		return false;
 	}
@@ -108,5 +111,11 @@ public class StaffManagerClass implements StaffManager {
 	public int getCheckNum() {
 		return checkNum;
 	}
+
+	public int getDeleteCheckFlag() {
+		return deleteCheckFlag;
+	}
+	
+	
 
 }
