@@ -66,14 +66,17 @@ public class ProfessorManagerClass implements ProfessorManager {
 				if(userList.get(i).getPhoneNum().equals(userPhoneNum)) {
 					System.out.println("삭제 되었습니다.");
 					userList.remove(i);
+					checkPhoneNum = 0;
 				}
 			}
 		}else if(check.equals("n")||check.equals("N")) {
+			checkPhoneNum = 1;
+			System.out.println("취소했습니다");
 			return false;
 		}else {
 			System.out.println("잘못 입력하셧습니다.");
 		}
-		return false;
+		return true;
 	}
 
 	public int getCheckPhoneNum() {

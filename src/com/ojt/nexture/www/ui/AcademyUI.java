@@ -277,6 +277,33 @@ public class AcademyUI {
 							System.out.println("잘못 입력하셨습니다.");
 						}
 						break Loop1;
+					} else if (logInCheck.equals("ProfessorVO")) {
+						
+						professor.loginProfessor(userName);
+						System.out.println("프로페서");
+						int check = sc.nextInt();
+						Loop2 : switch(check) {
+							case 1:
+								professor.pj_Join();
+								System.out.println("담당강의열람");
+							case 2:
+									professor.fixProfessor();
+									System.out.println("수정");	
+							case 3:
+								if(professor.getCheckPhoneNum() == 0) {
+									professor.deleteProfessor(userList,userPhoneNum);	
+								}
+								if(professor.getCheckPhoneNum() ==1) {
+									
+								}
+								
+							case 4:
+								System.out.println("로그아웃 합니다.");
+								break;
+							default :
+								System.out.println("잘못 입력하셨습니다.");
+						}
+						break Loop1;
 					} else if (logInCheck.equals("StudentVO")) {
 
 						student.loginStudent();
