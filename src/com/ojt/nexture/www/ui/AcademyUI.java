@@ -30,6 +30,7 @@ public class AcademyUI {
 	String password;
 	String phoneNum;
 	String department;
+
 	String major;
 	String student_Num;
 
@@ -149,9 +150,11 @@ public class AcademyUI {
 						if (check.equals("y") || check.equals("Y")) {
 							human = new StaffVO(name, age, password, phoneNum, department);
 							staff.joinStaff(userList, human);
+
 							if (staff.getCheckNum() == 0) {
 								flag2 = false;
 							}
+
 						} else {
 							System.out.println("また入力してください。");
 						}
@@ -172,20 +175,67 @@ public class AcademyUI {
 				break;
 			case 2:
 				String mainMenu = "2";
-				Loop1: do {
+				Loop1: do { // 로그인 실패했을 시 1/2 선택지에 따라 메인메뉴로 갈 지 다시 로그인 화면으로 갈지 선택하기 위한 반복문
 					String logInCheck = "Not";
 					System.out.println("会員でログインします。");
 					String userName = inputString("名前 : ");
 					String userPassword = inputString("パスワード : ");
+					String userPhoneNum = inputString("電話番号 : ");
 					for (int i = 0; i < userList.size(); i++) {
 						if (userName.equals(userList.get(i).getName())
-								&& userPassword.equals(userList.get(i).getPassword())) {
+								&& userPassword.equals(userList.get(i).getPassword())
+								&& userPhoneNum.equals(userList.get(i).getPhoneNum())) {
 							logInCheck = userList.get(i).getClass().getSimpleName();
 						}
 					}
 					if (logInCheck.equals("StaffVO")) {
 						staff.logInStaff(userName);
-						System.out.println("스태프");
+						int flagStaff = 0;
+						try {
+							flagStaff = sc.nextInt();
+						} catch (Exception e) {
+							missMatchExCler();
+						}
+						switch (flagStaff) {
+						case 1:
+							String flagStaff2 = "2";
+							Loop2: do {
+								System.out.println("강의등록");
+								LectureVO lecture = null;
+								String lectureName = inputString("강의이름 : ");
+								String professor = inputString("담당교수 : ");
+								String score = inputString("단위 : ");
+
+								System.out.println("----------------------------------------------------------");
+								System.out.println(
+										"강의명 : " + lectureName + ",   담당교수 : " + professor + ",   단위 : " + score);
+								System.out.println("----------------------------------------------------------");
+								System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
+								String lectureCheck = null;
+
+								lectureCheck = sc.next();
+								if (lectureCheck.equals("y") || lectureCheck.equals("Y")) {
+									lecture = new LectureVO(lectureName, professor, score);
+									staff.addClass(lecList, lecture);
+									staff.logInStaff(userName);
+									flagStaff2 = "0";
+									break Loop2;
+								} else {
+									System.out.println("다시 입력하여주십시오.");
+								}
+							} while (flagStaff2.equals("2"));
+							break;
+						case 2:
+							staff.fixStaff();
+							break;
+						case 3:
+							String deleteCheck = inputString("");
+							staff.deleteStaff(userList, userName, deleteCheck);
+							break;
+						case 4:
+							System.out.println("ログアウトしました。");
+							break;
+						}
 						break Loop1;
 					} else if (logInCheck.equals("ProfessorVO")) {
 						professor.loginProfessor();

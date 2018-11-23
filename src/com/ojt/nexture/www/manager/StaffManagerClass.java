@@ -3,6 +3,7 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.LectureVO;
 
 public class StaffManagerClass implements StaffManager {
 	int checkNum = 0;
@@ -11,6 +12,7 @@ public class StaffManagerClass implements StaffManager {
 
 	public boolean fixStaff() {
 		// TODO Auto-generated method stub
+		System.out.println("정보수정 선택");
 		return false;
 	}
 
@@ -43,8 +45,18 @@ public class StaffManagerClass implements StaffManager {
 	}
 
 	@Override
-	public boolean deleteStaff() {
+	public boolean deleteStaff(List<HumanVO> userList, String userName, String deleteCheck) {
 		// TODO Auto-generated method stub
+		System.out.println("本当に退会しますか。 (Y/N)");
+		if (deleteCheck.equals("y") || deleteCheck.equals("Y")) {
+			for (int i = 0; i < userList.size(); i++) {
+				if (userName.equals(userList.get(i).getName())) {
+				}
+			}
+
+		} else {
+			System.out.println("また入力してください。");
+		}
 		return false;
 	}
 
@@ -59,8 +71,37 @@ public class StaffManagerClass implements StaffManager {
 	}
 
 	@Override
-	public void addClass() {
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture) {
 		// TODO Auto-generated method stub
+		int checkNo = 0;
+		if (lecture.getProfessor().equals(null)) {
+			System.out.println("교수명을 입력해주십시오.");
+		} else if (lecture.getLectureName().equals(null)) {
+			System.out.println("강의명을 입력해주십시오.");
+		} else if (lecture.getScore().equals(null)) {
+			System.out.println("단위를 입력해주십시오.");
+		} else {
+			if (lecList.size() == 0) {
+				lecList.add(lecture);
+			} else {
+				for (int i = 0; i < lecList.size(); i++) {
+					if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
+							&& lecture.getProfessor().equals(lecList.get(i).getProfessor())) {
+						checkNo++;
+					}
+				}
+				if (checkNo > 0) {
+					System.out.println("등록된 강의입니다.");
+				} else {
+					System.out.println("강의가 등록되었습니다.");
+					lecList.add(lecture);
+				}
+			}
+			for (int a = 0; a < lecList.size(); a++) {
+				System.out.println(lecList.get(a));
+			}
+		}
+		return true;
 
 	}
 
