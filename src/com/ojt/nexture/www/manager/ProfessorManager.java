@@ -6,6 +6,7 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.ProfessorVO;
 
 public interface ProfessorManager {
 	
@@ -17,5 +18,6 @@ public interface ProfessorManager {
 
 	public void loginProfessor(String userName);
 
-	public boolean deleteProfessor(String deleteCheck);
+	public boolean deleteProfessor(List<HumanVO> userList,String userPhoneNum);
+
 }

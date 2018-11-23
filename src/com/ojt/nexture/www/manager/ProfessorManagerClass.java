@@ -57,14 +57,17 @@ public class ProfessorManagerClass implements ProfessorManager {
 	}
 
 	@Override
-	public boolean deleteProfessor(String deleteCheck) {
+	public boolean deleteProfessor(List<HumanVO> userList,String userPhoneNum) {
 		// TODO Auto-generated method stub
-		System.out.println(deleteCheck);
 		System.out.println("삭제 하겠습니까?(Y/N)");
 		String check = sc.next();
-	
 		if(check.equals("y")||check.equals("Y")) {
-		
+			for(int i =0; i < userList.size(); i++) {
+				if(userList.get(i).getPhoneNum().equals(userPhoneNum)) {
+					System.out.println("삭제 되었습니다.");
+					userList.remove(i);
+				}
+			}
 		}else if(check.equals("n")||check.equals("N")) {
 			return false;
 		}else {

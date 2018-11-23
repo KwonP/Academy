@@ -249,8 +249,7 @@ public class AcademyUI {
 								professor.fixProfessor();
 								System.out.println("수정");
 							case 3:
-								String deleteCheck = human.getPhoneNum();
-//								professor.deleteProfessor(deleteCheck);
+								professor.deleteProfessor(userList,userPhoneNum);
 								break;
 							case 4:
 								System.out.println("로그아웃 합니다.");
