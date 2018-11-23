@@ -1,17 +1,11 @@
 package com.ojt.nexture.www.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.HumanVO;
 
 public class ProfessorManagerClass implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
-	List<HumanVO> userList = new ArrayList<>();
-	List<ProfessorVO> professorlist = new ArrayList<>();
-	HumanVO human = new HumanVO();
 	int checkPhoneNum;
 	int checkNo;
 
@@ -48,9 +42,12 @@ public class ProfessorManagerClass implements ProfessorManager {
 	}
 
 	@Override
-	public HumanVO loginProfessor() {
+	public void loginProfessor(String userName) {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println("---------------------------------");
+		System.out.println("ようこそ!" + userName + "さん!");
+		System.out.println("1.강의담당열람     2.정보수정     3.삭제     4.로그아웃");
+		System.out.println("---------------------------------");
 	}
 
 	@Override
@@ -60,8 +57,19 @@ public class ProfessorManagerClass implements ProfessorManager {
 	}
 
 	@Override
-	public boolean deleteProfessor() {
+	public boolean deleteProfessor(String deleteCheck) {
 		// TODO Auto-generated method stub
+		System.out.println(deleteCheck);
+		System.out.println("삭제 하겠습니까?(Y/N)");
+		String check = sc.next();
+	
+		if(check.equals("y")||check.equals("Y")) {
+		
+		}else if(check.equals("n")||check.equals("N")) {
+			return false;
+		}else {
+			System.out.println("잘못 입력하셧습니다.");
+		}
 		return false;
 	}
 
