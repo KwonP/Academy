@@ -12,7 +12,9 @@ public class ProfessorManagerClass implements ProfessorManager {
 	List<HumanVO> userList = new ArrayList<>();
 	List<ProfessorVO> professorlist = new ArrayList<>();
 	HumanVO human = new HumanVO();
-	String checkPhoneNum;
+	int checkPhoneNum;
+	int checkNo;
+
 	@Override
 	public void pj_Join() {
 		// TODO Auto-generated method stub
@@ -21,15 +23,21 @@ public class ProfessorManagerClass implements ProfessorManager {
 
 	@Override
 	public boolean joinProfessor(List<HumanVO> userList, HumanVO human) {
+		checkNo = 0;
 		if (userList.size() == 0) {
 			userList.add(human);
 		} else {
 			for (int i = 0; i < userList.size(); i++) {
-				checkPhoneNum = userList.get(i).getPhoneNum();
-				System.out.println(checkPhoneNum);
-				if (human.getPhoneNum().equals(checkPhoneNum)) {
-					System.out.println("동일한 핸드폰 번호가 존재합니다.");
+				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
+					checkNo++;
 				}
+			}
+			if (checkNo > 0) {
+				checkPhoneNum = 1;
+				System.out.println("同じ電話番号があります。");
+			} else {
+				checkPhoneNum = 0;
+				userList.add(human);
 			}
 		}
 		for (int a = 0; a < userList.size(); a++) {
@@ -56,5 +64,12 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public int getCheckPhoneNum() {
+		// TODO Auto-generated method stub
+		return checkPhoneNum;
+	}
+
+	
 
 }

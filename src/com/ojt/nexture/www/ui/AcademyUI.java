@@ -84,7 +84,9 @@ public class AcademyUI {
 						if (check.equals("y") || check.equals("Y")) {
 							human = new ProfessorVO(name, age, password, phoneNum, department);
 							professor.joinProfessor(userList, human);
-
+							if (professor.getCheckPhoneNum() == 0) {
+								flag2 = false;
+							}
 						} else {
 							System.out.println("また入力してください。");
 						}
