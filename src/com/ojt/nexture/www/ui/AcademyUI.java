@@ -46,8 +46,10 @@ public class AcademyUI {
 				choice = sc.nextInt();
 			} catch (InputMismatchException e) {
 				missMatchExCler();
+			}finally {
+				choice = -1;
 			}
-
+			
 			switch (choice) {
 			case 1:
 				System.out.println("会員登録へ移動");
@@ -61,6 +63,8 @@ public class AcademyUI {
 						choice2 = sc.nextInt();
 					} catch (Exception e) {
 						missMatchExCler();
+					}finally {
+						choice2 = -1;
 					}
 					switch (choice2) {
 					case 1:
@@ -165,7 +169,9 @@ public class AcademyUI {
 					case 4:
 						flag2 = false;
 						break;
-
+					
+					case -1:
+						break;
 					default:
 						System.out.println("正しくない命令です。");
 						break;
@@ -203,6 +209,8 @@ public class AcademyUI {
 								flagStaff = sc.nextInt();
 							} catch (Exception e) {
 								missMatchExCler();
+							}finally {
+								flagStaff = 0;
 							}
 
 							switch (flagStaff) {
@@ -360,6 +368,8 @@ public class AcademyUI {
 					}
 					break Loop1;
 				} while (mainMenu.equals("2"));
+				break;
+			case -1:
 				break;
 			default:
 				System.out.println("正しいメニューを選択してください。");
