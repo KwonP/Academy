@@ -48,7 +48,7 @@ public class AcademyUI {
 				missMatchExCler();
 				choice = -1;
 			}
-			
+
 			switch (choice) {
 			case 1:
 				System.out.println("会員登録へ移動");
@@ -64,7 +64,7 @@ public class AcademyUI {
 						missMatchExCler();
 						choice2 = -1;
 					}
-					
+
 					switch (choice2) {
 					case 1:
 						// Professor登録
@@ -168,7 +168,7 @@ public class AcademyUI {
 					case 4:
 						flag2 = false;
 						break;
-					
+
 					case -1:
 						break;
 					default:
@@ -221,8 +221,8 @@ public class AcademyUI {
 									String score = inputString("単位 : ");
 
 									System.out.println("------------------------------------------------");
-									System.out.println(
-											"                                    講義名 : " + lectureName + ",   担当者 : " + professor + ",   単位 : " + score);
+									System.out.println("                                    講義名 : " + lectureName
+											+ ",   担当者 : " + professor + ",   単位 : " + score);
 									System.out.println("------------------------------------------------");
 									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
 									String lectureCheck = null;
@@ -258,15 +258,15 @@ public class AcademyUI {
 								if (check.equals("y") || check.equals("Y")) {
 									human = new StaffVO(name, age, password, phoneNum, department);
 									staff.fixStaff(userList, human, userPhoneNum);
-									if (staff.getCheckNum() == 1) { //이미 존재하는 전화번호일 경우
+									if (staff.getCheckNum() == 1) { // 이미 존재하는 전화번호일 경우
 										staff.logInStaff(userName);
 										staffFlagNum = 0;
 										continue Loop2;
 									}
-									if (staff.getCheckNum() == 2) { //수정완료
+									if (staff.getCheckNum() == 2) { // 수정완료
 										break Loop2;
 									}
-								} else { //N를 눌렀을 경우
+								} else { // N를 눌렀을 경우
 									System.out.println("キャンセルしました。");
 									staff.logInStaff(userName);
 									staffFlagNum = 0;
@@ -296,17 +296,17 @@ public class AcademyUI {
 						professor.loginProfessor(userName);
 						int PrCheckNum = 0;
 						String fixcheck;
-						LP1 : do {
+						LP1: do {
 							int check = 0;
 							try {
 								check = sc.nextInt();
 							} catch (Exception e) {
 								missMatchExCler();
 							}
-						 switch(check) {
+							switch (check) {
 							case 1:
 								System.out.println("担当講義閲覧");
-								professor.pj_Join(lecList,userName);
+								professor.pj_Join(lecList, userName);
 								professor.loginProfessor(userName);
 								continue LP1;
 							case 2:
@@ -320,50 +320,49 @@ public class AcademyUI {
 								phoneNum = inputString("電話番号 : ");
 								department = inputString("所属学部 : ");
 								System.out.println("修正しますか。 (Y/N)");
-								fixcheck  = null;
+								fixcheck = null;
 
 								fixcheck = sc.next();
 
 								if (fixcheck.equals("y") || fixcheck.equals("Y")) {
 									human = new ProfessorVO(name, age, password, phoneNum, department);
 									professor.fixProfessor(userList, human, userPhoneNum);
-									if (professor.getCheckNum() == 1) { //이미 존재하는 전화번호일 경우
+									if (professor.getCheckNum() == 1) { // 이미 존재하는 전화번호일 경우
 										professor.loginProfessor(userName);
 										PrCheckNum = 0;
 										continue LP1;
 									}
-									if (professor.getCheckNum() == 2) { //수정완료
+									if (professor.getCheckNum() == 2) { // 수정완료
 										break LP1;
 									}
-								} else { //N를 눌렀을 경우
+								} else { // N를 눌렀을 경우
 									System.out.println("キャンセルしました。");
 									professor.loginProfessor(userName);
 									PrCheckNum = 0;
 									continue LP1;
 								}
-									break;
+								break;
 							case 3:
-									professor.deleteProfessor(userList,userPhoneNum);	
-									if (professor.getPrCheckNum() == 1) { // n 누름
-										professor.loginProfessor(userName);
-										PrCheckNum = 0;
-										continue LP1;
-									}
-									if (professor.getPrCheckNum() == 0) { // y 누름
-										PrCheckNum = 1;
-									}
-									break;
+								professor.deleteProfessor(userList, userPhoneNum);
+								if (professor.getPrCheckNum() == 1) { // n 누름
+									professor.loginProfessor(userName);
+									PrCheckNum = 0;
+									continue LP1;
+								}
+								if (professor.getPrCheckNum() == 0) { // y 누름
+									PrCheckNum = 1;
+								}
+								break;
 							case 4:
 								System.out.println("ログアウトしました。");
 								break;
-							default :
+							default:
 								System.out.println("誤入力しました。");
 								continue LP1;
-						}
-						break Loop1;
+							}
+							break Loop1;
 						} while (PrCheckNum == 0);
-						}
-						else if (logInCheck.equals("StudentVO")) {
+					} else if (logInCheck.equals("StudentVO")) {
 
 						student.loginStudent();
 
@@ -375,6 +374,7 @@ public class AcademyUI {
 								"----------------------------------------------------------------------------------");
 
 						int Student_S = 0;
+						String check = null;
 
 						try {
 							Student_S = sc.nextInt();
@@ -386,17 +386,43 @@ public class AcademyUI {
 
 						case 1:
 							System.out.println("講義リスト一です。");
-							for (int i = 0; i < lecList.size(); i++) {
-								System.out.println(lecList.get(i));
-							}
-							System.exit(0);
-						case 2:
-							System.out.println("정보수정");
+							student.leadingStudent(lecList);
 							break;
+						case 2:
+
+							System.out.println("情報を入力してください。");
+
+							name = inputString("名前：");
+							password = inputString("パスワード");
+							do {
+								age = inputInt("年齢 : ");
+							} while (age == 0);
+							phoneNum = inputString("電話番号：");
+							major = inputString("専攻：");
+							student_Num = inputString("学番：");
+
+							System.out.println("======================================");
+							System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" + major + "、学番："
+									+ student_Num);
+							System.out.println("======================================");
+							System.out.println("修正しますか。 (Y/N)");
+
+							check = null;
+
+							check = sc.next();
+
+							if (check.equals("y") || check.equals("Y")) {
+								human = new StudentVO(name, age, password, phoneNum, major, student_Num);
+								student.fixStudent(userList, human, userPhoneNum);
+							} else {
+								System.out.println("キャンセルしました。");
+								break;
+							}
+
 						case 3:
 							System.out.println("탈퇴");
 							System.out.println("本当に退会しますか。 (Y/N)");
-							String check = null;
+
 							check = null;
 
 							check = sc.next();
