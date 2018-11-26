@@ -46,8 +46,10 @@ public class AcademyUI {
 				choice = sc.nextInt();
 			} catch (InputMismatchException e) {
 				missMatchExCler();
+			}finally {
+				choice = -1;
 			}
-
+			
 			switch (choice) {
 			case 1:
 				System.out.println("会員登録へ移動");
@@ -61,6 +63,8 @@ public class AcademyUI {
 						choice2 = sc.nextInt();
 					} catch (Exception e) {
 						missMatchExCler();
+					}finally {
+						choice2 = -1;
 					}
 					switch (choice2) {
 					case 1:
@@ -165,7 +169,9 @@ public class AcademyUI {
 					case 4:
 						flag2 = false;
 						break;
-
+					
+					case -1:
+						break;
 					default:
 						System.out.println("正しくない命令です。");
 						break;
@@ -202,6 +208,8 @@ public class AcademyUI {
 								flagStaff = sc.nextInt();
 							} catch (Exception e) {
 								missMatchExCler();
+							}finally {
+								flagStaff = 0;
 							}
 
 							switch (flagStaff) {
@@ -306,6 +314,33 @@ public class AcademyUI {
 							System.out.println("잘못 입력하셨습니다.");
 						}
 						break Loop1;
+					} else if (logInCheck.equals("ProfessorVO")) {
+						
+						professor.loginProfessor(userName);
+						System.out.println("프로페서");
+						int check = sc.nextInt();
+						Loop2 : switch(check) {
+							case 1:
+								professor.pj_Join();
+								System.out.println("담당강의열람");
+							case 2:
+									professor.fixProfessor();
+									System.out.println("수정");	
+							case 3:
+								if(professor.getCheckPhoneNum() == 0) {
+									professor.deleteProfessor(userList,userPhoneNum);	
+								}
+								if(professor.getCheckPhoneNum() ==1) {
+									
+								}
+								
+							case 4:
+								System.out.println("로그아웃 합니다.");
+								break;
+							default :
+								System.out.println("잘못 입력하셨습니다.");
+						}
+						break Loop1;
 					} else if (logInCheck.equals("StudentVO")) {
 
 						student.loginStudent();
@@ -362,6 +397,8 @@ public class AcademyUI {
 					}
 					break Loop1;
 				} while (mainMenu.equals("2"));
+				break;
+			case -1:
 				break;
 			default:
 				System.out.println("正しいメニューを選択してください。");
