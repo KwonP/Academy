@@ -230,7 +230,7 @@ public class AcademyUI {
 									lectureCheck = sc.next();
 									if (lectureCheck.equals("y") || lectureCheck.equals("Y")) {
 										lecture = new LectureVO(lectureName, professor, score);
-										staff.addClass(lecList, lecture);
+										staff.addClass(lecList, lecture, userList);
 										staff.logInStaff(userName);
 										flagStaff2 = "0";
 										continue Loop2;

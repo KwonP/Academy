@@ -22,6 +22,6 @@ public interface StaffManager {
 	public void logInStaff(String userName);
 	//로그인
 	
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture);
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList);
 	//강의등록
 }

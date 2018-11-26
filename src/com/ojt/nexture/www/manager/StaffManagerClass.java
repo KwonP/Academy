@@ -8,7 +8,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 public class StaffManagerClass implements StaffManager {
 	int checkNum = 0;
 	int deleteCheckFlag = 0;
-	int fixCheck, listNum;
+	int fixCheck, listNum, professorCheck;
 
 	@Override
 
@@ -96,17 +96,21 @@ public class StaffManagerClass implements StaffManager {
 	}
 
 	@Override
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture) {
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList) {
 		// TODO Auto-generated method stub
 		int checkNo = 0;
-		if (lecture.getProfessor().equals(null)) {
-			System.out.println("担当者を入力してください。");
-		} else if (lecture.getLectureName().equals(null)) {
-			System.out.println("講義名を入力してください。");
-		} else if (lecture.getScore().equals(null)) {
-			System.out.println("単位を入力してください。");
-		} else {
+		professorCheck = 0;
+
+		for (int a = 0; a < userList.size(); a++) {
+			if (userList.get(a).getClass().getSimpleName().equals("ProfessorVO")
+					&& userList.get(a).getName().equals(lecture.getProfessor())) {
+				professorCheck = 1;
+				System.out.println(professorCheck);
+			}
+		}
+		if (professorCheck == 1) {
 			if (lecList.size() == 0) {
+				System.out.println("入力が完了しました。");
 				lecList.add(lecture);
 			} else {
 				for (int i = 0; i < lecList.size(); i++) {
@@ -122,9 +126,10 @@ public class StaffManagerClass implements StaffManager {
 					lecList.add(lecture);
 				}
 			}
+		} else {
+			System.out.println("存在しない担当者です。");
 		}
 		return true;
-
 	}
 
 	public int getCheckNum() {
