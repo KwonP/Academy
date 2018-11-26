@@ -292,8 +292,10 @@ public class AcademyUI {
 							break Loop1;
 						} while (staffFlagNum == 0);
 					} else if (logInCheck.equals("ProfessorVO")) {
+						System.out.println("프로페서");
 						professor.loginProfessor(userName);
-						int deleteCheckNum = 0;
+						int PrCheckNum = 0;
+						String fixcheck;
 						LP1 : do {
 							int check = 0;
 							try {
@@ -301,35 +303,63 @@ public class AcademyUI {
 							} catch (Exception e) {
 								missMatchExCler();
 							}
-						System.out.println("프로페서");
 						 switch(check) {
 							case 1:
 								professor.pj_Join();
 								System.out.println("담당강의열람");
 								break;
 							case 2:
-									professor.fixProfessor();
-									System.out.println("수정");	
+								System.out.println("情報を入力してください。");
+								name = inputString("名前 : ");
+								do {
+									age = inputInt("年齢 : ");
+								} while (age == 0);
+								// age 값이 scan 받을 때 nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때 까지 반복하도록 하는 문
+								password = inputString("パスワード : ");
+								phoneNum = inputString("電話番号 : ");
+								department = inputString("所属学部 : ");
+								System.out.println("修正しますか。 (Y/N)");
+								fixcheck  = null;
+
+								fixcheck = sc.next();
+
+								if (fixcheck.equals("y") || fixcheck.equals("Y")) {
+									human = new ProfessorVO(name, age, password, phoneNum, department);
+									professor.fixProfessor(userList, human, userPhoneNum);
+									if (professor.getCheckNum() == 1) { //이미 존재하는 전화번호일 경우
+										professor.loginProfessor(userName);
+										PrCheckNum = 0;
+										continue LP1;
+									}
+									if (professor.getCheckNum() == 2) { //수정완료
+										break LP1;
+									}
+								} else { //N를 눌렀을 경우
+									System.out.println("キャンセルしました。");
+									professor.loginProfessor(userName);
+									PrCheckNum = 0;
+									continue LP1;
+								}
 									break;
 							case 3:
 									professor.deleteProfessor(userList,userPhoneNum);	
-									if (professor.getdeleteCheckNum() == 1) { // n 누름
+									if (professor.getPrCheckNum() == 1) { // n 누름
 										professor.loginProfessor(userName);
-										deleteCheckNum = 0;
+										PrCheckNum = 0;
 										continue LP1;
 									}
-									if (professor.getdeleteCheckNum() == 0) { // y 누름
-										deleteCheckNum = 1;
+									if (professor.getPrCheckNum() == 0) { // y 누름
+										PrCheckNum = 1;
 									}
 									break;
 							case 4:
 								System.out.println("ログアウトしました。");
 								break;
 							default :
-								System.out.println("잘못 입력하셨습니다.");
+								System.out.println("誤入力しました。");
 						}
 						break Loop1;
-						} while (deleteCheckNum == 0);
+						} while (PrCheckNum == 0);
 						}
 						else if (logInCheck.equals("StudentVO")) {
 

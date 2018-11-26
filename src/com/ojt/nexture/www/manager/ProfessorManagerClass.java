@@ -8,7 +8,10 @@ public class ProfessorManagerClass implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
 	int checkPhoneNum;
 	int checkNo;
-	int deleteCheckNum = 0;
+	int fixCheck, listNum;
+	int PrCheckNum = 0;
+	int checkNum = 0;
+
 	@Override
 	public void pj_Join() {
 		// TODO Auto-generated method stub
@@ -46,35 +49,60 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		System.out.println("---------------------------------");
 		System.out.println("ようこそ!" + userName + "さん!");
-		System.out.println("1.강의담당열람     2.정보수정     3.삭제     4.로그아웃");
+		System.out.println("1.講義担当閲覧    2.情報修正     3.退会     4.ログアウト");
 		System.out.println("---------------------------------");
 	}
 
 	@Override
-	public boolean fixProfessor() {
+	public boolean fixProfessor(List<HumanVO> userList, HumanVO human, String userPhoneNum) {
 		// TODO Auto-generated method stub
-		return false;
+		for (int a = 0; a < userList.size(); a++) {
+			if (human.getPhoneNum().equals(userList.get(a).getPhoneNum())) {
+				fixCheck = 0;
+
+			} else {
+				for (int i = 0; i < userList.size(); i++) {
+					if (userPhoneNum.equals(userList.get(i).getPhoneNum())) {
+						fixCheck = 1;
+						listNum = i;
+
+					}
+				}
+			}
+		}
+		if (fixCheck == 0) {
+			System.out.println("同じ電話番号があります。");
+			System.out.println("修正を失敗しました。");
+			checkNum = 1;
+		}
+		if (fixCheck == 1) {
+			userList.set(listNum, human);
+			System.out.println("修正が完了しました。");
+			System.out.println("またログインしてください。");
+			checkNum = 2;
+		}
+		return true;
 	}
 
 	@Override
-	public boolean deleteProfessor(List<HumanVO> userList,String userPhoneNum) {
+	public boolean deleteProfessor(List<HumanVO> userList, String userPhoneNum) {
 		// TODO Auto-generated method stub
-		System.out.println("삭제 하겠습니까?(Y/N)");
+		System.out.println("本当に退会しますか。 (Y/N)");
 		String check = sc.next();
-		if(check.equals("y")||check.equals("Y")) {
-			for(int i =0; i < userList.size(); i++) {
-				if(userList.get(i).getPhoneNum().equals(userPhoneNum)) {
+		if (check.equals("y") || check.equals("Y")) {
+			for (int i = 0; i < userList.size(); i++) {
+				if (userList.get(i).getPhoneNum().equals(userPhoneNum)) {
 					System.out.println("退会が完了しました。");
 					userList.remove(i);
-					deleteCheckNum = 0;
+					PrCheckNum = 0;
 				}
 			}
-		}else if(check.equals("n")||check.equals("N")) {
-			deleteCheckNum = 1;
-			System.out.println("취소했습니다");
-		}else {
-			System.out.println("잘못 입력하셧습니다.");
-			deleteCheckNum = 1;
+		} else if (check.equals("n") || check.equals("N")) {
+			PrCheckNum = 1;
+			System.out.println("退会をキャンセルしました。");
+		} else {
+			System.out.println("誤入力しました。");
+			PrCheckNum = 1;
 		}
 		return false;
 	}
@@ -83,8 +111,14 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		return checkPhoneNum;
 	}
-	public int getdeleteCheckNum() {
-		return deleteCheckNum;
+
+	public int getPrCheckNum() {
+		return PrCheckNum;
+	}
+
+	public int getCheckNum() {
+		// TODO Auto-generated method stub
+		return checkNum;
 	}
 
 }
