@@ -305,9 +305,10 @@ public class AcademyUI {
 							}
 						 switch(check) {
 							case 1:
-								professor.pj_Join();
-								System.out.println("담당강의열람");
-								break;
+								System.out.println("担当講義閲覧");
+								professor.pj_Join(lecList,userName);
+								professor.loginProfessor(userName);
+								continue LP1;
 							case 2:
 								System.out.println("情報を入力してください。");
 								name = inputString("名前 : ");
@@ -357,6 +358,7 @@ public class AcademyUI {
 								break;
 							default :
 								System.out.println("誤入力しました。");
+								continue LP1;
 						}
 						break Loop1;
 						} while (PrCheckNum == 0);

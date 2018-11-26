@@ -3,6 +3,7 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 import java.util.Scanner;
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.LectureVO;
 
 public class ProfessorManagerClass implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
@@ -13,9 +14,15 @@ public class ProfessorManagerClass implements ProfessorManager {
 	int checkNum = 0;
 
 	@Override
-	public void pj_Join() {
-		// TODO Auto-generated method stub
-
+	public void pj_Join(List<LectureVO> lecList,String userName) {
+		
+		
+		for (int i = 0; i < lecList.size(); i++) {
+			if(lecList.get(i).getProfessor().equals(userName)){
+				System.out.println(i+1 +"."+" 講義名 : "+lecList.get(i).getLectureName()+"  担当者 : "+lecList.get(i).getProfessor()+"  単位 : "+lecList.get(i).getScore());	
+			}
+			
+		}
 	}
 
 	@Override
@@ -49,7 +56,7 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		System.out.println("---------------------------------");
 		System.out.println("ようこそ!" + userName + "さん!");
-		System.out.println("1.講義担当閲覧    2.情報修正     3.退会     4.ログアウト");
+		System.out.println("1.担当講義閲覧    2.情報修正     3.退会     4.ログアウト");
 		System.out.println("---------------------------------");
 	}
 
@@ -120,5 +127,7 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		return checkNum;
 	}
+
+	
 
 }

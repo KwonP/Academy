@@ -6,10 +6,11 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.LectureVO;
 
 public interface ProfessorManager {
 	
-	public void pj_Join();//당담강의열람
+	public void pj_Join(List<LectureVO> lecList,String userName);//당담강의열람
 
 	public boolean fixProfessor(List<HumanVO> userList, HumanVO human, String userPhoneNum);//수정
 
