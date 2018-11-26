@@ -6,6 +6,7 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
+import com.ojt.nexture.www.entity.LectureVO;
 
 public interface StudentManager {
 
@@ -13,10 +14,10 @@ public interface StudentManager {
 	public HumanVO loginStudent();
 
 	// 강의목록열람
-	public boolean leadingStudent();
+	public boolean leadingStudent(List<LectureVO> lecList);
 
 	// 정보수정
-	public boolean fixStudent();
+	public boolean fixStudent(List<HumanVO> userList, HumanVO human, String userPhoneNum);
 
 	// 탈퇴
 	public boolean deleteStudent(List<HumanVO> userList,String userPhoneNum);
