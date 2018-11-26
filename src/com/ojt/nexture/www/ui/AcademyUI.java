@@ -189,13 +189,12 @@ public class AcademyUI {
 							logInCheck = userList.get(i).getClass().getSimpleName();
 						}
 					}
-					if (logInCheck.equals("StaffVO")) {
+					if (logInCheck.equals("StaffVO")) { // 스태프 로그인
 
 						staff.logInStaff(userName);
-						int deleteFlagNum = 0;
-						
-						//각 메뉴 실행 후 main이 아닌 로그인 되어있는 창으로 오기 위한 분기점
-						Loop3: do {
+						int staffFlagNum = 0;
+
+						Loop2: do {// 각 메뉴 실행 후 main이 아닌 로그인 되어있는 창으로 오기 위한 분기점
 
 							int flagStaff = 0;
 
@@ -208,17 +207,17 @@ public class AcademyUI {
 							switch (flagStaff) {
 							case 1: // 강의등록
 								String flagStaff2 = "2";
-								Loop2: do {
-									System.out.println("강의등록");
+								Loop3: do {
+									System.out.println("講義を入力してください。");
 									LectureVO lecture = null;
-									String lectureName = inputString("강의이름 : ");
-									String professor = inputString("담당교수 : ");
-									String score = inputString("단위 : ");
+									String lectureName = inputString("講義名 : ");
+									String professor = inputString("担当者 : ");
+									String score = inputString("単位 : ");
 
-									System.out.println("----------------------------------------------------------");
+									System.out.println("------------------------------------------------");
 									System.out.println(
-											"강의명 : " + lectureName + ",   담당교수 : " + professor + ",   단위 : " + score);
-									System.out.println("----------------------------------------------------------");
+											"                                    講義名 : " + lectureName + ",   担当者 : " + professor + ",   単位 : " + score);
+									System.out.println("------------------------------------------------");
 									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
 									String lectureCheck = null;
 
@@ -228,25 +227,55 @@ public class AcademyUI {
 										staff.addClass(lecList, lecture);
 										staff.logInStaff(userName);
 										flagStaff2 = "0";
-										break Loop2;
+										continue Loop2;
 									} else {
-										System.out.println("다시 입력하여주십시오.");
+										System.out.println("また入力してください。");
 									}
 								} while (flagStaff2.equals("2"));
-								break Loop3;
+								break Loop2;
 							case 2: // 정보수정
-								staff.fixStaff();
-								break;
+								System.out.println("情報を入力してください。");
+
+								name = inputString("名前 : ");
+								do {
+									age = inputInt("年齢 : ");
+								} while (age == 0);
+								// age 값이 scan 받을 때 nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때 까지 반복하도록 하는 문
+								password = inputString("パスワード : ");
+								phoneNum = inputString("電話番号 : ");
+								department = inputString("所属学部 : ");
+								System.out.println("修正しますか。 (Y/N)");
+								String check = null;
+
+								check = sc.next();
+
+								if (check.equals("y") || check.equals("Y")) {
+									human = new StaffVO(name, age, password, phoneNum, department);
+									staff.fixStaff(userList, human, userPhoneNum);
+									if (staff.getCheckNum() == 1) { //이미 존재하는 전화번호일 경우
+										staff.logInStaff(userName);
+										staffFlagNum = 0;
+										continue Loop2;
+									}
+									if (staff.getCheckNum() == 2) { //수정완료
+										break Loop2;
+									}
+								} else { //N를 눌렀을 경우
+									System.out.println("キャンセルしました。");
+									staff.logInStaff(userName);
+									staffFlagNum = 0;
+									continue Loop2;
+								}
 							case 3: // 탈퇴
 								String deleteCheck = inputString("本当に退会しますか。 (Y/N)");
 								staff.deleteStaff(userList, userPhoneNum, deleteCheck);
 								if (staff.getDeleteCheckFlag() == 1) { // n 누름
 									staff.logInStaff(userName);
-									deleteFlagNum = 0;
-									continue Loop3;
+									staffFlagNum = 0;
+									continue Loop2;
 								}
 								if (staff.getDeleteCheckFlag() == 0) { // y 누름
-									deleteFlagNum = 1;
+									staffFlagNum = 1;
 								}
 
 								break;
@@ -255,7 +284,7 @@ public class AcademyUI {
 								break;
 							}
 							break Loop1;
-						} while (deleteFlagNum == 0);
+						} while (staffFlagNum == 0);
 					} else if (logInCheck.equals("ProfessorVO")) {
 						professor.loginProfessor(userName);
 						System.out.println("프로페서");

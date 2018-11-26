@@ -8,13 +8,39 @@ import com.ojt.nexture.www.entity.LectureVO;
 public class StaffManagerClass implements StaffManager {
 	int checkNum = 0;
 	int deleteCheckFlag = 0;
+	int fixCheck, listNum;
 
 	@Override
 
-	public boolean fixStaff() {
+	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum) {
+
 		// TODO Auto-generated method stub
-		System.out.println("정보수정 선택");
-		return false;
+		for (int a = 0; a < userList.size(); a++) {
+			if (human.getPhoneNum().equals(userList.get(a).getPhoneNum())) {
+				fixCheck = 0;
+
+			} else {
+				for (int i = 0; i < userList.size(); i++) {
+					if (userPhoneNum.equals(userList.get(i).getPhoneNum())) {
+						fixCheck = 1;
+						listNum = i;
+
+					}
+				}
+			}
+		}
+		if (fixCheck == 0) {
+			System.out.println("同じ電話番号があります。");
+			System.out.println("修正を失敗しました。");
+			checkNum = 1;
+		}
+		if (fixCheck == 1) {
+			userList.set(listNum, human);
+			System.out.println("修正が完了しました。");
+			System.out.println("またログインしてください。");
+			checkNum = 2;
+		}
+		return true;
 	}
 
 	// 회원가입
@@ -38,10 +64,6 @@ public class StaffManagerClass implements StaffManager {
 				userList.add(human);
 			}
 		}
-		for (int a = 0; a < userList.size(); a++) {
-			System.out.println(userList.get(a));
-		}
-
 		return true;
 	}
 
@@ -57,7 +79,7 @@ public class StaffManagerClass implements StaffManager {
 				}
 			}
 		} else {
-			System.out.println("삭제안됨");
+			System.out.println("退会をキャンセルしました。");
 			deleteCheckFlag = 1;
 		}
 		return false;
@@ -66,10 +88,10 @@ public class StaffManagerClass implements StaffManager {
 	@Override
 	public void logInStaff(String userName) {
 		// TODO Auto-generated method stub
-		System.out.println("---------------------------------");
-		System.out.println("ようこそ!" + userName + "さん!");
-		System.out.println("1.강의등록     2.정보수정     3.삭제     4.로그아웃");
-		System.out.println("---------------------------------");
+		System.out.println("---------------------------------------------------------");
+		System.out.println("　　　　　　                                 　　ようこそ!" + userName + " さん!");
+		System.out.println("1.講義入力     2.情報修正     3.退会     4.ログアウト");
+		System.out.println("---------------------------------------------------------");
 
 	}
 
@@ -78,11 +100,11 @@ public class StaffManagerClass implements StaffManager {
 		// TODO Auto-generated method stub
 		int checkNo = 0;
 		if (lecture.getProfessor().equals(null)) {
-			System.out.println("교수명을 입력해주십시오.");
+			System.out.println("担当者を入力してください。");
 		} else if (lecture.getLectureName().equals(null)) {
-			System.out.println("강의명을 입력해주십시오.");
+			System.out.println("講義名を入力してください。");
 		} else if (lecture.getScore().equals(null)) {
-			System.out.println("단위를 입력해주십시오.");
+			System.out.println("単位を入力してください。");
 		} else {
 			if (lecList.size() == 0) {
 				lecList.add(lecture);
@@ -94,14 +116,11 @@ public class StaffManagerClass implements StaffManager {
 					}
 				}
 				if (checkNo > 0) {
-					System.out.println("등록된 강의입니다.");
+					System.out.println("入力した講義です。");
 				} else {
-					System.out.println("강의가 등록되었습니다.");
+					System.out.println("入力が完了しました。");
 					lecList.add(lecture);
 				}
-			}
-			for (int a = 0; a < lecList.size(); a++) {
-				System.out.println(lecList.get(a));
 			}
 		}
 		return true;
@@ -115,7 +134,5 @@ public class StaffManagerClass implements StaffManager {
 	public int getDeleteCheckFlag() {
 		return deleteCheckFlag;
 	}
-	
-	
 
 }

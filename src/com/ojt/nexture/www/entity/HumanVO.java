@@ -11,7 +11,7 @@ public class HumanVO {
 	private int age;
 	private String password;
 	private String phoneNum;
-	
+
 	public HumanVO() {
 		super();
 	}
@@ -55,7 +55,5 @@ public class HumanVO {
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
-	
-	
 
 }

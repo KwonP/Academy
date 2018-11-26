@@ -10,7 +10,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 
 public interface StaffManager {
 	
-	public boolean fixStaff();
+	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum);
 	//정보수정
 	
 	public boolean joinStaff(List<HumanVO> userList, HumanVO human);
