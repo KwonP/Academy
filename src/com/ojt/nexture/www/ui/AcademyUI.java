@@ -46,7 +46,6 @@ public class AcademyUI {
 				choice = sc.nextInt();
 			} catch (InputMismatchException e) {
 				missMatchExCler();
-			}finally {
 				choice = -1;
 			}
 			
@@ -63,9 +62,9 @@ public class AcademyUI {
 						choice2 = sc.nextInt();
 					} catch (Exception e) {
 						missMatchExCler();
-					}finally {
 						choice2 = -1;
 					}
+					
 					switch (choice2) {
 					case 1:
 						// Professor登録
@@ -208,7 +207,6 @@ public class AcademyUI {
 								flagStaff = sc.nextInt();
 							} catch (Exception e) {
 								missMatchExCler();
-							}finally {
 								flagStaff = 0;
 							}
 
