@@ -8,7 +8,7 @@ public class ProfessorManagerClass implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
 	int checkPhoneNum;
 	int checkNo;
-
+	int deleteCheckNum = 0;
 	@Override
 	public void pj_Join() {
 		// TODO Auto-generated method stub
@@ -64,26 +64,27 @@ public class ProfessorManagerClass implements ProfessorManager {
 		if(check.equals("y")||check.equals("Y")) {
 			for(int i =0; i < userList.size(); i++) {
 				if(userList.get(i).getPhoneNum().equals(userPhoneNum)) {
-					System.out.println("삭제 되었습니다.");
+					System.out.println("退会が完了しました。");
 					userList.remove(i);
-					checkPhoneNum = 0;
+					deleteCheckNum = 0;
 				}
 			}
 		}else if(check.equals("n")||check.equals("N")) {
-			checkPhoneNum = 1;
+			deleteCheckNum = 1;
 			System.out.println("취소했습니다");
-			return false;
 		}else {
 			System.out.println("잘못 입력하셧습니다.");
+			deleteCheckNum = 1;
 		}
-		return true;
+		return false;
 	}
 
 	public int getCheckPhoneNum() {
 		// TODO Auto-generated method stub
 		return checkPhoneNum;
 	}
-
-	
+	public int getdeleteCheckNum() {
+		return deleteCheckNum;
+	}
 
 }

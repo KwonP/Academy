@@ -293,53 +293,45 @@ public class AcademyUI {
 						} while (staffFlagNum == 0);
 					} else if (logInCheck.equals("ProfessorVO")) {
 						professor.loginProfessor(userName);
+						int deleteCheckNum = 0;
+						LP1 : do {
+							int check = 0;
+							try {
+								check = sc.nextInt();
+							} catch (Exception e) {
+								missMatchExCler();
+							}
 						System.out.println("프로페서");
-						int check = sc.nextInt();
-						switch (check) {
-						case 1:
-							professor.pj_Join();
-							System.out.println("담당강의열람");
-						case 2:
-							professor.fixProfessor();
-							System.out.println("수정");
-						case 3:
-							professor.deleteProfessor(userList, userPhoneNum);
-							break;
-						case 4:
-							System.out.println("로그아웃 합니다.");
-							break;
-						default:
-							System.out.println("잘못 입력하셨습니다.");
-						}
-						break Loop1;
-					} else if (logInCheck.equals("ProfessorVO")) {
-						
-						professor.loginProfessor(userName);
-						System.out.println("프로페서");
-						int check = sc.nextInt();
-						Loop2 : switch(check) {
+						 switch(check) {
 							case 1:
 								professor.pj_Join();
 								System.out.println("담당강의열람");
+								break;
 							case 2:
 									professor.fixProfessor();
 									System.out.println("수정");	
+									break;
 							case 3:
-								if(professor.getCheckPhoneNum() == 0) {
 									professor.deleteProfessor(userList,userPhoneNum);	
-								}
-								if(professor.getCheckPhoneNum() ==1) {
-									
-								}
-								
+									if (professor.getdeleteCheckNum() == 1) { // n 누름
+										professor.loginProfessor(userName);
+										deleteCheckNum = 0;
+										continue LP1;
+									}
+									if (professor.getdeleteCheckNum() == 0) { // y 누름
+										deleteCheckNum = 1;
+									}
+									break;
 							case 4:
-								System.out.println("로그아웃 합니다.");
+								System.out.println("ログアウトしました。");
 								break;
 							default :
 								System.out.println("잘못 입력하셨습니다.");
 						}
 						break Loop1;
-					} else if (logInCheck.equals("StudentVO")) {
+						} while (deleteCheckNum == 0);
+						}
+						else if (logInCheck.equals("StudentVO")) {
 
 						student.loginStudent();
 

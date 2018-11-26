@@ -6,7 +6,6 @@ package com.ojt.nexture.www.manager;
 import java.util.List;
 
 import com.ojt.nexture.www.entity.HumanVO;
-import com.ojt.nexture.www.entity.ProfessorVO;
 
 public interface ProfessorManager {
 	
