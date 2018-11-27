@@ -242,6 +242,7 @@ public class AcademyUI {
 								 */
 							case 5: // 로그아웃
 								System.out.println("ログアウトしました。");
+								logInCheck = 0;
 								break;
 							}
 							break Loop1;
@@ -355,12 +356,14 @@ public class AcademyUI {
 							 */
 						case 4:
 							System.out.println("ログアウトしました。");
+							logInCheck = 0;
 							System.exit(0);
 						}
 
 					} else {
 						logInfail();
 						mainMenu = inputString("");
+						continue Loop1;
 					}
 					break Loop1;
 				} while (mainMenu.equals("2"));
