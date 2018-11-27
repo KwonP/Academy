@@ -16,11 +16,82 @@ public class StaffManagerImpl implements StaffManager {
 
 		if (userName.equals("staff") && userPassword.equals("12345") && userPhoneNum.equals("020000000")) {
 			System.out.println("---------------------------------------------------------");
-			System.out.println("　　　　　　                                 　　ようこそ!" + userName + " さん!");
-			System.out.println("1.講義入力     2.情報修正     3.退会     4.ログアウト");
+			System.out.println("　　　　　　                                             　　ようこそ!" + userName + " さん!");
+			System.out.println("1.유저등록     2.講義入力     30.情報修正     4.退会     5.ログアウト");
 			System.out.println("---------------------------------------------------------");
 		}
 
+	}
+
+	@Override
+	public boolean joinProfessor(List<HumanVO> userList, HumanVO human) {
+		// TODO Auto-generated method stub
+		int checkNo = 0;
+		if (userList.size() == 0) {
+			userList.add(human);
+		} else {
+			for (int i = 0; i < userList.size(); i++) {
+				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
+					checkNo++;
+				} // 입력한 번호와 동일한 핸드폰 번호가 있다면 checkNo값 +1
+			}
+			if (checkNo > 0) { // 동일한 핸드폰 번호가 1개라도 있다면 checkNo값은 0보다 크다. 따라서 checkNo > 0 이라면 중복하는 번호가 있다는것
+				checkNum = 1;
+				System.out.println("同じ電話番号があります。");
+			} else {
+				checkNum = 0;
+				System.out.println("교수 등록 완료");
+				userList.add(human);
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean joinStudent(List<HumanVO> userList, HumanVO human) {
+		// TODO Auto-generated method stub
+		int checkNo = 0;
+		if (userList.size() == 0) {
+			userList.add(human);
+		} else {
+			for (int i = 0; i < userList.size(); i++) {
+				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
+					checkNo++;
+				} // 입력한 번호와 동일한 핸드폰 번호가 있다면 checkNo값 +1
+			}
+			if (checkNo > 0) { // 동일한 핸드폰 번호가 1개라도 있다면 checkNo값은 0보다 크다. 따라서 checkNo > 0 이라면 중복하는 번호가 있다는것
+				checkNum = 1;
+				System.out.println("同じ電話番号があります。");
+			} else {
+				checkNum = 0;
+				userList.add(human);
+			}
+		}
+		return true;
+	}
+
+	// 회원가입
+	@Override
+	public boolean joinStaff(List<HumanVO> userList, HumanVO human) {
+		// TODO Auto-generated method stub
+		int checkNo = 0;
+		if (userList.size() == 0) {
+			userList.add(human);
+		} else {
+			for (int i = 0; i < userList.size(); i++) {
+				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
+					checkNo++;
+				} // 입력한 번호와 동일한 핸드폰 번호가 있다면 checkNo값 +1
+			}
+			if (checkNo > 0) { // 동일한 핸드폰 번호가 1개라도 있다면 checkNo값은 0보다 크다. 따라서 checkNo > 0 이라면 중복하는 번호가 있다는것
+				checkNum = 1;
+				System.out.println("同じ電話番号があります。");
+			} else {
+				checkNum = 0;
+				userList.add(human);
+			}
+		}
+		return true;
 	}
 
 	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum) {
@@ -50,30 +121,6 @@ public class StaffManagerImpl implements StaffManager {
 			System.out.println("修正が完了しました。");
 			System.out.println("またログインしてください。");
 			checkNum = 2;
-		}
-		return true;
-	}
-
-	// 회원가입
-	@Override
-	public boolean joinStaff(List<HumanVO> userList, HumanVO human) {
-		// TODO Auto-generated method stub
-		int checkNo = 0;
-		if (userList.size() == 0) {
-			userList.add(human);
-		} else {
-			for (int i = 0; i < userList.size(); i++) {
-				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
-					checkNo++;
-				} // 입력한 번호와 동일한 핸드폰 번호가 있다면 checkNo값 +1
-			}
-			if (checkNo > 0) { // 동일한 핸드폰 번호가 1개라도 있다면 checkNo값은 0보다 크다. 따라서 checkNo > 0 이라면 중복하는 번호가 있다는것
-				checkNum = 1;
-				System.out.println("同じ電話番号があります。");
-			} else {
-				checkNum = 0;
-				userList.add(human);
-			}
 		}
 		return true;
 	}

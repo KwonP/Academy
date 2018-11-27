@@ -18,6 +18,12 @@ public interface StaffManager {
 
 	public boolean joinStaff(List<HumanVO> userList, HumanVO human);
 	// 가입
+	
+	public boolean joinProfessor(List<HumanVO> userList, HumanVO human);
+	// 가입
+	
+	public boolean joinStudent(List<HumanVO> userList, HumanVO human);
+	// 가입
 
 	public boolean deleteStaff(List<HumanVO> userList, String userPhoneNum, String deleteCheck);
 	// 탈퇴
