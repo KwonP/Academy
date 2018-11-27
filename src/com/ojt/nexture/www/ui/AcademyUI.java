@@ -10,7 +10,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StaffVO;
 import com.ojt.nexture.www.entity.StudentVO;
-import com.ojt.nexture.www.manager.ProfessorManagerClass;
+import com.ojt.nexture.www.manager.ProfessorManagerImpl;
 import com.ojt.nexture.www.manager.StaffManagerImpl;
 import com.ojt.nexture.www.manager.StudentManagerClass;
 import com.sun.org.apache.bcel.internal.generic.CPInstruction;
@@ -22,7 +22,7 @@ public class AcademyUI {
 	List<LectureVO> lecList = new ArrayList<>();
 
 	HumanVO human = null;
-	ProfessorManagerClass professor = new ProfessorManagerClass();
+	ProfessorManagerImpl professor = new ProfessorManagerImpl();
 	StudentManagerClass student = new StudentManagerClass();
 	StaffManagerImpl staff = new StaffManagerImpl();
 
@@ -294,7 +294,7 @@ public class AcademyUI {
 							break Loop1;
 						} while (staffFlagNum == 0);
 					} else if (logInCheck == 1) {
-						System.out.println("프로페서");
+						/*System.out.println("프로페서");
 						professor.loginProfessor(userName);
 						int PrCheckNum = 0;
 						String fixcheck;
@@ -307,12 +307,43 @@ public class AcademyUI {
 							}
 							switch (check) {
 							case 1:
-								/*System.out.println("担当講義閲覧");
+								System.out.println("担当講義閲覧");
 								professor.pj_Join(lecList, userName);
 								professor.loginProfessor(userName);
-								continue LP1;*/
+								continue LP1;
 							case 2:
-								/*System.out.println("情報を入力してください。");
+								System.out.println("情報を入力してください。");
+								String flagStaff2 = "2";
+								 do {
+									System.out.println("講義を入力してください。");
+									LectureVO lecture = null;
+									String lectNm = inputString("講義名 : ");
+									String profe = inputString("担当者 : ");
+									String score = inputString("単位 : ");
+									int ovfull = inputInt("学生数");
+									
+									
+									System.out.println("------------------------------------------------");
+									System.out.println("                                    講義名 : " + lectNm
+											+ ",   担当者 : " + profe + ",   単位 : " + score + ",   学生数 : " + ovfull);
+									System.out.println("------------------------------------------------");
+									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
+									String lectureCheck = null;
+
+									lectureCheck = sc.next();
+									if (lectureCheck.equals("y") || lectureCheck.equals("Y")) {
+										lecture = new LectureVO(lectNm, profe, score);
+										professor.addClass(lecList, lecture, userList,ovfull);
+										professor.loginProfessor(userName);
+										flagStaff2 = "0";
+										continue LP1;
+									} else {
+										System.out.println("また入力してください。");
+									}
+								} while (flagStaff2.equals("2"));
+								break LP1;
+							case 3:
+								System.out.println("情報を入力してください。");
 								name = inputString("名前 : ");
 								do {
 									age = inputInt("年齢 : ");
@@ -343,9 +374,9 @@ public class AcademyUI {
 									PrCheckNum = 0;
 									continue LP1;
 								}
-								break;*/
-							case 3:
-								/*professor.deleteProfessor(userList, userPhoneNum);
+								break;
+							case 4:
+								professor.deleteProfessor(userList, userPhoneNum);
 								if (professor.getPrCheckNum() == 1) { // n 누름
 									professor.loginProfessor(userName);
 									PrCheckNum = 0;
@@ -354,8 +385,8 @@ public class AcademyUI {
 								if (professor.getPrCheckNum() == 0) { // y 누름
 									PrCheckNum = 1;
 								}
-								break;*/
-							case 4:
+								break;
+							case 5:
 								System.out.println("ログアウトしました。");
 								break;
 							default:
@@ -363,7 +394,7 @@ public class AcademyUI {
 								continue LP1;
 							}
 							break Loop1;
-						} while (PrCheckNum == 0);
+						} while (PrCheckNum == 0);*/
 					} else if (logInCheck == 2) {
 
 						student.loginStudent();

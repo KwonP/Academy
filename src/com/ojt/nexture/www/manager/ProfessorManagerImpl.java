@@ -5,24 +5,61 @@ import java.util.Scanner;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 
-public class ProfessorManagerClass implements ProfessorManager {
+public class ProfessorManagerImpl implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
 	int checkPhoneNum;
 	int checkNo;
 	int fixCheck, listNum;
 	int PrCheckNum = 0;
 	int checkNum = 0;
+	int professorCheck = 0;
 
 	@Override
-	public void pj_Join(List<LectureVO> lecList,String userName) {
-		
-		
+	public void pj_Join(List<LectureVO> lecList, String userName) {
+
 		for (int i = 0; i < lecList.size(); i++) {
-			if(lecList.get(i).getProfessor().equals(userName)){
-				System.out.println(i+1 +"."+" 講義名 : "+lecList.get(i).getLectureName()+"  担当者 : "+lecList.get(i).getProfessor()+"  単位 : "+lecList.get(i).getScore());	
+			if (lecList.get(i).getProfessor().equals(userName)) {
+				System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
+						+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore());
 			}
-			
+
 		}
+	}
+
+	@Override
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList,int ovfull) {
+		int checkNo = 0;
+		professorCheck = 0;
+
+		for (int a = 0; a < userList.size(); a++) {
+			if (userList.get(a).getClass().getSimpleName().equals("ProfessorVO")
+					&& userList.get(a).getName().equals(lecture.getProfessor())) {
+				professorCheck = 1;
+				System.out.println(professorCheck);
+			}
+		}
+		if (professorCheck == 1||lecList.size() < ovfull) {
+			if (lecList.size() == 0) {
+				System.out.println("入力が完了しました。");
+				lecList.add(lecture);
+			} else {
+				for (int i = 0; i < lecList.size(); i++) {
+					if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
+							&& lecture.getProfessor().equals(lecList.get(i).getProfessor())) {
+						checkNo++;
+					}
+				}
+				if (checkNo > 0) {
+					System.out.println("入力した講義です。");
+				} else {
+					System.out.println("入力が完了しました。");
+					lecList.add(lecture);
+				}
+			}
+		} else {
+			System.out.println("存在しない担当者です。");
+		}
+		return true;
 	}
 
 	@Override
@@ -56,7 +93,7 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		System.out.println("---------------------------------");
 		System.out.println("ようこそ!" + userName + "さん!");
-		System.out.println("1.担当講義閲覧    2.情報修正     3.退会     4.ログアウト");
+		System.out.println("1.担当講義閲覧     2.講義入力     3.情報修正     4.退会     5.ログアウト");
 		System.out.println("---------------------------------");
 	}
 
@@ -127,7 +164,5 @@ public class ProfessorManagerClass implements ProfessorManager {
 		// TODO Auto-generated method stub
 		return checkNum;
 	}
-
-	
 
 }
