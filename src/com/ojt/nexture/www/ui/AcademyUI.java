@@ -117,12 +117,27 @@ public class AcademyUI {
 										staff.joinProfessor(userList, human);
 										if (staff.getCheckNum() == 0) {
 											uniqNo++;
-											break;
+											staff.logInStaff(userName, userPassword, userPhoneNum);
+											staffFlagNum = 0;
+											continue Loop2;
 										}
+										if (staff.getCheckNum() == 1) {
+											staff.logInStaff(userName, userPassword, userPhoneNum);
+											staffFlagNum = 0;
+											continue Loop2;
+										}
+									}
+									if (check.equals("n") || check.equals("N")) {
+										System.out.println("入力をキャンセルしました。");
+										staff.logInStaff(userName, userPassword, userPhoneNum);
+										staffFlagNum = 0;
+										continue Loop2;
 									} else {
 										System.out.println("また入力してください。");
+										staff.logInStaff(userName, userPassword, userPhoneNum);
+										staffFlagNum = 0;
+										continue Loop2;
 									}
-									break;
 								case 2:
 									System.out.println("情報を入力してください。");
 
@@ -152,12 +167,27 @@ public class AcademyUI {
 										staff.joinStudent(userList, human);
 										if (staff.getCheckNum() == 0) {
 											uniqNo++;
-											break;
+											staff.logInStaff(userName, userPassword, userPhoneNum);
+											staffFlagNum = 0;
+											continue Loop2;
 										}
+										if (staff.getCheckNum() == 1) {
+											staff.logInStaff(userName, userPassword, userPhoneNum);
+											staffFlagNum = 0;
+											continue Loop2;
+										}
+									}
+									if (check.equals("n") || check.equals("N")) {
+										System.out.println("入力をキャンセルしました。");
+										staff.logInStaff(userName, userPassword, userPhoneNum);
+										staffFlagNum = 0;
+										continue Loop2;
 									} else {
 										System.out.println("また入力してください。");
+										staff.logInStaff(userName, userPassword, userPhoneNum);
+										staffFlagNum = 0;
+										continue Loop2;
 									}
-									break;
 								default:
 								}
 								break;
