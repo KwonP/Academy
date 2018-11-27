@@ -27,7 +27,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	}
 
 	@Override
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList,int ovfull) {
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList) {
 		int checkNo = 0;
 		professorCheck = 0;
 
@@ -38,7 +38,6 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				System.out.println(professorCheck);
 			}
 		}
-		if (professorCheck == 1||lecList.size() < ovfull) {
 			if (lecList.size() == 0) {
 				System.out.println("入力が完了しました。");
 				lecList.add(lecture);
@@ -56,9 +55,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 					lecList.add(lecture);
 				}
 			}
-		} else {
 			System.out.println("存在しない担当者です。");
-		}
 		return true;
 	}
 

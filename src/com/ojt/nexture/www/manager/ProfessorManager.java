@@ -20,5 +20,5 @@ public interface ProfessorManager {
 
 	public boolean deleteProfessor(List<HumanVO> userList, String userPhoneNum);// 退会
 
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList,int ovfull);// 講義入力
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList);// 講義入力
 }

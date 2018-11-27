@@ -294,7 +294,7 @@ public class AcademyUI {
 							break Loop1;
 						} while (staffFlagNum == 0);
 					} else if (logInCheck == 1) {
-						/*System.out.println("프로페서");
+						System.out.println("프로페서");
 						professor.loginProfessor(userName);
 						int PrCheckNum = 0;
 						String fixcheck;
@@ -320,20 +320,21 @@ public class AcademyUI {
 									String lectNm = inputString("講義名 : ");
 									String profe = inputString("担当者 : ");
 									String score = inputString("単位 : ");
-									int ovfull = inputInt("学生数");
+									int personnel = inputInt("学生数");
+									int ok = inputInt("確認");
 									
 									
 									System.out.println("------------------------------------------------");
 									System.out.println("                                    講義名 : " + lectNm
-											+ ",   担当者 : " + profe + ",   単位 : " + score + ",   学生数 : " + ovfull);
+											+ ",   担当者 : " + profe + ",   単位 : " + score + ",   学生数 : " + ok);
 									System.out.println("------------------------------------------------");
 									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
 									String lectureCheck = null;
 
 									lectureCheck = sc.next();
 									if (lectureCheck.equals("y") || lectureCheck.equals("Y")) {
-										lecture = new LectureVO(lectNm, profe, score);
-										professor.addClass(lecList, lecture, userList,ovfull);
+										lecture = new LectureVO(lectNm, profe, score,personnel, ok);
+										professor.addClass(lecList, lecture, userList);
 										professor.loginProfessor(userName);
 										flagStaff2 = "0";
 										continue LP1;
@@ -343,7 +344,7 @@ public class AcademyUI {
 								} while (flagStaff2.equals("2"));
 								break LP1;
 							case 3:
-								System.out.println("情報を入力してください。");
+								/*System.out.println("情報を入力してください。");
 								name = inputString("名前 : ");
 								do {
 									age = inputInt("年齢 : ");
@@ -373,7 +374,7 @@ public class AcademyUI {
 									professor.loginProfessor(userName);
 									PrCheckNum = 0;
 									continue LP1;
-								}
+								}*/
 								break;
 							case 4:
 								professor.deleteProfessor(userList, userPhoneNum);
@@ -394,7 +395,7 @@ public class AcademyUI {
 								continue LP1;
 							}
 							break Loop1;
-						} while (PrCheckNum == 0);*/
+						} while (PrCheckNum == 0);
 					} else if (logInCheck == 2) {
 
 						student.loginStudent();
