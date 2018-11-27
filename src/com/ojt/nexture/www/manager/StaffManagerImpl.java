@@ -5,12 +5,23 @@ import java.util.List;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 
-public class StaffManagerClass implements StaffManager {
+public class StaffManagerImpl implements StaffManager {
 	int checkNum = 0;
 	int deleteCheckFlag = 0;
 	int fixCheck, listNum, professorCheck;
 
 	@Override
+	public void logInStaff(String userName, String userPassword, String userPhoneNum) {
+		// TODO Auto-generated method stub
+
+		if (userName.equals("staff") && userPassword.equals("12345") && userPhoneNum.equals("020000000")) {
+			System.out.println("---------------------------------------------------------");
+			System.out.println("　　　　　　                                 　　ようこそ!" + userName + " さん!");
+			System.out.println("1.講義入力     2.情報修正     3.退会     4.ログアウト");
+			System.out.println("---------------------------------------------------------");
+		}
+
+	}
 
 	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum) {
 
@@ -83,16 +94,6 @@ public class StaffManagerClass implements StaffManager {
 			deleteCheckFlag = 1;
 		}
 		return false;
-	}
-
-	@Override
-	public void logInStaff(String userName) {
-		// TODO Auto-generated method stub
-		System.out.println("---------------------------------------------------------");
-		System.out.println("　　　　　　                                 　　ようこそ!" + userName + " さん!");
-		System.out.println("1.講義入力     2.情報修正     3.退会     4.ログアウト");
-		System.out.println("---------------------------------------------------------");
-
 	}
 
 	@Override

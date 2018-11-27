@@ -11,7 +11,7 @@ import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StaffVO;
 import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ProfessorManagerClass;
-import com.ojt.nexture.www.manager.StaffManagerClass;
+import com.ojt.nexture.www.manager.StaffManagerImpl;
 import com.ojt.nexture.www.manager.StudentManagerClass;
 import com.sun.org.apache.bcel.internal.generic.CPInstruction;
 
@@ -24,16 +24,19 @@ public class AcademyUI {
 	HumanVO human = null;
 	ProfessorManagerClass professor = new ProfessorManagerClass();
 	StudentManagerClass student = new StudentManagerClass();
-	StaffManagerClass staff = new StaffManagerClass();
+	StaffManagerImpl staff = new StaffManagerImpl();
 
+	String uniqNum = "0000";
+	int type = 0; // 1은 스태프, 2는 교수, 3은 학생
 	String name;
 	int age = 0;
 	String password;
 	String phoneNum;
 	String department;
-
 	String major;
 	String student_Num;
+	
+	int logInCheck;
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -50,7 +53,7 @@ public class AcademyUI {
 			}
 
 			switch (choice) {
-			case 1:
+			/*case 1:
 				System.out.println("会員登録へ移動");
 
 				boolean flag2 = true;
@@ -152,7 +155,7 @@ public class AcademyUI {
 
 						check = sc.next();
 						if (check.equals("y") || check.equals("Y")) {
-							human = new StaffVO(name, age, password, phoneNum, department);
+							human = new StaffVO(check, choice, check, check, choice2, check, check);
 							staff.joinStaff(userList, human);
 
 							if (staff.getCheckNum() == 0) {
@@ -178,11 +181,10 @@ public class AcademyUI {
 
 				}
 
-				break;
-			case 2:
+				break;*/
+			case 1:
 				String mainMenu = "2";
 				Loop1: do { // 로그인 실패했을 시 1/2 선택지에 따라 메인메뉴로 갈 지 다시 로그인 화면으로 갈지 선택하기 위한 반복문
-					String logInCheck = "Not";
 					System.out.println("会員でログインします。");
 					String userName = inputString("名前 : ");
 					String userPassword = inputString("パスワード : ");
@@ -191,12 +193,12 @@ public class AcademyUI {
 						if (userName.equals(userList.get(i).getName())
 								&& userPassword.equals(userList.get(i).getPassword())
 								&& userPhoneNum.equals(userList.get(i).getPhoneNum())) {
-							logInCheck = userList.get(i).getClass().getSimpleName();
+							logInCheck = userList.get(i).getType();
 						}
 					}
-					if (logInCheck.equals("StaffVO")) { // 스태프 로그인
+					if (logInCheck == 0) { // 스태프 로그인
 
-						staff.logInStaff(userName);
+						staff.logInStaff(userName, userPassword, userPhoneNum);
 						int staffFlagNum = 0;
 
 						Loop2: do {// 각 메뉴 실행 후 main이 아닌 로그인 되어있는 창으로 오기 위한 분기점
@@ -212,7 +214,7 @@ public class AcademyUI {
 
 							switch (flagStaff) {
 							case 1: // 강의등록
-								String flagStaff2 = "2";
+								/*String flagStaff2 = "2";
 								Loop3: do {
 									System.out.println("講義を入力してください。");
 									LectureVO lecture = null;
@@ -238,9 +240,9 @@ public class AcademyUI {
 										System.out.println("また入力してください。");
 									}
 								} while (flagStaff2.equals("2"));
-								break Loop2;
+								break Loop2;*/
 							case 2: // 정보수정
-								System.out.println("情報を入力してください。");
+								/*System.out.println("情報を入力してください。");
 
 								name = inputString("名前 : ");
 								do {
@@ -271,9 +273,9 @@ public class AcademyUI {
 									staff.logInStaff(userName);
 									staffFlagNum = 0;
 									continue Loop2;
-								}
+								}*/
 							case 3: // 탈퇴
-								String deleteCheck = inputString("本当に退会しますか。 (Y/N)");
+								/*String deleteCheck = inputString("本当に退会しますか。 (Y/N)");
 								staff.deleteStaff(userList, userPhoneNum, deleteCheck);
 								if (staff.getDeleteCheckFlag() == 1) { // n 누름
 									staff.logInStaff(userName);
@@ -284,14 +286,14 @@ public class AcademyUI {
 									staffFlagNum = 1;
 								}
 
-								break;
+								break;*/
 							case 4: // 로그아웃
 								System.out.println("ログアウトしました。");
 								break;
 							}
 							break Loop1;
 						} while (staffFlagNum == 0);
-					} else if (logInCheck.equals("ProfessorVO")) {
+					} else if (logInCheck == 1) {
 						System.out.println("프로페서");
 						professor.loginProfessor(userName);
 						int PrCheckNum = 0;
@@ -305,12 +307,12 @@ public class AcademyUI {
 							}
 							switch (check) {
 							case 1:
-								System.out.println("担当講義閲覧");
+								/*System.out.println("担当講義閲覧");
 								professor.pj_Join(lecList, userName);
 								professor.loginProfessor(userName);
-								continue LP1;
+								continue LP1;*/
 							case 2:
-								System.out.println("情報を入力してください。");
+								/*System.out.println("情報を入力してください。");
 								name = inputString("名前 : ");
 								do {
 									age = inputInt("年齢 : ");
@@ -341,9 +343,9 @@ public class AcademyUI {
 									PrCheckNum = 0;
 									continue LP1;
 								}
-								break;
+								break;*/
 							case 3:
-								professor.deleteProfessor(userList, userPhoneNum);
+								/*professor.deleteProfessor(userList, userPhoneNum);
 								if (professor.getPrCheckNum() == 1) { // n 누름
 									professor.loginProfessor(userName);
 									PrCheckNum = 0;
@@ -352,7 +354,7 @@ public class AcademyUI {
 								if (professor.getPrCheckNum() == 0) { // y 누름
 									PrCheckNum = 1;
 								}
-								break;
+								break;*/
 							case 4:
 								System.out.println("ログアウトしました。");
 								break;
@@ -362,7 +364,7 @@ public class AcademyUI {
 							}
 							break Loop1;
 						} while (PrCheckNum == 0);
-					} else if (logInCheck.equals("StudentVO")) {
+					} else if (logInCheck == 2) {
 
 						student.loginStudent();
 
@@ -385,11 +387,11 @@ public class AcademyUI {
 						switch (Student_S) {
 
 						case 1:
-							System.out.println("講義リスト一です。");
+							/*System.out.println("講義リスト一です。");
 							student.leadingStudent(lecList);
-							break;
+							break;*/
 						case 2:
-
+/*
 							System.out.println("情報を入力してください。");
 
 							name = inputString("名前：");
@@ -418,9 +420,9 @@ public class AcademyUI {
 								System.out.println("キャンセルしました。");
 								break;
 							}
-
+*/
 						case 3:
-							System.out.println("탈퇴");
+							/*System.out.println("탈퇴");
 							System.out.println("本当に退会しますか。 (Y/N)");
 
 							check = null;
@@ -433,13 +435,13 @@ public class AcademyUI {
 							} else {
 								// 요우코소 부분으로 돌아가는 내용
 							}
-							break;
+							break;*/
 						case 4:
 							System.out.println("ログアウトしました。");
 							System.exit(0);
 						}
 
-					} else if (logInCheck.equals("Not")) {
+					} else{
 						logInfail();
 						mainMenu = inputString("");
 					}
@@ -458,9 +460,9 @@ public class AcademyUI {
 	}
 
 	public void menu() {
-		System.out.println("===========アカデミー管理システム=========== \n");
-		System.out.println("\t1．会員登録　　　2．ログイン \n");
-		System.out.println("======================================");
+		System.out.println("==============アカデミー管理システム=============== \n");
+		System.out.println("\t\t1．ログイン  \n");
+		System.out.println("============================================");
 	}
 
 	public void typeSelMenu() {
