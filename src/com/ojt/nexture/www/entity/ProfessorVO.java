@@ -6,12 +6,12 @@
 
 package com.ojt.nexture.www.entity;
 
+public class ProfessorVO extends HumanVO {
 
-
-public class ProfessorVO  extends HumanVO {
-	
 	private String department;
-	public ProfessorVO(String name, int age, String password, String phoneNum, int type, String uniqNum, String department) {
+
+	public ProfessorVO(String name, int age, String password, String phoneNum, int type, String uniqNum,
+			String department) {
 		super(name, age, password, phoneNum, type, uniqNum);
 		this.department = department;
 	}
@@ -27,7 +27,8 @@ public class ProfessorVO  extends HumanVO {
 	@Override
 	public String toString() {
 		return "ProfessorVO [getName()=" + getName() + ", getAge()=" + getAge() + ", getPassword()=" + getPassword()
-		+ ", getPhoneNum()=" + getPhoneNum() + ", getDepartment()=" + getDepartment();
+				+ ", getPhoneNum()=" + getPhoneNum() + ", getDepartment()=" + getDepartment() + ", uniqNum="
+				+ getUniqNum() + ", type=" + getType() + "]";
 	}
 
 }

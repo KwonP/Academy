@@ -41,7 +41,8 @@ public class StudentVO extends HumanVO {
 	@Override
 	public String toString() {
 		return "StudentVO [getName()=" + getName() + ", getAge()=" + getAge() + ", getPassword()=" + getPassword()
-				+ ", getPhoneNum()=" + getPhoneNum() + ", major=" + major + ", student_Num=" + student_Num + "]";
+				+ ", getPhoneNum()=" + getPhoneNum() + ", major=" + major + ", student_Num=" + student_Num
+				+ ", uniqNum=" + getUniqNum() + ", type=" + getType() + "]";
 	}
 
 }

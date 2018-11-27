@@ -35,7 +35,7 @@ public class AcademyUI {
 	String student_Num;
 
 	int logInCheck;
-	int uniqNo;
+	int uniqNo = 0;
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -111,21 +111,22 @@ public class AcademyUI {
 
 									check = sc.next();
 									if (check.equals("y") || check.equals("Y")) {
-										uniqNum = String.format("%02d", uniqNo);
-										human = new ProfessorVO(userName, flagStaff, userPassword, userPhoneNum,
-												addUser, userPhoneNum, uniqNum);
+										uniqNum = String.format("%04d", uniqNo);
+										human = new ProfessorVO(name, age, password, phoneNum, type, uniqNum,
+												department);
 										staff.joinProfessor(userList, human);
 										if (staff.getCheckNum() == 0) {
 											uniqNo++;
+											break;
 										}
 									} else {
 										System.out.println("また入力してください。");
 									}
-									System.out.println("교수 등록");
 									break;
 								case 2:
 									System.out.println("情報を入力してください。");
 
+									type = 3;
 									name = inputString("名前：");
 									password = inputString("パスワード");
 									do {
@@ -145,17 +146,21 @@ public class AcademyUI {
 
 									check = sc.next();
 									if (check.equals("y") || check.equals("Y")) {
-										human = new StudentVO(userName, flagStaff, userPassword, userPhoneNum, addUser,
-												userPassword, userPhoneNum, uniqNum);
-										System.out.println(human);
-										System.out.println("会員登録が完了しました。");
-										student.joinStudent(userList, human);
+										uniqNum = String.format("%04d", uniqNo);
+										human = new StudentVO(name, age, password, phoneNum, type, uniqNum, major,
+												student_Num);
+										staff.joinStudent(userList, human);
+										if (staff.getCheckNum() == 0) {
+											uniqNo++;
+											break;
+										}
 									} else {
 										System.out.println("また入力してください。");
 									}
 									break;
 								default:
 								}
+								break;
 							case 2: // 강의승인
 								/*
 								 * String flagStaff2 = "2"; Loop3: do { System.out.println("講義を入力してください。");

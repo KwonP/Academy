@@ -6,7 +6,7 @@ import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 
 public class StaffManagerImpl implements StaffManager {
-	int checkNum = 0;
+	int checkNum;
 	int deleteCheckFlag = 0;
 	int fixCheck, listNum, professorCheck;
 
@@ -28,6 +28,7 @@ public class StaffManagerImpl implements StaffManager {
 		// TODO Auto-generated method stub
 		int checkNo = 0;
 		if (userList.size() == 0) {
+			System.out.println("교수 등록 완료");
 			userList.add(human);
 		} else {
 			for (int i = 0; i < userList.size(); i++) {
@@ -44,6 +45,9 @@ public class StaffManagerImpl implements StaffManager {
 				userList.add(human);
 			}
 		}
+		for (int k = 0; k < userList.size(); k++) {
+			System.out.println(userList.get(k));
+		}
 		return true;
 	}
 
@@ -52,6 +56,7 @@ public class StaffManagerImpl implements StaffManager {
 		// TODO Auto-generated method stub
 		int checkNo = 0;
 		if (userList.size() == 0) {
+			System.out.println("학생 등록 완료");
 			userList.add(human);
 		} else {
 			for (int i = 0; i < userList.size(); i++) {
@@ -64,8 +69,12 @@ public class StaffManagerImpl implements StaffManager {
 				System.out.println("同じ電話番号があります。");
 			} else {
 				checkNum = 0;
+				System.out.println("학생 등록 완료");
 				userList.add(human);
 			}
+		}
+		for (int k = 0; k < userList.size(); k++) {
+			System.out.println(userList.get(k));
 		}
 		return true;
 	}
