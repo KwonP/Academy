@@ -10,8 +10,9 @@ public class StudentVO extends HumanVO {
 	private String major;
 	private String student_Num;
 
-	public StudentVO(String name, int age, String password, String phoneNum, String major, String student_Num) {
-		super(name, age, password, phoneNum);
+	public StudentVO(String name, int age, String password, String phoneNum, int type, String uniqNum, String major,
+			String student_Num) {
+		super(name, age, password, phoneNum, type, uniqNum);
 		this.major = major;
 		this.student_Num = student_Num;
 	}

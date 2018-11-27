@@ -11,17 +11,21 @@ public class HumanVO {
 	private int age;
 	private String password;
 	private String phoneNum;
+	private int type;
+	private String uniqNum;
 
 	public HumanVO() {
 		super();
 	}
 
-	public HumanVO(String name, int age, String password, String phoneNum) {
+	public HumanVO(String name, int age, String password, String phoneNum, int type, String uniqNum) {
 		super();
 		this.name = name;
 		this.age = age;
 		this.password = password;
 		this.phoneNum = phoneNum;
+		this.type = type;
+		this.uniqNum = uniqNum;
 	}
 
 	public String getName() {
@@ -54,6 +58,22 @@ public class HumanVO {
 
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public String getUniqNum() {
+		return uniqNum;
+	}
+
+	public void setUniqNum(String uniqNum) {
+		this.uniqNum = uniqNum;
 	}
 
 }

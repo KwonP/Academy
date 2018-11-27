@@ -11,8 +11,8 @@ package com.ojt.nexture.www.entity;
 public class ProfessorVO  extends HumanVO {
 	
 	private String department;
-	public ProfessorVO(String name, int age, String password, String phoneNum, String department) {
-		super(name, age, password, phoneNum);
+	public ProfessorVO(String name, int age, String password, String phoneNum,int type, String uniqNum, String department) {
+		super(name, age, password, phoneNum, type, uniqNum);
 		this.department = department;
 	}
 
