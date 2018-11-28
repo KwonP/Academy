@@ -17,7 +17,7 @@ public class StaffManagerImpl implements StaffManager {
 		if (userName.equals("staff") && userPassword.equals("12345") && userUinqNum.equals("00000")) {
 			System.out.println("---------------------------------------------------------");
 			System.out.println("　　　　　　                       　ようこそ!" + userName + " さん!");
-			System.out.println("1.유저등록     2.講義入力     30.情報修正     4.退会     5.ログアウト");
+			System.out.println("1.ユーザー登録     2.講義入力     30.情報修正     4.退会     5.ログアウト");
 			System.out.println("---------------------------------------------------------");
 		}
 
@@ -28,7 +28,8 @@ public class StaffManagerImpl implements StaffManager {
 		// TODO Auto-generated method stub
 		int checkNo = 0;
 		if (userList.size() == 0) {
-			System.out.println("교수 등록 완료");
+			System.out.println("登録が完了しました。");
+			System.out.println("会員番号は " + human.getUniqNum() + "です。");
 			userList.add(human);
 		} else {
 			for (int i = 0; i < userList.size(); i++) {
@@ -41,7 +42,8 @@ public class StaffManagerImpl implements StaffManager {
 				System.out.println("同じ電話番号があります。");
 			} else {
 				checkNum = 0;
-				System.out.println("교수 등록 완료");
+				System.out.println("登録が完了しました。");
+				System.out.println("会員番号は " + human.getUniqNum() + "です。");
 				userList.add(human);
 			}
 		}
@@ -56,7 +58,8 @@ public class StaffManagerImpl implements StaffManager {
 		// TODO Auto-generated method stub
 		int checkNo = 0;
 		if (userList.size() == 0) {
-			System.out.println("학생 등록 완료");
+			System.out.println("登録が完了しました。");
+			System.out.println("会員番号は " + human.getUniqNum() + "です。");
 			userList.add(human);
 		} else {
 			for (int i = 0; i < userList.size(); i++) {
@@ -69,7 +72,8 @@ public class StaffManagerImpl implements StaffManager {
 				System.out.println("同じ電話番号があります。");
 			} else {
 				checkNum = 0;
-				System.out.println("학생 등록 완료");
+				System.out.println("登録が完了しました。");
+				System.out.println("会員番号は " + human.getUniqNum() + "です。");
 				userList.add(human);
 			}
 		}
