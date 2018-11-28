@@ -17,10 +17,10 @@ public class StaffManagerImpl implements StaffManager {
 	public void logInStaff(String userPassword, String userUinqNum) {
 		// TODO Auto-generated method stub
 		if (userPassword.equals("12345") && userUinqNum.equals("00000")) {
-			System.out.println("---------------------------------------------------------");
-			System.out.println("　　　　　　                       　ようこそ! staff さん!");
+			System.out.println("-------------------------------------------");
+			System.out.println("　　　　　　               ようこそ! staff さん!");
 			System.out.println("1.ユーザー登録     2.講義承認     3.全体講義一覧      4.ログアウト");
-			System.out.println("---------------------------------------------------------");
+			System.out.println("-------------------------------------------");
 		}
 
 	}
@@ -49,9 +49,6 @@ public class StaffManagerImpl implements StaffManager {
 				userList.add(human);
 			}
 		}
-		for (int k = 0; k < userList.size(); k++) {
-			System.out.println(userList.get(k));
-		}
 		return true;
 	}
 
@@ -79,16 +76,14 @@ public class StaffManagerImpl implements StaffManager {
 				userList.add(human);
 			}
 		}
-		for (int k = 0; k < userList.size(); k++) {
-			System.out.println(userList.get(k));
-		}
 		return true;
 	}
 
 	@Override
-	public boolean accessClass(List<LectureVO> lecList, int accessNum, int[] accessCheck) {
+	public boolean accessClass(List<LectureVO> lecList, int accessNum, List<Integer> accessCheck) {
 		// TODO Auto-generated method stub
-		lecList.get(accessCheck[accessNum]).setOk(2);
+		System.out.println("承認が完了しました。");
+		lecList.get(accessCheck.get(accessNum - 1)).setOk(2);
 		return true;
 	}
 
