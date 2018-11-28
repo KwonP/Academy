@@ -11,10 +11,10 @@ public class StaffManagerImpl implements StaffManager {
 	int fixCheck, listNum, professorCheck;
 
 	@Override
-	public void logInStaff(String userName, String userPassword, String userPhoneNum) {
+	public void logInStaff(String userName, String userPassword, String userUinqNum) {
 		// TODO Auto-generated method stub
 
-		if (userName.equals("staff") && userPassword.equals("12345") && userPhoneNum.equals("020000000")) {
+		if (userName.equals("staff") && userPassword.equals("12345") && userUinqNum.equals("00000")) {
 			System.out.println("---------------------------------------------------------");
 			System.out.println("　　　　　　                       　ようこそ!" + userName + " さん!");
 			System.out.println("1.유저등록     2.講義入力     30.情報修正     4.退会     5.ログアウト");
