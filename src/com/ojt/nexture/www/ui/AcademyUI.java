@@ -11,7 +11,7 @@ import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ProfessorManagerImpl;
 import com.ojt.nexture.www.manager.StaffManagerImpl;
-import com.ojt.nexture.www.manager.StudentManagerClass;
+import com.ojt.nexture.www.managerImpl.StudentManagerImpl;
 
 public class AcademyUI {
 
@@ -21,7 +21,7 @@ public class AcademyUI {
 
 	HumanVO human = null;
 	ProfessorManagerImpl professor = new ProfessorManagerImpl();
-	StudentManagerClass student = new StudentManagerClass();
+	StudentManagerImpl student = new StudentManagerImpl();
 	StaffManagerImpl staff = new StaffManagerImpl();
 	HumanVO[] personnel = null;
 

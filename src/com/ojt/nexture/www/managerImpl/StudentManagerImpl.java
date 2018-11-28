@@ -1,10 +1,11 @@
-package com.ojt.nexture.www.manager;
+package com.ojt.nexture.www.managerImpl;
 
 import java.util.List;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
+import com.ojt.nexture.www.manager.StudentManager;
 
-public class StudentManagerClass implements StudentManager {
+public class StudentManagerImpl implements StudentManager {
 	int checkNum = 0;
 	int fixCheck, listNum;
 	String userName;
