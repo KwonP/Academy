@@ -340,9 +340,12 @@ public class AcademyUI {
 
 					} else if (logInCheck == 3) {
 
-						student.loginStudent(userList, userUinqNum, userPassword);
-
 						int Student_S = 0;
+						int LectureRequest = 0;
+						
+						String check = null;
+
+						student.loginStudent(userList, userUinqNum, userPassword);
 
 						try {
 							Student_S = sc.nextInt();
@@ -353,6 +356,31 @@ public class AcademyUI {
 						switch (Student_S) {
 
 						case 1:
+
+							student.allLeadingStudent(lecList);
+							
+							try {
+								LectureRequest = sc.nextInt();
+							} catch (InputMismatchException e) {
+								missMatchExCler();
+							}
+
+							switch (LectureRequest) {
+							
+							case 1:
+								
+								System.out.println("申請する講義の名前を入力してください。");
+								String lectNm = inputString("講義名 : ");
+								student.requestStudent(lecList, lectNm);
+								
+							case 2:
+								//전 창으로 돌아가기
+								break;
+							default:
+								System.out.println("正しいメニューを選択してください。");
+								break;
+							}
+
 							/*
 							 * System.out.println("講義リスト一です。"); student.leadingStudent(lecList); break;
 							 */
@@ -378,7 +406,7 @@ public class AcademyUI {
 							 * age, password, phoneNum, major, student_Num); student.fixStudent(userList,
 							 * human, userPhoneNum); } else { System.out.println("キャンセルしました。"); break; }
 							 */
-						case 3:
+//						case 3:
 							/*
 							 * System.out.println("탈퇴"); System.out.println("本当に退会しますか。 (Y/N)");
 							 * 
@@ -389,7 +417,7 @@ public class AcademyUI {
 							 * System.out.println("退会が完了しました。"); break; } else { // 요우코소 부분으로 돌아가는 내용 }
 							 * break;
 							 */
-						case 4:
+						case 3:
 							System.out.println("ログアウトしました。");
 							logInCheck = 0;
 						}

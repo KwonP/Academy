@@ -13,16 +13,12 @@ public interface StudentManager {
 	// 로그인
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password);
 
-	// 강의목록열람
+	// 전체강의목록열람 및 강의 신청
+	public boolean allLeadingStudent(List<LectureVO> lecList);
+	public boolean requestStudent(List<LectureVO> lecList, String lectNm);
+
+	// 전체강의목록열람 및 강의 취소
 	public boolean leadingStudent(List<LectureVO> lecList);
-
-	// 정보수정
-	public boolean fixStudent(List<HumanVO> userList, HumanVO human, String userPhoneNum);
-
-	// 탈퇴
-	public boolean deleteStudent(List<HumanVO> userList,String userPhoneNum);
-
-	// 회원가입
-	boolean joinStudent(List<HumanVO> list, HumanVO human);
+	public boolean cancletStudent(List<LectureVO> lecList);
 
 }
