@@ -38,7 +38,7 @@ public class AcademyUI {
 	int logInCheck, accessCount, accessNum, temp;
 	int uniqNo = 0;
 	int accessCheckNum = 1;
-	List<Integer> accessCheck = new ArrayList<>();
+	List<Integer> accessCheck;
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -104,10 +104,10 @@ public class AcademyUI {
 									password = inputString("パスワード : ");
 									phoneNum = inputString("電話番号 : ");
 									department = inputString("所属学部 : ");
-									System.out.println("----------------------------------------------------------");
-									System.out.println("名前 : " + name + ",   年齢 : " + age + ",   電話番号 : " + phoneNum
-											+ ",   所属学部 :" + department);
-									System.out.println("----------------------------------------------------------");
+									System.out.println("=================================================");
+									System.out.println("名前 : " + name + ",    年齢 : " + age + ",    電話番号 : " + phoneNum
+											+ ",    所属学部 :" + department);
+									System.out.println("=================================================");
 									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
 									String check = null;
 
@@ -153,10 +153,10 @@ public class AcademyUI {
 									major = inputString("専攻：");
 									student_Num = inputString("学番：");
 
-									System.out.println("======================================");
-									System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" + major
-											+ "、学番：" + student_Num);
-									System.out.println("======================================");
+									System.out.println("=================================================");
+									System.out.println("名前： " + name + "、    年齢： " + age + "、    電話： " + phoneNum + "、    専攻： " + major
+											+ "、    学番： " + student_Num);
+									System.out.println("=================================================");
 									System.out.println("このまま会員登録を進めましょうか。(Y/N)");
 
 									check = null;
@@ -195,7 +195,10 @@ public class AcademyUI {
 								break;
 							case 2: // 강의승인
 								int loop4Check = 0;
+								accessCheck = new ArrayList<>();
+								accessCount = 0;
 								Loop4: do {
+									accessCheckNum = 1;
 									for (int a = 0; a < lecList.size(); a++) {
 										if (lecList.get(a).getOk() == 1) {
 											accessCount++;
@@ -214,9 +217,9 @@ public class AcademyUI {
 												accessCheckNum++;
 											}
 										}
-										accessNum = inputInt("승인하려고 하는 강의의 번호를 골라주세요. 돌아가시려면 0번을 눌러주세요.");
+										accessNum = inputInt("承認しよとする講義の番号を選んでください。(0番 : 帰り。)");
 									} else {
-										System.out.println("승인 대기중인 강의가 없습니다.");
+										System.out.println("承認待ち中の講義がないです。");
 										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;
 										continue Loop2;
@@ -226,9 +229,8 @@ public class AcademyUI {
 										staffFlagNum = 0;
 										continue Loop2;
 									}
-									String accessString = inputString(accessNum + "번의 강의를 정말로 승인하시겠습니까? (Y/N)");
+									String accessString = inputString(accessNum + "の講義を承認しますか。(Y/N)");
 									if (accessString.equals("y") || accessString.equals("Y")) {
-
 										staff.accessClass(lecList, accessNum, accessCheck);
 										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;
