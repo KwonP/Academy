@@ -56,22 +56,20 @@ public class AcademyUI {
 				String mainMenu = "2";
 				Loop1: do { // 로그인 실패했을 시 1/2 선택지에 따라 메인메뉴로 갈 지 다시 로그인 화면으로 갈지 선택하기 위한 반복문
 					System.out.println("会員でログインします。");
-					String userName = inputString("名前 : ");
-					String userPassword = inputString("パスワード : ");
 					String userUinqNum = inputString("会員番号 : ");
+					String userPassword = inputString("パスワード : ");
 					for (int i = 0; i < userList.size(); i++) {
-						if (userName.equals(userList.get(i).getName())
-								&& userPassword.equals(userList.get(i).getPassword())
+						if (userPassword.equals(userList.get(i).getPassword())
 								&& userUinqNum.equals(userList.get(i).getUniqNum())) {
 							logInCheck = userList.get(i).getType();
 						}
 					}
-					if (userName.equals("staff") && userPassword.equals("12345") && userUinqNum.equals("00000")) {
+					if (userUinqNum.equals("00000") && userPassword.equals("12345")) {
 						logInCheck = 1;
 					}
 					if (logInCheck == 1) { // 스태프 로그인
 
-						staff.logInStaff(userName, userPassword, userUinqNum);
+						staff.logInStaff(userPassword, userUinqNum);
 						int staffFlagNum = 0;
 
 						Loop2: do {// 각 메뉴 실행 후 main이 아닌 로그인 되어있는 창으로 오기 위한 분기점
@@ -117,24 +115,24 @@ public class AcademyUI {
 										staff.joinProfessor(userList, human);
 										if (staff.getCheckNum() == 0) {
 											uniqNo++;
-											staff.logInStaff(userName, userPassword, userUinqNum);
+											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
 										}
 										if (staff.getCheckNum() == 1) {
-											staff.logInStaff(userName, userPassword, userUinqNum);
+											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
 										}
 									}
 									if (check.equals("n") || check.equals("N")) {
 										System.out.println("入力をキャンセルしました。");
-										staff.logInStaff(userName, userPassword, userUinqNum);
+										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;
 										continue Loop2;
 									} else {
 										System.out.println("また入力してください。");
-										staff.logInStaff(userName, userPassword, userUinqNum);
+										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;
 										continue Loop2;
 									}
@@ -167,24 +165,24 @@ public class AcademyUI {
 										staff.joinStudent(userList, human);
 										if (staff.getCheckNum() == 0) {
 											uniqNo++;
-											staff.logInStaff(userName, userPassword, userUinqNum);
+											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
 										}
 										if (staff.getCheckNum() == 1) {
-											staff.logInStaff(userName, userPassword, userUinqNum);
+											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
 										}
 									}
 									if (check.equals("n") || check.equals("N")) {
 										System.out.println("入力をキャンセルしました。");
-										staff.logInStaff(userName, userPassword, userUinqNum);
+										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;
 										continue Loop2;
 									} else {
 										System.out.println("また入力してください。");
-										staff.logInStaff(userName, userPassword, userUinqNum);
+										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;
 										continue Loop2;
 									}
@@ -296,6 +294,11 @@ public class AcademyUI {
 						 * (PrCheckNum == 0);
 						 */
 					} else if (logInCheck == 2) {
+						String userName;
+						for(int i = 0; i < userList.size(); i++) {
+							if(userList.get(i).getUniqNum().equals(userUinqNum))
+								userName = userList.get(i).getName();
+						}
 
 						student.loginStudent();
 

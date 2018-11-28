@@ -10,7 +10,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 
 public interface StaffManager {
 
-	public void logInStaff(String userName, String userPassword, String userUinqNum);
+	public void logInStaff(String userPassword, String userUinqNum);
 	// 로그인
 
 	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum);
