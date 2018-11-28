@@ -9,8 +9,8 @@ import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StudentVO;
-import com.ojt.nexture.www.manager.ProfessorManagerImpl;
 import com.ojt.nexture.www.managerImpl.StaffManagerImpl;
+import com.ojt.nexture.www.managerImpl.ProfessorManagerImpl;
 import com.ojt.nexture.www.managerImpl.StudentManagerImpl;
 
 public class AcademyUI {
@@ -247,8 +247,9 @@ public class AcademyUI {
 							switch (check) {
 							case 1:
 								System.out.println("担当講義閲覧");
-								professor.pj_Join(userList, lecList, userUinqNum, userPassword);
-								professor.loginProfessor(userList, userUinqNum, userPassword);
+								professor.pj_Join(userList,lecList,userUinqNum);
+								System.out.println("");
+								professor.loginProfessor(userList,userUinqNum,userPassword);
 								continue LP1;
 							case 2:
 								String flagStaff2 = "2";

@@ -1,9 +1,10 @@
-package com.ojt.nexture.www.manager;
+package com.ojt.nexture.www.managerImpl;
 
 import java.util.List;
 import java.util.Scanner;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
+import com.ojt.nexture.www.manager.ProfessorManager;
 
 public class ProfessorManagerImpl implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
@@ -15,15 +16,34 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int professorCheck = 0;
 
 	@Override
-	public void pj_Join(List<HumanVO> userList,List<LectureVO> lecList, String userUinqNum, String userPassword) {
-		for (int i = 0; i < lecList.size(); i++) {
-			if (lecList.get(i).getProfessor().equals(userList.get(i).getName())) {
-				System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-						+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore()+ "  OK : " + lecList.get(i).getOk());
+	public void pj_Join(List<HumanVO> userList,List<LectureVO> lecList,String userUinqNum) {
+		for(int i =0; i<userList.size(); i++) {
+			if (userList.get(i).getUniqNum().equals(userUinqNum)) {
+				String prename = userList.get(i).getName();
+				System.out.println(prename);
+				for(int a=0; a<lecList.size(); a++) {
+					if(lecList.get(i).getProfessor().equals(prename)) {
+						System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
+								+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore()+ "  OK : " + lecList.get(i).getOk());
+					}else {
+						System.out.println("저장된 값이 없습니다.");
+					}
+				}
 			}
-
 		}
+/*		for (int i = 0; i < userList.size(); i++) {
+			for(int a=0; a<lecList.size(); a++) {
+				if (userList.get(i).getName().equals(lecList.get(a).getProfessor())) {
+					System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
+							+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore()+ "  OK : " + lecList.get(i).getOk());
+				}	
+			}
+				
+		}*/
 	}
+	//for (int i = 0; i < userList.size(); i++) {
+		//if (userList.get(i).getUniqNum().equals(userUinqNum)) {
+			//String pre = userList.get(i).getName();
 
 	@Override
 	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList) {
