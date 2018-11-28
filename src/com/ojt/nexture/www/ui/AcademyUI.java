@@ -303,7 +303,7 @@ public class AcademyUI {
 											if (userList.get(i).getUniqNum().equals(userUinqNum)) {
 												String preName = userList.get(i).getName();
 												String pre = preName;
-												lecture = new LectureVO(lectNm, pre, score, personnel, ok);
+												lecture = new LectureVO(lectNm, pre, score, personnel,userUinqNum,ok);
 											}
 										}
 										professor.addClass(lecList, lecture, userList,userUinqNum);

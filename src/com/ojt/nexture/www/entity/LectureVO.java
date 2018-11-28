@@ -12,13 +12,16 @@ public class LectureVO {
 	private String score;
 	private HumanVO[] personnel;
 	private int ok;
+	private String userUinqNum;
 
-	public LectureVO(String lectureName, String professor, String score, HumanVO[] personnel, int ok) {
+	public LectureVO(String lectureName, String professor, String score, HumanVO[] personnel,String userUinqNum,
+			int ok) {
 		super();
 		this.lectureName = lectureName;
 		this.professor = professor;
 		this.score = score;
 		this.personnel = personnel;
+		this.userUinqNum = userUinqNum;
 		this.ok = ok;
 	}
 
@@ -64,6 +67,14 @@ public class LectureVO {
 
 	public void setOk(int ok) {
 		this.ok = ok;
+	}
+
+	public String getUniqNum() {
+		return userUinqNum;
+	}
+
+	public void setUniqNum(String userUinqNum) {
+		this.userUinqNum = userUinqNum;
 	}
 
 	@Override

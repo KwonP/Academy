@@ -21,8 +21,8 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		if (lecList.size() == 0) {
 			System.out.println("저장된 값이 없습니다.");
 		} else {
-			for (int i = 0; i < userList.size(); i++) {
-				if (userList.get(i).getUniqNum().equals(userUinqNum)) {
+			for (int i = 0; i < lecList.size(); i++) {
+				if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
 					System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
 							+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore() + "  OK : "
 							+ lecList.get(i).getOk());
@@ -61,7 +61,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				lecList.add(lecture);
 			}
 		}
-		return true;
+		return false;
 	}
 
 	@Override
