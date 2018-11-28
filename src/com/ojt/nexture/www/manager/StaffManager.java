@@ -19,7 +19,7 @@ public interface StaffManager {
 	public boolean joinStudent(List<HumanVO> userList, HumanVO human);
 	// 학생 등록
 
-	public boolean accessClass(List<LectureVO> lecList, int accessNum, int[] accessCheck);
+	public boolean accessClass(List<LectureVO> lecList, int accessNum, List<Integer> accessCheck);
 	// 강의승인
 
 	public boolean viewAllClass(List<LectureVO> lecList);

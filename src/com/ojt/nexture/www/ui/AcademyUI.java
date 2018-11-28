@@ -35,10 +35,10 @@ public class AcademyUI {
 	String major;
 	String student_Num;
 
-	int logInCheck;
+	int logInCheck, accessCount, accessNum, temp;
 	int uniqNo = 0;
 	int accessCheckNum = 1;
-	int[] accessCheck;
+	List<Integer> accessCheck = new ArrayList<>();
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -198,24 +198,41 @@ public class AcademyUI {
 								Loop4: do {
 									for (int a = 0; a < lecList.size(); a++) {
 										if (lecList.get(a).getOk() == 1) {
-											System.out.println(
-													accessCheckNum + ". 講義名 : " + lecList.get(a).getLectureName()
-															+ ",     担当者 : " + lecList.get(a).getProfessor()
-															+ ",     単位 : " + lecList.get(a).getScore()
-															+ ",     申請可能人数 : " + lecList.get(a).getPersonnel().length);
+											accessCount++;
 										}
-										accessCheck[accessCheckNum] = a;
-										accessCheckNum++;
 									}
-									int accessNum = inputInt("승인하려고 하는 강의의 번호를 골라주세요. 돌아가시려면 0번을 눌러주세요.");
-									if(accessNum == 0) {
-										break Loop4;
+
+									if (accessCount > 0) {
+										for (int a = 0; a < lecList.size(); a++) {
+											if (lecList.get(a).getOk() == 1) {
+												System.out.println(accessCheckNum + ". 講義名 : "
+														+ lecList.get(a).getLectureName() + ",     担当者 : "
+														+ lecList.get(a).getProfessor() + ",     単位 : "
+														+ lecList.get(a).getScore() + ",     申請可能人数 : "
+														+ lecList.get(a).getPersonnel().length);
+												accessCheck.add(a);
+												accessCheckNum++;
+											}
+										}
+										accessNum = inputInt("승인하려고 하는 강의의 번호를 골라주세요. 돌아가시려면 0번을 눌러주세요.");
+									} else {
+										System.out.println("승인 대기중인 강의가 없습니다.");
+										staff.logInStaff(userPassword, userUinqNum);
+										staffFlagNum = 0;
+										continue Loop2;
+									}
+									if (accessNum == 0) {
+										staff.logInStaff(userPassword, userUinqNum);
+										staffFlagNum = 0;
+										continue Loop2;
 									}
 									String accessString = inputString(accessNum + "번의 강의를 정말로 승인하시겠습니까? (Y/N)");
 									if (accessString.equals("y") || accessString.equals("Y")) {
+
 										staff.accessClass(lecList, accessNum, accessCheck);
-										loop4Check = 0;
-										continue Loop4;
+										staff.logInStaff(userPassword, userUinqNum);
+										staffFlagNum = 0;
+										continue Loop2;
 									} else {
 										loop4Check = 0;
 										continue Loop4;
@@ -247,9 +264,9 @@ public class AcademyUI {
 							switch (check) {
 							case 1:
 								System.out.println("担当講義閲覧");
-								professor.pj_Join(userList,lecList,userUinqNum);
+								professor.pj_Join(userList, lecList, userUinqNum);
 								System.out.println("");
-								professor.loginProfessor(userList,userUinqNum,userPassword);
+								professor.loginProfessor(userList, userUinqNum, userPassword);
 								continue LP1;
 							case 2:
 								String flagStaff2 = "2";
@@ -354,7 +371,7 @@ public class AcademyUI {
 
 						int Student_S = 0;
 						int LectureRequest = 0;
-						
+
 						String check = null;
 
 						student.loginStudent(userList, userUinqNum, userPassword);
@@ -370,7 +387,7 @@ public class AcademyUI {
 						case 1:
 
 							student.allLeadingStudent(lecList);
-							
+
 							try {
 								LectureRequest = sc.nextInt();
 							} catch (InputMismatchException e) {
@@ -378,15 +395,15 @@ public class AcademyUI {
 							}
 
 							switch (LectureRequest) {
-							
+
 							case 1:
-								
+
 								System.out.println("申請する講義の名前を入力してください。");
 								String lectNm = inputString("講義名 : ");
 								student.requestStudent(lecList, lectNm);
-								
+
 							case 2:
-								//전 창으로 돌아가기
+								// 전 창으로 돌아가기
 								break;
 							default:
 								System.out.println("正しいメニューを選択してください。");

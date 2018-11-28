@@ -86,9 +86,9 @@ public class StaffManagerImpl implements StaffManager {
 	}
 
 	@Override
-	public boolean accessClass(List<LectureVO> lecList, int accessNum, int[] accessCheck) {
+	public boolean accessClass(List<LectureVO> lecList, int accessNum, List<Integer> accessCheck) {
 		// TODO Auto-generated method stub
-		lecList.get(accessCheck[accessNum]).setOk(2);
+		lecList.get(accessCheck.get(accessNum - 1)).setOk(2);
 		return true;
 	}
 
