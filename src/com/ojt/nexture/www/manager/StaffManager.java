@@ -13,21 +13,15 @@ public interface StaffManager {
 	public void logInStaff(String userPassword, String userUinqNum);
 	// 로그인
 
-	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum);
-	// 정보수정
-
-	public boolean joinStaff(List<HumanVO> userList, HumanVO human);
-	// 가입
-	
 	public boolean joinProfessor(List<HumanVO> userList, HumanVO human);
-	// 가입
-	
+	// 교수 등록
+
 	public boolean joinStudent(List<HumanVO> userList, HumanVO human);
-	// 가입
+	// 학생 등록
 
-	public boolean deleteStaff(List<HumanVO> userList, String userPhoneNum, String deleteCheck);
-	// 탈퇴
+	public boolean accessClass(List<LectureVO> lecList);
+	// 강의승인
 
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList);
-	// 강의등록
+	public boolean viewAllClass(List<LectureVO> lecList);
+	// 전체강의일람
 }

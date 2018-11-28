@@ -6,9 +6,10 @@ import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 
 public class StaffManagerImpl implements StaffManager {
-	int checkNum;
+	int checkNum, temp;
 	int deleteCheckFlag = 0;
 	int fixCheck, listNum, professorCheck;
+	int[] viewLecList;
 
 	@Override
 	public void logInStaff(String userPassword, String userUinqNum) {
@@ -16,7 +17,7 @@ public class StaffManagerImpl implements StaffManager {
 		if (userPassword.equals("12345") && userUinqNum.equals("00000")) {
 			System.out.println("---------------------------------------------------------");
 			System.out.println("　　　　　　                       　ようこそ! staff さん!");
-			System.out.println("1.ユーザー登録     2.講義入力     30.情報修正     4.退会     5.ログアウト");
+			System.out.println("1.ユーザー登録     2.講義承認     3.全体講義一覧      4.ログアウト");
 			System.out.println("---------------------------------------------------------");
 		}
 
@@ -82,113 +83,46 @@ public class StaffManagerImpl implements StaffManager {
 		return true;
 	}
 
-	// 회원가입
 	@Override
-	public boolean joinStaff(List<HumanVO> userList, HumanVO human) {
+	public boolean accessClass(List<LectureVO> lecList) {
 		// TODO Auto-generated method stub
-		int checkNo = 0;
-		if (userList.size() == 0) {
-			userList.add(human);
-		} else {
-			for (int i = 0; i < userList.size(); i++) {
-				if (human.getPhoneNum().equals(userList.get(i).getPhoneNum())) {
-					checkNo++;
-				} // 입력한 번호와 동일한 핸드폰 번호가 있다면 checkNo값 +1
-			}
-			if (checkNo > 0) { // 동일한 핸드폰 번호가 1개라도 있다면 checkNo값은 0보다 크다. 따라서 checkNo > 0 이라면 중복하는 번호가 있다는것
-				checkNum = 1;
-				System.out.println("同じ電話番号があります。");
-			} else {
-				checkNum = 0;
-				userList.add(human);
-			}
-		}
-		return true;
-	}
-
-	public boolean fixStaff(List<HumanVO> userList, HumanVO human, String userPhoneNum) {
-
-		// TODO Auto-generated method stub
-		for (int a = 0; a < userList.size(); a++) {
-			if (human.getPhoneNum().equals(userList.get(a).getPhoneNum())) {
-				fixCheck = 0;
-
-			} else {
-				for (int i = 0; i < userList.size(); i++) {
-					if (userPhoneNum.equals(userList.get(i).getPhoneNum())) {
-						fixCheck = 1;
-						listNum = i;
-
-					}
-				}
-			}
-		}
-		if (fixCheck == 0) {
-			System.out.println("同じ電話番号があります。");
-			System.out.println("修正を失敗しました。");
-			checkNum = 1;
-		}
-		if (fixCheck == 1) {
-			userList.set(listNum, human);
-			System.out.println("修正が完了しました。");
-			System.out.println("またログインしてください。");
-			checkNum = 2;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean deleteStaff(List<HumanVO> userList, String userPhoneNum, String deleteCheck) {
-		// TODO Auto-generated method stub
-		if (deleteCheck.equals("y") || deleteCheck.equals("Y")) {
-			for (int i = 0; i < userList.size(); i++) {
-				if (userList.get(i).getPhoneNum().equals(userPhoneNum)) {
-					userList.remove(i);
-					System.out.println("退会が完了しました。");
-					deleteCheckFlag = 0;
-				}
-			}
-		} else {
-			System.out.println("退会をキャンセルしました。");
-			deleteCheckFlag = 1;
-		}
 		return false;
 	}
 
 	@Override
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList) {
+	public boolean viewAllClass(List<LectureVO> lecList) {
 		// TODO Auto-generated method stub
-		int checkNo = 0;
-		professorCheck = 0;
-
-		for (int a = 0; a < userList.size(); a++) {
-			if (userList.get(a).getClass().getSimpleName().equals("ProfessorVO")
-					&& userList.get(a).getName().equals(lecture.getProfessor())) {
-				professorCheck = 1;
-				System.out.println(professorCheck);
+		for (int a = 0; a < lecList.size(); a++) {
+				System.out.println("講義名 : " + lecList.get(a).getLectureName() + "担当者 : " + lecList.get(a).getProfessor() + "単位 : " + lecList.get(a).getScore()
+						+ "申請可能人数 : " + lecList.get(a).getPersonnel() + "承認状況 :" + lecList.get(a).getOk());
+		}
+		/*
+		for (int i = 0; i < lecList.size(); i++) {
+			if (lecList.get(i).getOk() == 1) {
+				viewLecList[temp] = i;
+				temp++;
 			}
 		}
-		if (professorCheck == 1) {
-			if (lecList.size() == 0) {
-				System.out.println("入力が完了しました。");
-				lecList.add(lecture);
-			} else {
-				for (int i = 0; i < lecList.size(); i++) {
-					if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
-							&& lecture.getProfessor().equals(lecList.get(i).getProfessor())) {
-						checkNo++;
-					}
-				}
-				if (checkNo > 0) {
-					System.out.println("入力した講義です。");
-				} else {
-					System.out.println("入力が完了しました。");
-					lecList.add(lecture);
+		for (int j = 0; j < temp; j++) {
+			for (int a = 0; a < lecList.size(); a++) {
+				if (viewLecList[j] == a) {
+					System.out.println("승인안된거");
+					System.out.println("講義名 : " + lecList.get(a).getLectureName() + "担当者 : " + lecList.get(a).getProfessor() + "単位 : " + lecList.get(a).getScore()
+							+ "申請可能人数 : " + lecList.get(a).getPersonnel() + "承認状況 :" + lecList.get(a).getOk());
+					
 				}
 			}
-		} else {
-			System.out.println("存在しない担当者です。");
 		}
+		for (int j = 0; j < temp; j++) {
+			for (int a = 0; a < lecList.size(); a++) {
+				if (viewLecList[j] != a) {
+					System.out.println("승인된거");
+					System.out.println("講義名 : " + lecList.get(a).getLectureName() + "担当者 : " + lecList.get(a).getProfessor() + "単位 : " + lecList.get(a).getScore()
+							+ "申請可能人数 : " + lecList.get(a).getPersonnel() + "承認状況 :" + lecList.get(a).getOk());
+					
+				}
+			}
+		}*/
 		return true;
 	}
 
