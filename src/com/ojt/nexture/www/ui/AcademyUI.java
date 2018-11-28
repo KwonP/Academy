@@ -39,6 +39,7 @@ public class AcademyUI {
 	int uniqNo = 0;
 	int accessCheckNum = 1;
 	List<Integer> accessCheck;
+	List<Integer> request = new ArrayList<>(); 
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -393,28 +394,40 @@ public class AcademyUI {
 
 						case 1:
 
-							student.allLeadingStudent(lecList);
+							int lectNum = 1;
 
-							try {
-								LectureRequest = sc.nextInt();
-							} catch (InputMismatchException e) {
-								missMatchExCler();
+							System.out.println("講義リスト一です。");
+
+							for (int a = 1; a < lecList.size(); a++) {
+								if (lecList.get(a).getOk() == 2) {
+									System.out.println(lectNum + ". 講義名 : " + lecList.get(a).getLectureName()
+											+ "  担当者 : " + lecList.get(a).getProfessor() + "  単位 : "
+											+ lecList.get(a).getScore() + "  申請可能人数 : "
+											+ lecList.get(a).getPersonnel());
+									request.add(a);
+									lectNum++;
+								}
 							}
 
-							switch (LectureRequest) {
+							System.out.println(
+									"----------------------------------------------------------------------------------");
+							System.out.println("申請する講義の番号を選んでください。帰る時には0番を書いてください。");
+							System.out.println(
+									"----------------------------------------------------------------------------------");
 
-							case 1:
+							int lectNumCheck = inputInt("");
+							
+							if(lectNumCheck == 0) {
+								logInCheck = 3;
+							} else {
+							
+								
+								
+							
 
-								System.out.println("申請する講義の名前を入力してください。");
-								String lectNm = inputString("講義名 : ");
-								student.requestStudent(lecList, lectNm);
-
-							case 2:
-								// 전 창으로 돌아가기
-								break;
-							default:
-								System.out.println("正しいメニューを選択してください。");
-								break;
+								System.out.println(lectNum + "を申請しました。");
+								System.out.println("承認をお待ちしてください。");
+								
 							}
 
 							/*

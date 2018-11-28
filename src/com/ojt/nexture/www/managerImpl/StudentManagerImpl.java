@@ -28,32 +28,16 @@ public class StudentManagerImpl implements StudentManager {
 	@Override
 	public boolean allLeadingStudent(List<LectureVO> lecList) {
 		
-		System.out.println("講義リスト一です。");
 		
-		for (int i = 0; i < lecList.size(); i++) {
-			if(lecList.get(i).getOk() == 2){
-				System.out.println(i + ". 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-						+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore() + "  申請可能人数 : " + lecList.get(i).getPersonnel());
-			}
-		}
 		
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("\t1．講義申請　　　2．前で　 ");
-		System.out.println("----------------------------------------------------------------------------------");
+		
+		
 		return true;
 	}
 	
 	@Override
 	public boolean requestStudent(List<LectureVO> lecList, String lectNm) {
-		for(int i = 0; i < lecList.size(); i++) {
-			if(lecList.get(i).getLectureName().equals(lectNm)) {
-				
-				System.out.println(lectNm + "を申請しました。");
-				System.out.println("承認をお待ちしてください。");
-			} else {
-				System.out.println("正しい講義を申請してください。");
-			}
-		}
+		
 		return true;
 	}
 
