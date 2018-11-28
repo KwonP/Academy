@@ -10,10 +10,10 @@ public class LectureVO {
 	private String lectureName;
 	private String professor;
 	private String score;
-	private int personnel;
+	private HumanVO[] personnel;
 	private int ok;
 
-	public LectureVO(String lectureName, String professor, String score, int personnel, int ok) {
+	public LectureVO(String lectureName, String professor, String score, HumanVO[] personnel, int ok) {
 		super();
 		this.lectureName = lectureName;
 		this.professor = professor;
@@ -50,11 +50,11 @@ public class LectureVO {
 		this.score = score;
 	}
 
-	public int getPersonnel() {
+	public HumanVO[] getPersonnel() {
 		return personnel;
 	}
 
-	public void setPersonnel(int personnel) {
+	public void setPersonnel(HumanVO[] personnel) {
 		this.personnel = personnel;
 	}
 

@@ -10,15 +10,15 @@ import com.ojt.nexture.www.entity.LectureVO;
 
 public interface ProfessorManager {
 
-	public void pj_Join(List<LectureVO> lecList, String userName);// 担当講義閲覧
+	public void pj_Join(List<HumanVO> userList,List<LectureVO> lecList,String userUinqNum,String userPassword);// 担当講義閲覧
 
-	public boolean fixProfessor(List<HumanVO> userList, HumanVO human, String userPhoneNum);// 情報修正
+	public boolean fixProfessor(List<HumanVO> userList, HumanVO human, String userUinqNum);// 情報修正
 
 	public boolean joinProfessor(List<HumanVO> userList, HumanVO human);//会員登録
 
-	public void loginProfessor(String userName);// ログイン
+	public void loginProfessor(List<HumanVO> userList,String userUinqNum,String userPassword);// ログイン
 
-	public boolean deleteProfessor(List<HumanVO> userList, String userPhoneNum);// 退会
+	public boolean deleteProfessor(List<HumanVO> userList,String userUinqNum);// 退会
 
 	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList);// 講義入力
 }

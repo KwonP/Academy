@@ -15,12 +15,11 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int professorCheck = 0;
 
 	@Override
-	public void pj_Join(List<LectureVO> lecList, String userName) {
-
+	public void pj_Join(List<HumanVO> userList,List<LectureVO> lecList, String userUinqNum, String userPassword) {
 		for (int i = 0; i < lecList.size(); i++) {
-			if (lecList.get(i).getProfessor().equals(userName)) {
+			if (lecList.get(i).getProfessor().equals(userList.get(i).getName())) {
 				System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-						+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore());
+						+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore()+ "  OK : " + lecList.get(i).getOk());
 			}
 
 		}
@@ -28,34 +27,28 @@ public class ProfessorManagerImpl implements ProfessorManager {
 
 	@Override
 	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList) {
-		int checkNo = 0;
-		professorCheck = 0;
 
-		for (int a = 0; a < userList.size(); a++) {
-			if (userList.get(a).getClass().getSimpleName().equals("ProfessorVO")
-					&& userList.get(a).getName().equals(lecture.getProfessor())) {
-				professorCheck = 1;
-				System.out.println(professorCheck);
+		checkNo = 0;
+		if (lecList.size() == 0) {
+			lecList.add(lecture);
+			System.out.println("入力が完了しました。");
+		} else {
+			for (int i = 0; i < lecList.size(); i++) {
+				if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
+						&& lecture.getProfessor().equals(lecList.get(i).getProfessor())) {
+					checkNo++;
+				}
+
 			}
-		}
-			if (lecList.size() == 0) {
+
+			if (checkNo > 0) {
+				System.out.println("入力した講義です。");
+			} else {
 				System.out.println("入力が完了しました。");
 				lecList.add(lecture);
-			} else {
-				for (int i = 0; i < lecList.size(); i++) {
-					if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
-							&& lecture.getProfessor().equals(lecList.get(i).getProfessor())) {
-						checkNo++;
-					}
-				}
-				if (checkNo > 0) {
-					System.out.println("入力した講義です。");
-				} else {
-					System.out.println("入力が完了しました。");
-					lecList.add(lecture);
-				}
 			}
-			System.out.println("存在しない担当者です。");
+		}
+		System.out.println(lecture.getPersonnel().length);
 		return true;
 	}
 
@@ -86,16 +79,22 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	}
 
 	@Override
-	public void loginProfessor(String userName) {
+	public void loginProfessor(List<HumanVO> userList, String userUinqNum, String userPassword) {
 		// TODO Auto-generated method stub
-		System.out.println("---------------------------------");
-		System.out.println("ようこそ!" + userName + "さん!");
-		System.out.println("1.担当講義閲覧     2.講義入力     3.情報修正     4.退会     5.ログアウト");
-		System.out.println("---------------------------------");
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i).getUniqNum().equals(userUinqNum)) {
+				String pre = userList.get(i).getName();
+				System.out.println("---------------------------------");
+				System.out.println("ようこそ!" + pre + "さん!");
+				System.out.println("1.担当講義閲覧     2.講義入力     3.情報修正     4.退会     5.ログアウト");
+				System.out.println("---------------------------------");
+			}
+		}
+
 	}
 
 	@Override
-	public boolean fixProfessor(List<HumanVO> userList, HumanVO human, String userPhoneNum) {
+	public boolean fixProfessor(List<HumanVO> userList, HumanVO human, String userUinqNum) {
 		// TODO Auto-generated method stub
 		for (int a = 0; a < userList.size(); a++) {
 			if (human.getPhoneNum().equals(userList.get(a).getPhoneNum())) {
@@ -103,7 +102,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 
 			} else {
 				for (int i = 0; i < userList.size(); i++) {
-					if (userPhoneNum.equals(userList.get(i).getPhoneNum())) {
+					if (userUinqNum.equals(userList.get(i).getPhoneNum())) {
 						fixCheck = 1;
 						listNum = i;
 
@@ -126,13 +125,13 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	}
 
 	@Override
-	public boolean deleteProfessor(List<HumanVO> userList, String userPhoneNum) {
+	public boolean deleteProfessor(List<HumanVO> userList, String userUinqNum) {
 		// TODO Auto-generated method stub
 		System.out.println("本当に退会しますか。 (Y/N)");
 		String check = sc.next();
 		if (check.equals("y") || check.equals("Y")) {
 			for (int i = 0; i < userList.size(); i++) {
-				if (userList.get(i).getPhoneNum().equals(userPhoneNum)) {
+				if (userList.get(i).getPhoneNum().equals(userUinqNum)) {
 					System.out.println("退会が完了しました。");
 					userList.remove(i);
 					PrCheckNum = 0;

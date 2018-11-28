@@ -23,7 +23,8 @@ public class AcademyUI {
 	ProfessorManagerImpl professor = new ProfessorManagerImpl();
 	StudentManagerClass student = new StudentManagerClass();
 	StaffManagerImpl staff = new StaffManagerImpl();
-
+	HumanVO[] personnel =null;
+	
 	String uniqNum;
 	int type = 0; // 1은 스태프, 2는 교수, 3은 학생
 	String name;
@@ -33,7 +34,7 @@ public class AcademyUI {
 	String department;
 	String major;
 	String student_Num;
-
+	
 	int logInCheck;
 	int uniqNo = 0;
 
@@ -245,54 +246,124 @@ public class AcademyUI {
 							}
 							break Loop1;
 						} while (staffFlagNum == 0);
-					} else if (logInCheck == 1) {
-						/*
-						 * System.out.println("프로페서"); professor.loginProfessor(userName); int
-						 * PrCheckNum = 0; String fixcheck; LP1: do { int check = 0; try { check =
-						 * sc.nextInt(); } catch (Exception e) { missMatchExCler(); } switch (check) {
-						 * case 1: System.out.println("担当講義閲覧"); professor.pj_Join(lecList, userName);
-						 * professor.loginProfessor(userName); continue LP1; case 2:
-						 * System.out.println("情報を入力してください。"); String flagStaff2 = "2"; do {
-						 * System.out.println("講義を入力してください。"); LectureVO lecture = null; String lectNm =
-						 * inputString("講義名 : "); String profe = inputString("担当者 : "); String score =
-						 * inputString("単位 : "); int ovfull = inputInt("学生数");
-						 * 
-						 * 
-						 * System.out.println("------------------------------------------------");
-						 * System.out.println("                                    講義名 : " + lectNm +
-						 * ",   担当者 : " + profe + ",   単位 : " + score + ",   学生数 : " + ovfull);
-						 * System.out.println("------------------------------------------------");
-						 * System.out.println("このまま会員登録を進めましょうか。 (Y/N)"); String lectureCheck = null;
-						 * 
-						 * lectureCheck = sc.next(); if (lectureCheck.equals("y") ||
-						 * lectureCheck.equals("Y")) { lecture = new LectureVO(lectNm, profe, score);
-						 * professor.addClass(lecList, lecture, userList,ovfull);
-						 * professor.loginProfessor(userName); flagStaff2 = "0"; continue LP1; } else {
-						 * System.out.println("また入力してください。"); } } while (flagStaff2.equals("2")); break
-						 * LP1; case 3: System.out.println("情報を入力してください。"); name = inputString("名前 : ");
-						 * do { age = inputInt("年齢 : "); } while (age == 0); // age 값이 scan 받을 때
-						 * nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때 까지 반복하도록 하는 문 password =
-						 * inputString("パスワード : "); phoneNum = inputString("電話番号 : "); department =
-						 * inputString("所属学部 : "); System.out.println("修正しますか。 (Y/N)"); fixcheck = null;
-						 * 
-						 * fixcheck = sc.next();
-						 * 
-						 * if (fixcheck.equals("y") || fixcheck.equals("Y")) { human = new
-						 * ProfessorVO(name, age, password, phoneNum, department);
-						 * professor.fixProfessor(userList, human, userPhoneNum); if
-						 * (professor.getCheckNum() == 1) { // 이미 존재하는 전화번호일 경우
-						 * professor.loginProfessor(userName); PrCheckNum = 0; continue LP1; } if
-						 * (professor.getCheckNum() == 2) { // 수정완료 break LP1; } } else { // N를 눌렀을 경우
-						 * System.out.println("キャンセルしました。"); professor.loginProfessor(userName);
-						 * PrCheckNum = 0; continue LP1; } break; case 4:
-						 * professor.deleteProfessor(userList, userPhoneNum); if
-						 * (professor.getPrCheckNum() == 1) { // n 누름
-						 * professor.loginProfessor(userName); PrCheckNum = 0; continue LP1; } if
-						 * (professor.getPrCheckNum() == 0) { // y 누름 PrCheckNum = 1; } break; case 5:
-						 * System.out.println("ログアウトしました。"); break; default:
-						 * System.out.println("誤入力しました。"); continue LP1; } break Loop1; } while
-						 * (PrCheckNum == 0);
-						 */
+					} else if (logInCheck == 2) {
+
+						System.out.println("프로페서");
+						professor.loginProfessor(userList,userUinqNum,userPassword);
+						int PrCheckNum = 0;
+						String fixcheck;
+						LP1: do {
+							int check = 0;
+							try {
+								check = sc.nextInt();
+							} catch (Exception e) {
+								missMatchExCler();
+							}
+							switch (check) {
+							case 1:
+								System.out.println("担当講義閲覧");
+								professor.pj_Join(userList,lecList, userUinqNum,userPassword);
+								professor.loginProfessor(userList,userUinqNum,userPassword);
+								continue LP1;
+							case 2:
+								String flagStaff2 = "2";
+								do {
+									
+									System.out.println("講義を入力してください。");
+									LectureVO lecture = null;
+									String lectNm = inputString("講義名 : ");
+									String score = inputString("単位 : ");
+									for(int i = 0; i<userList.size(); i++) {
+										if(userList.get(i).getUniqNum().equals(userUinqNum)) {
+											
+										}
+									}
+									int a = inputInt("学生数 :");
+									personnel = new HumanVO[a];
+									try {
+									}catch(IndexOutOfBoundsException e){
+										e.getMessage();
+										System.out.println("인원초과");
+									}
+									int ok = 1;
+									System.out.println("------------------------------------------------");
+									System.out.println("                                    講義名 : " + lectNm
+											+ ",   単位 : " + score + ",   学生数 : " + personnel);
+									System.out.println("------------------------------------------------");
+									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
+									String lectureCheck = null;
+									lectureCheck = sc.next();
+									if (lectureCheck.equals("y") || lectureCheck.equals("Y")) {
+										for(int i = 0; i<userList.size(); i++) {
+											if(userList.get(i).getUniqNum().equals(userUinqNum)) {
+												String preName = userList.get(i).getName();
+												String pre = preName;
+												lecture = new LectureVO(lectNm,pre, score, personnel, ok);
+											}
+										}
+										professor.addClass(lecList, lecture, userList);
+										professor.loginProfessor(userList,userUinqNum,userPassword);
+										flagStaff2 = "0";
+										continue LP1;
+									} else {
+										System.out.println("また入力してください。");
+									}
+								} while (flagStaff2.equals("2"));
+								break LP1;
+							case 3:
+								System.out.println("情報を入力してください。");
+								name = inputString("名前 : ");
+								do {
+									age = inputInt("年齢 : ");
+								} while (age == 0); // age 값이 scan 받을 때 nextInt를 사용하는데, 이때 문자, 혹은 0을 입력할 시 제대로 입력 받을 때
+													// 까지 반복하도록 하는 문 password =
+
+								inputString("パスワード : ");
+								phoneNum = inputString("電話番号 : ");
+								department = inputString("所属学部 : ");
+								System.out.println("修正しますか。 (Y/N)");
+								fixcheck = null;
+								fixcheck = sc.next();
+
+								if (fixcheck.equals("y") || fixcheck.equals("Y")) {
+									// human = new ProfessorVO(name, age, password, phoneNum, department);
+									professor.fixProfessor(userList, human,userUinqNum);
+									if (professor.getCheckNum() == 1) { // 이미 존재하는 전화번호일 경우
+										professor.loginProfessor(userList,userUinqNum,userPassword);
+										PrCheckNum = 0;
+										continue LP1;
+									}
+									if (professor.getCheckNum() == 2) { // 수정완료
+										break LP1;
+									}
+								} else { // N를 눌렀을 경우
+									System.out.println("キャンセルしました。");
+									professor.loginProfessor(userList,userUinqNum,userPassword);
+									PrCheckNum = 0;
+									continue LP1;
+								}
+								break;
+							case 4:
+								professor.deleteProfessor(userList,userUinqNum);
+								if (professor.getPrCheckNum() == 1) { // n 누름
+									professor.loginProfessor(userList,userUinqNum,userPassword);
+									PrCheckNum = 0;
+									continue LP1;
+								}
+								if (professor.getPrCheckNum() == 0) { // y 누름
+									PrCheckNum = 1;
+								}
+								break;
+							case 5:
+								System.out.println("ログアウトしました。");
+								break;
+							default:
+								System.out.println("誤入力しました。");
+								continue LP1;
+							}
+							break Loop1;
+						} while (PrCheckNum == 0);
+
 					} else if (logInCheck == 3) {
 
 						student.loginStudent(userList, userUinqNum, userPassword);
