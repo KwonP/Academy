@@ -274,7 +274,7 @@ public class AcademyUI {
 									int ok = 1;
 									System.out.println("------------------------------------------------");
 									System.out.println("                                    講義名 : " + lectNm
-											+ ",   単位 : " + score + ",   学生数 : " + personnel);
+											+ ",   単位 : " + score + ",   学生数 : " + personnel.length);
 									System.out.println("------------------------------------------------");
 									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
 									String lectureCheck = null;
@@ -287,12 +287,17 @@ public class AcademyUI {
 												lecture = new LectureVO(lectNm, pre, score, personnel, ok);
 											}
 										}
-										professor.addClass(lecList, lecture, userList);
+										professor.addClass(lecList, lecture, userList,userUinqNum);
 										professor.loginProfessor(userList, userUinqNum, userPassword);
 										flagStaff2 = "0";
 										continue LP1;
-									} else {
+									} if(lectureCheck.equals("n") || lectureCheck.equals("N")) {
+										System.out.println("취소되었습니다.");
+										professor.loginProfessor(userList, userUinqNum, userPassword);
+										continue LP1;
+									}else {
 										System.out.println("また入力してください。");
+									
 									}
 								} while (flagStaff2.equals("2"));
 								break LP1;

@@ -14,51 +14,44 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int PrCheckNum = 0;
 	int checkNum = 0;
 	int professorCheck = 0;
+	String prename;
 
 	@Override
-	public void pj_Join(List<HumanVO> userList,List<LectureVO> lecList,String userUinqNum) {
-		for(int i =0; i<userList.size(); i++) {
-			if (userList.get(i).getUniqNum().equals(userUinqNum)) {
-				String prename = userList.get(i).getName();
-				System.out.println(prename);
-				for(int a=0; a<lecList.size(); a++) {
-					if(lecList.get(i).getProfessor().equals(prename)) {
-						System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-								+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore()+ "  OK : " + lecList.get(i).getOk());
-					}else {
-						System.out.println("저장된 값이 없습니다.");
-					}
+	public void pj_Join(List<HumanVO> userList, List<LectureVO> lecList, String userUinqNum) {
+		if (lecList.size() == 0) {
+			System.out.println("저장된 값이 없습니다.");
+		} else {
+			for (int i = 0; i < userList.size(); i++) {
+				if (userList.get(i).getUniqNum().equals(userUinqNum)) {
+					System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
+							+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore() + "  OK : "
+							+ lecList.get(i).getOk());
 				}
 			}
 		}
-/*		for (int i = 0; i < userList.size(); i++) {
-			for(int a=0; a<lecList.size(); a++) {
-				if (userList.get(i).getName().equals(lecList.get(a).getProfessor())) {
-					System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-							+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore()+ "  OK : " + lecList.get(i).getOk());
-				}	
-			}
-				
-		}*/
+
 	}
-	//for (int i = 0; i < userList.size(); i++) {
-		//if (userList.get(i).getUniqNum().equals(userUinqNum)) {
-			//String pre = userList.get(i).getName();
 
 	@Override
-	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList) {
+	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList, String userUinqNum) {
 
 		checkNo = 0;
 		if (lecList.size() == 0) {
 			lecList.add(lecture);
 			System.out.println("入力が完了しました。");
 		} else {
-			for (int i = 0; i < lecList.size(); i++) {
-				if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
-						&& lecture.getProfessor().equals(lecList.get(i).getProfessor())) {
-					checkNo++;
-				}
+			for (int z = 0; z < userList.size(); z++) {
+				if (userList.get(z).getUniqNum().equals(userUinqNum)) {
+					String prename = userList.get(z).getName();
+					System.out.println(prename);
+					for (int i = 0; i < lecList.size(); i++) {
+						if (lecture.getLectureName().equals(lecList.get(i).getLectureName())
+								&& lecture.getProfessor().equals(prename)) {
+							checkNo++;
+						}
 
+					}
+				}
 			}
 
 			if (checkNo > 0) {
@@ -68,7 +61,6 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				lecList.add(lecture);
 			}
 		}
-		System.out.println(lecture.getPersonnel().length);
 		return true;
 	}
 
