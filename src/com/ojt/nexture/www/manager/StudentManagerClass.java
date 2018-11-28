@@ -7,6 +7,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 public class StudentManagerClass implements StudentManager {
 	int checkNum = 0;
 	int fixCheck, listNum;
+	String userName;
 
 	@Override
 	public boolean joinStudent(List<HumanVO> userList, HumanVO human) {
@@ -42,9 +43,18 @@ public class StudentManagerClass implements StudentManager {
 	}
 
 	@Override
-	public HumanVO loginStudent() {
-		// TODO Auto-generated method stub
-		return null;
+	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
+
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i).getUniqNum().equals(uniqNum))
+				userName = userList.get(i).getName();
+		}
+
+		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("\t\t\t\t ようこそ！" + userName + "様！");
+		System.out.println("\t1．講義リスト覧　　　2．情報修正　　　3．退会　　　4．ログアウト \n");
+		System.out.println("----------------------------------------------------------------------------------");
+
 	}
 
 	@Override

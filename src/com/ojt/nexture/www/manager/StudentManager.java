@@ -11,7 +11,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 public interface StudentManager {
 
 	// 로그인
-	public HumanVO loginStudent();
+	public void loginStudent(List<HumanVO> userList, String uniqNum, String password);
 
 	// 강의목록열람
 	public boolean leadingStudent(List<LectureVO> lecList);

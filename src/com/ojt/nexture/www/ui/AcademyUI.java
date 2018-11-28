@@ -293,24 +293,11 @@ public class AcademyUI {
 						 * System.out.println("誤入力しました。"); continue LP1; } break Loop1; } while
 						 * (PrCheckNum == 0);
 						 */
-					} else if (logInCheck == 2) {
-						String userName;
-						for(int i = 0; i < userList.size(); i++) {
-							if(userList.get(i).getUniqNum().equals(userUinqNum))
-								userName = userList.get(i).getName();
-						}
+					} else if (logInCheck == 3) {
 
-						student.loginStudent();
-
-						System.out.println(
-								"----------------------------------------------------------------------------------");
-						System.out.println("\t\t\t\t ようこそ！" + userName + "様！");
-						System.out.println("\t1．講義リスト覧　　　2．情報修正　　　3．退会　　　4．ログアウト \n");
-						System.out.println(
-								"----------------------------------------------------------------------------------");
+						student.loginStudent(userList, userUinqNum, userPassword);
 
 						int Student_S = 0;
-						String check = null;
 
 						try {
 							Student_S = sc.nextInt();
@@ -360,7 +347,6 @@ public class AcademyUI {
 						case 4:
 							System.out.println("ログアウトしました。");
 							logInCheck = 0;
-							System.exit(0);
 						}
 
 					} else {
