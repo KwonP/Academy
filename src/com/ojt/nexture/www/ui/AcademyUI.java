@@ -10,7 +10,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StudentVO;
 import com.ojt.nexture.www.manager.ProfessorManagerImpl;
-import com.ojt.nexture.www.manager.StaffManagerImpl;
+import com.ojt.nexture.www.managerImpl.StaffManagerImpl;
 import com.ojt.nexture.www.managerImpl.StudentManagerImpl;
 
 public class AcademyUI {
@@ -37,6 +37,8 @@ public class AcademyUI {
 
 	int logInCheck;
 	int uniqNo = 0;
+	int accessCheckNum = 1;
+	int[] accessCheck;
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -192,24 +194,33 @@ public class AcademyUI {
 								}
 								break;
 							case 2: // 강의승인
-								/*
-								 * String flagStaff2 = "2"; Loop3: do { System.out.println("講義を入力してください。");
-								 * LectureVO lecture = null; String lectureName = inputString("講義名 : "); String
-								 * professor = inputString("担当者 : "); String score = inputString("単位 : ");
-								 * 
-								 * System.out.println("------------------------------------------------");
-								 * System.out.println("                                    講義名 : " + lectureName
-								 * + ",   担当者 : " + professor + ",   単位 : " + score);
-								 * System.out.println("------------------------------------------------");
-								 * System.out.println("このまま会員登録を進めましょうか。 (Y/N)"); String lectureCheck = null;
-								 * 
-								 * lectureCheck = sc.next(); if (lectureCheck.equals("y") ||
-								 * lectureCheck.equals("Y")) { lecture = new LectureVO(lectureName, professor,
-								 * score); staff.addClass(lecList, lecture, userList);
-								 * staff.logInStaff(userName); flagStaff2 = "0"; continue Loop2; } else {
-								 * System.out.println("また入力してください。"); } } while (flagStaff2.equals("2")); break
-								 * Loop2;
-								 */
+								int loop4Check = 0;
+								Loop4: do {
+									for (int a = 0; a < lecList.size(); a++) {
+										if (lecList.get(a).getOk() == 1) {
+											System.out.println(
+													accessCheckNum + ". 講義名 : " + lecList.get(a).getLectureName()
+															+ ",     担当者 : " + lecList.get(a).getProfessor()
+															+ ",     単位 : " + lecList.get(a).getScore()
+															+ ",     申請可能人数 : " + lecList.get(a).getPersonnel().length);
+										}
+										accessCheck[accessCheckNum] = a;
+										accessCheckNum++;
+									}
+									int accessNum = inputInt("승인하려고 하는 강의의 번호를 골라주세요. 돌아가시려면 0번을 눌러주세요.");
+									if(accessNum == 0) {
+										break Loop4;
+									}
+									String accessString = inputString(accessNum + "번의 강의를 정말로 승인하시겠습니까? (Y/N)");
+									if (accessString.equals("y") || accessString.equals("Y")) {
+										staff.accessClass(lecList, accessNum, accessCheck);
+										loop4Check = 0;
+										continue Loop4;
+									} else {
+										loop4Check = 0;
+										continue Loop4;
+									}
+								} while (loop4Check == 0);
 							case 3: // 전체강의목록
 								staff.viewAllClass(lecList);
 								break;
