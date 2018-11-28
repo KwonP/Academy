@@ -58,20 +58,20 @@ public class AcademyUI {
 					System.out.println("会員でログインします。");
 					String userName = inputString("名前 : ");
 					String userPassword = inputString("パスワード : ");
-					String userPhoneNum = inputString("電話番号 : ");
+					String userUinqNum = inputString("会員番号 : ");
 					for (int i = 0; i < userList.size(); i++) {
 						if (userName.equals(userList.get(i).getName())
 								&& userPassword.equals(userList.get(i).getPassword())
-								&& userPhoneNum.equals(userList.get(i).getPhoneNum())) {
+								&& userUinqNum.equals(userList.get(i).getUniqNum())) {
 							logInCheck = userList.get(i).getType();
 						}
 					}
-					if (userName.equals("staff") && userPassword.equals("12345") && userPhoneNum.equals("020000000")) {
+					if (userName.equals("staff") && userPassword.equals("12345") && userUinqNum.equals("00000")) {
 						logInCheck = 1;
 					}
 					if (logInCheck == 1) { // 스태프 로그인
 
-						staff.logInStaff(userName, userPassword, userPhoneNum);
+						staff.logInStaff(userName, userPassword, userUinqNum);
 						int staffFlagNum = 0;
 
 						Loop2: do {// 각 메뉴 실행 후 main이 아닌 로그인 되어있는 창으로 오기 위한 분기점
