@@ -15,17 +15,28 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int checkNum = 0;
 	int professorCheck = 0;
 	String prename;
-
+	String intch;
+	String intchN;
 	@Override
 	public void pj_Join(List<HumanVO> userList, List<LectureVO> lecList, String userUinqNum) {
 		if (lecList.size() == 0) {
 			System.out.println("저장된 값이 없습니다.");
 		} else {
 			for (int i = 0; i < lecList.size(); i++) {
+				if(lecList.get(i).getOk() == 1) {
+					intch = Integer.toString(lecList.get(i).getOk());
+					intchN = intch;
+					intchN = "불허가";
+				}
+				if(lecList.get(i).getOk() ==2) {
+					intch = Integer.toString(lecList.get(i).getOk());
+					intchN = intch;
+					intchN = "허가";
+				}
 				if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
 					System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
 							+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore() + "  OK : "
-							+ lecList.get(i).getOk());
+							+intchN);
 				}
 			}
 		}
