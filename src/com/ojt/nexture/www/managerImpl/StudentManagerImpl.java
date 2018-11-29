@@ -1,5 +1,6 @@
 package com.ojt.nexture.www.managerImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
@@ -9,6 +10,7 @@ public class StudentManagerImpl implements StudentManager {
 	int checkNum = 0;
 	int fixCheck, listNum;
 	String userName;
+	HumanVO[] personnel = null;
 
 	@Override
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
@@ -27,23 +29,27 @@ public class StudentManagerImpl implements StudentManager {
 
 	@Override
 	public boolean allLeadingStudent(List<LectureVO> lecList) {
-		
-		
-		
-		
-		
-		return true;
-	}
-	
-	@Override
-	public boolean requestStudent(List<LectureVO> lecList, String lectNm) {
-		
+
 		return true;
 	}
 
 	@Override
-	public boolean leadingStudent(List<LectureVO> lecList) {
-		// TODO Auto-generated method stub
+	public boolean requestStudent(List<HumanVO> userList, List<LectureVO> lecList, int lectNumCheck, String uniqNum,
+			List<Integer> request) {
+		
+
+		return true;
+	}
+
+	@Override
+	public boolean leadingStudent(List<LectureVO> lecList, List<HumanVO> userList, String uniqNum) {
+		/*for(int k=0; k < userList.size(); k++) {
+			for(int i= 0;i < lecList.size(); i++) {
+				if(lecList.get(i).getPersonnel(userList.get(k).getUniqNum().equals(uniqNum)) {
+				
+				}
+			}
+		}*/
 		return false;
 	}
 

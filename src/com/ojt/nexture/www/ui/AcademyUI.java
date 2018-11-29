@@ -386,7 +386,6 @@ public class AcademyUI {
 					} else if (logInCheck == 3) {
 
 						int Student_S = 0;
-						int LectureRequest = 0;
 
 						String check = null;
 
@@ -425,19 +424,37 @@ public class AcademyUI {
 
 							int lectNumCheck = inputInt("");
 
+							System.out.println("");
+
 							if (lectNumCheck == 0) {
 								logInCheck = 3;
 							} else {
+								
+								student.requestStudent(userList, lecList, lectNumCheck, check, request);
+					
+								
+								for (int i = 0; i < userList.size(); i++) {
+									if (userList.get(i).getUniqNum().equals(uniqNum)) {
+		
+										
+										
+										for (int a = 0; a < lecList.size(); a++) {
+											System.out.println(lecList.get(a));
+										}
+									}
+								}
 
-								System.out.println(lectNum + "を申請しました。");
+
+								System.out.println(lectNumCheck + "を申請しました。");
 								System.out.println("承認をお待ちしてください。");
 
 							}
 
-							/*
-							 * System.out.println("講義リスト一です。"); student.leadingStudent(lecList); break;
-							 */
 						case 2:
+							
+
+									
+
 							/*
 							 * System.out.println("情報を入力してください。");
 							 * 
