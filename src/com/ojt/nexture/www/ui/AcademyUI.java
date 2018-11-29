@@ -18,12 +18,12 @@ public class AcademyUI {
 	Scanner sc = new Scanner(System.in);
 	List<HumanVO> userList = new ArrayList<>();
 	List<LectureVO> lecList = new ArrayList<>();
+	List<String[]> classStudent = new ArrayList<>();
 
 	HumanVO human = null;
 	ProfessorManagerImpl professor = new ProfessorManagerImpl();
 	StudentManagerImpl student = new StudentManagerImpl();
 	StaffManagerImpl staff = new StaffManagerImpl();
-	List<HumanVO>[] personnel = null;
 
 	String uniqNum;
 	int type = 0; // 1은 스태프, 2는 교수, 3은 학생
@@ -393,8 +393,6 @@ public class AcademyUI {
 
 						int Student_S = 0;
 
-						String check = null;
-
 						student.loginStudent(userList, userUinqNum, userPassword);
 
 						try {
@@ -407,84 +405,65 @@ public class AcademyUI {
 
 						case 1:
 
-							int lectNum = 1;
-
+							int lectNum1 = 1;
+							
 							System.out.println("講義リスト一です。");
 
-							for (int a = 1; a < lecList.size(); a++) {
+							for (int a = 0; a < lecList.size(); a++) {
 								if (lecList.get(a).getOk() == 2) {
-									System.out.println(lectNum + ". 講義名 : " + lecList.get(a).getLectureName()
-											+ "  担当者 : " + lecList.get(a).getProfessor() + "  単位 : "
-											+ lecList.get(a).getScore() + "  申請可能人数 : "
+									System.out.println(lectNum1 + ". 講義名 : " + lecList.get(a).getLectureName() + "  担当者 : "
+											+ lecList.get(a).getProfessor() + "  単位 : " + lecList.get(a).getScore() + "  申請可能人数 : "
 											+ lecList.get(a).getPersonnel());
 									request.add(a);
-									lectNum++;
+									lectNum1++;
 								}
 							}
 
-							System.out.println(
-									"----------------------------------------------------------------------------------");
+							System.out.println("----------------------------------------------------------------------------------");
 							System.out.println("申請する講義の番号を選んでください。帰る時には0番を書いてください。");
-							System.out.println(
-									"----------------------------------------------------------------------------------");
+							System.out.println("----------------------------------------------------------------------------------");
 
-							int lectNumCheck = inputInt("");
+							int lectNumCheck1 = inputInt("");
 
 							System.out.println("");
 
-							student.requestStudent(userList, lecList, lectNumCheck, check, request);
-
-							for (int i = 0; i < userList.size(); i++) {
-								if (userList.get(i).getUniqNum().equals(uniqNum)) {
-
-									for (int a = 0; a < lecList.size(); a++) {
-										System.out.println(lecList.get(a));
-									}
-								}
-							}
-							if (lectNumCheck == 0) {
+							if (lectNumCheck1 == 0) {
 								logInCheck = 3;
 							} else {
 
-								System.out.println(lectNumCheck + "を申請しました。");
-								System.out.println("承認をお待ちしてください。");
+								student.requestStudent(classStudent, lecList, userUinqNum, lectNumCheck1);
 
 							}
 
+							logInCheck = 3;
+
 						case 2:
 
-							/*
-							 * System.out.println("情報を入力してください。");
-							 * 
-							 * name = inputString("名前："); password = inputString("パスワード"); do { age =
-							 * inputInt("年齢 : "); } while (age == 0); phoneNum = inputString("電話番号："); major
-							 * = inputString("専攻："); student_Num = inputString("学番：");
-							 * 
-							 * System.out.println("======================================");
-							 * System.out.println("名前：" + name + "、年齢：" + age + "、電話：" + phoneNum + "、専攻：" +
-							 * major + "、学番：" + student_Num);
-							 * System.out.println("======================================");
-							 * System.out.println("修正しますか。 (Y/N)");
-							 * 
-							 * check = null;
-							 * 
-							 * check = sc.next();
-							 * 
-							 * if (check.equals("y") || check.equals("Y")) { human = new StudentVO(name,
-							 * age, password, phoneNum, major, student_Num); student.fixStudent(userList,
-							 * human, userPhoneNum); } else { System.out.println("キャンセルしました。"); break; }
-							 */
-//						case 3:
-							/*
-							 * System.out.println("탈퇴"); System.out.println("本当に退会しますか。 (Y/N)");
-							 * 
-							 * check = null;
-							 * 
-							 * check = sc.next(); if (check.equals("y") || check.equals("Y")) {
-							 * student.deleteStudent(userList, userPhoneNum);
-							 * System.out.println("退会が完了しました。"); break; } else { // 요우코소 부분으로 돌아가는 내용 }
-							 * break;
-							 */
+							int lectNum2 = 1;
+
+							student.leadingStudent(classStudent, lecList, userUinqNum, lectNum2);
+
+							int lectNumCheck2 = inputInt("");
+
+							System.out.println("");
+
+							if (lectNumCheck2 == 0) {
+								logInCheck = 3;
+							} else {
+								
+								classStudent.remove(classStudent.get(lectNumCheck2));
+
+								for (int c = 0; c < classStudent.size(); c++) {
+									System.out.println(classStudent.get(c)[1]);
+								}
+
+								System.out.println(lecList.get(lectNumCheck2).getLectureName() + "をキャンセルしました。");
+								
+								for (int i = 0; i < classStudent.size(); i++) {
+									System.out.println(classStudent.get(i)[0] + classStudent.get(i)[1]);
+								}
+
+							}
 						case 3:
 							System.out.println("ログアウトしました。");
 							logInCheck = 0;

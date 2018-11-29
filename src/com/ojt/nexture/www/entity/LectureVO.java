@@ -84,5 +84,4 @@ public class LectureVO {
 		return "LectureVO [lectureName=" + lectureName + ", professor=" + professor + ", score=" + score
 				+ ", personnel=" + personnel + ", ok=" + ok + "]";
 	}
-
 }
