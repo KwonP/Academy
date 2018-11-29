@@ -11,12 +11,12 @@ public class LectureVO {
 
 	private String lectureName;
 	private String professor;
-	private String score;
+	private int score;
 	private int personnel;
 	private int ok;
 	private String userUinqNum;
 
-	public LectureVO(String lectureName, String professor, String score,  int personnel,String userUinqNum,
+	public LectureVO(String lectureName, String professor, int score,  int personnel,String userUinqNum,
 			int ok) {
 		super();
 		this.lectureName = lectureName;
@@ -47,11 +47,11 @@ public class LectureVO {
 		this.professor = professor;
 	}
 
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 

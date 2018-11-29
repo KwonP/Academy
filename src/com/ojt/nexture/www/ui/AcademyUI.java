@@ -296,16 +296,14 @@ public class AcademyUI {
 									System.out.println("講義を入力してください。");
 									LectureVO lecture = null;
 									String lectNm = inputString("講義名 : ");
-									String score = inputString("単位 : ");
+									int score = inputInt("単位 : ");
+									do {
+										score = inputInt("単位 : ");
+									}while(score ==0);
 									int personnel = inputInt("学生数 :");
-									/*
-									 * if(checkint(a)) {
-									 * 
-									 * }
-									 * 
-									 * try { } catch (IndexOutOfBoundsException e) { e.getMessage();
-									 * System.out.println("인원초과"); }
-									 */
+									do {
+										personnel = inputInt("学生数 :");
+									}while(personnel ==0);
 									int ok = 1;
 									System.out.println("------------------------------------------------");
 									System.out.println("                                    講義名 : " + lectNm
@@ -343,8 +341,15 @@ public class AcademyUI {
 									System.out.println("講義を入力してください。");
 									LectureVO lecture = null;
 									String lectNm = inputString("講義名 : ");
-									String score = inputString("単位 : ");
+									int score = inputInt("単位 : ");
+									do {
+										score = inputInt("単位 : ");
+									}while(score ==0);;
 									int personnel = inputInt("学生数 :");
+									do {
+										personnel = inputInt("学生数 :");
+									}while(personnel ==0);
+									
 									int ok = 1;
 									/*
 									 * if(personnel.equals(null)) { System.out.println("다시 한번 입력해주세요"); a =
@@ -504,6 +509,7 @@ public class AcademyUI {
 
 	}
 
+
 	public void menu() {
 		System.out.println("==============アカデミー管理システム=============== \n");
 		System.out.println("\t\t1．ログイン  \n");
@@ -531,6 +537,8 @@ public class AcademyUI {
 		inputString = sc.next();
 		return inputString;
 	}
+	
+	
 
 	public int inputInt(String message) {
 		System.out.println(message);

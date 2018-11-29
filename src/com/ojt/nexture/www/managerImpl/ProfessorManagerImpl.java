@@ -12,33 +12,41 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int fixCheck, listNum;
 	int checkNum = 0;
 	int professorCheck = 0;
+	
 	String prename;
 	String intch;
 	String intchN;
+
 	@Override
 	public void pj_Join(List<HumanVO> userList, List<LectureVO> lecList, String userUinqNum) {
-		if (lecList.size() == 0) {
+		if (lecList.size() == 0 ) {
+			System.out.println("저장된 값이 없습니다.");
+		}
+		for(int a=0; a<lecList.size(); a++) {
+			if(!lecList.get(a).getUniqNum().equals(userUinqNum) && lecList.size() >=1) {
+				checkNo++;
+			}
+		}
+		if (checkNo > 0) {
 			System.out.println("저장된 값이 없습니다.");
 		} else {
-			for (int i = 0; i < lecList.size(); i++) {
-				if(lecList.get(i).getOk() == 1) {
+		}
+		for (int i = 0; i < lecList.size(); i++) {
+			if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
+				if (lecList.get(i).getOk() == 1) {
 					intch = Integer.toString(lecList.get(i).getOk());
 					intchN = intch;
 					intchN = "불허가";
 				}
-				if(lecList.get(i).getOk() ==2) {
+				if (lecList.get(i).getOk() == 2) {
 					intch = Integer.toString(lecList.get(i).getOk());
 					intchN = intch;
 					intchN = "허가";
 				}
-				if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
-					System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-							+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore() + "  OK : "
-							+intchN);
-				}
+				System.out.println(i + 1 + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
+						+ lecList.get(i).getProfessor() + "  単位 : " + lecList.get(i).getScore() + "  OK : " + intchN);
 			}
 		}
-
 	}
 
 	@Override
@@ -73,7 +81,6 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		return false;
 	}
 
-
 	@Override
 	public void loginProfessor(List<HumanVO> userList, String userUinqNum) {
 		// TODO Auto-generated method stub
@@ -90,9 +97,10 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	}
 
 	@Override
-	public boolean fixProfessor(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList, String userUinqNum) {
+	public boolean fixProfessor(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList,
+			String userUinqNum) {
 		// TODO Auto-generated method stub
-		if(sc.equals("y")||sc.equals("Y")) {
+		if (sc.equals("y") || sc.equals("Y")) {
 			for (int a = 0; a < lecList.size(); a++) {
 				if (lecList.get(a).getLectureName().equals(lecture.getLectureName())) {
 					fixCheck = 0;
@@ -117,12 +125,10 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				System.out.println("修正が完了しました。");
 				System.out.println("またログインしてください。");
 				checkNum = 2;
-			}	
+			}
 		}
 		return true;
 	}
-
-
 
 	public int getCheckNum() {
 		// TODO Auto-generated method stub
