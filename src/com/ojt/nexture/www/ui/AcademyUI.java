@@ -355,17 +355,6 @@ public class AcademyUI {
 								}
 								break;
 							case 4:
-								professor.deleteProfessor(userList, userUinqNum);
-								if (professor.getPrCheckNum() == 1) { // n 누름
-									professor.loginProfessor(userList, userUinqNum, userPassword);
-									PrCheckNum = 0;
-									continue LP1;
-								}
-								if (professor.getPrCheckNum() == 0) { // y 누름
-									PrCheckNum = 1;
-								}
-								break;
-							case 5:
 								System.out.println("ログアウトしました。");
 								break;
 							default:

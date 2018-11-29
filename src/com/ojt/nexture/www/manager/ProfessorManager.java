@@ -18,7 +18,5 @@ public interface ProfessorManager {
 
 	public void loginProfessor(List<HumanVO> userList,String userUinqNum,String userPassword);// ログイン
 
-	public boolean deleteProfessor(List<HumanVO> userList,String userUinqNum);// 退会
-
 	public boolean addClass(List<LectureVO> lecList, LectureVO lecture, List<HumanVO> userList,String userUinqNum);// 講義入力
 }

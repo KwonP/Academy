@@ -11,7 +11,6 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int checkPhoneNum;
 	int checkNo;
 	int fixCheck, listNum;
-	int PrCheckNum = 0;
 	int checkNum = 0;
 	int professorCheck = 0;
 	String prename;
@@ -147,37 +146,12 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		return true;
 	}
 
-	@Override
-	public boolean deleteProfessor(List<HumanVO> userList, String userUinqNum) {
-		// TODO Auto-generated method stub
-		System.out.println("本当に退会しますか。 (Y/N)");
-		String check = sc.next();
-		if (check.equals("y") || check.equals("Y")) {
-			for (int i = 0; i < userList.size(); i++) {
-				if (userList.get(i).getPhoneNum().equals(userUinqNum)) {
-					System.out.println("退会が完了しました。");
-					userList.remove(i);
-					PrCheckNum = 0;
-				}
-			}
-		} else if (check.equals("n") || check.equals("N")) {
-			PrCheckNum = 1;
-			System.out.println("退会をキャンセルしました。");
-		} else {
-			System.out.println("誤入力しました。");
-			PrCheckNum = 1;
-		}
-		return false;
-	}
 
 	public int getCheckPhoneNum() {
 		// TODO Auto-generated method stub
 		return checkPhoneNum;
 	}
 
-	public int getPrCheckNum() {
-		return PrCheckNum;
-	}
 
 	public int getCheckNum() {
 		// TODO Auto-generated method stub
