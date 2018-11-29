@@ -124,9 +124,15 @@ public class StaffManagerImpl implements StaffManager {
 				if (lecList.get(viewLecList.get(a)).getOk() == 2) {
 					access = "承認完了";
 				}
+<<<<<<< HEAD
 				System.out.println("講義名 : " + lecList.get(viewLecList.get(a)).getLectureName() + ",     担当者 : "
 						+ lecList.get(viewLecList.get(a)).getProfessor() + ",     単位 : " + lecList.get(viewLecList.get(a)).getScore() + ",     申請可能人数 : "
 						+ lecList.get(viewLecList.get(a)).getPersonnel() + ",     承認状況 :" + access);
+=======
+				System.out.println("講義名 : " + lecList.get(a).getLectureName() + ",     担当者 : "
+						+ lecList.get(a).getProfessor() + ",     単位 : " + lecList.get(a).getScore() + ",     申請可能人数 : "
+						+ lecList.get(a).getPersonnel() + ",     承認状況 :" + access);
+>>>>>>> master
 			}
 			System.out.println("------------------------------------------------------------------------");
 		}
