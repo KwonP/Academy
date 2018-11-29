@@ -111,7 +111,7 @@ public class StaffManagerImpl implements StaffManager {
 			}
 
 			for (int j = 0; j < lecList.size(); j++) {
-				if (lecList.get(j).getOk() != 1) {
+				if (lecList.get(j).getOk() == 2) {
 					viewLecList.add(j);
 				}
 			}
@@ -125,9 +125,8 @@ public class StaffManagerImpl implements StaffManager {
 					access = "承認完了";
 				}
 				System.out.println("講義名 : " + lecList.get(viewLecList.get(a)).getLectureName() + ",     担当者 : "
-						+ lecList.get(viewLecList.get(a)).getProfessor() + ",     単位 : "
-						+ lecList.get(viewLecList.get(a)).getScore() + ",     申請可能人数 : "
-						+ lecList.get(viewLecList.get(a)).getPersonnel().length + ",     承認状況 :" + access);
+						+ lecList.get(viewLecList.get(a)).getProfessor() + ",     単位 : " + lecList.get(viewLecList.get(a)).getScore() + ",     申請可能人数 : "
+						+ lecList.get(viewLecList.get(a)).getPersonnel() + ",     承認状況 :" + access);
 			}
 			System.out.println("------------------------------------------------------------------------");
 		}

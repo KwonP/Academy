@@ -5,16 +5,18 @@
 
 package com.ojt.nexture.www.entity;
 
+import java.util.List;
+
 public class LectureVO {
 
 	private String lectureName;
 	private String professor;
 	private String score;
-	private HumanVO[] personnel;
+	private int personnel;
 	private int ok;
 	private String userUinqNum;
 
-	public LectureVO(String lectureName, String professor, String score, HumanVO[] personnel,String userUinqNum,
+	public LectureVO(String lectureName, String professor, String score,  int personnel,String userUinqNum,
 			int ok) {
 		super();
 		this.lectureName = lectureName;
@@ -53,11 +55,11 @@ public class LectureVO {
 		this.score = score;
 	}
 
-	public HumanVO[] getPersonnel() {
+	public  int getPersonnel() {
 		return personnel;
 	}
 
-	public void setPersonnel(HumanVO[] personnel) {
+	public void setPersonnel( int personnel) {
 		this.personnel = personnel;
 	}
 
