@@ -39,7 +39,7 @@ public class AcademyUI {
 	int uniqNo = 0;
 	int accessCheckNum = 1;
 	List<Integer> accessCheck;
-	List<Integer> request = new ArrayList<>(); 
+	List<Integer> request = new ArrayList<>();
 
 	public AcademyUI() {
 		boolean flag = true;
@@ -118,13 +118,13 @@ public class AcademyUI {
 										human = new ProfessorVO(name, age, password, phoneNum, type, uniqNum,
 												department);
 										staff.joinProfessor(userList, human);
-										if (staff.getCheckNum() == 0) {
+										if (staff.getcheckPhoneNum() == 0) {
 											uniqNo++;
 											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
 										}
-										if (staff.getCheckNum() == 1) {
+										if (staff.getcheckPhoneNum() == 1) {
 											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
@@ -155,8 +155,8 @@ public class AcademyUI {
 									student_Num = inputString("学番：");
 
 									System.out.println("=================================================");
-									System.out.println("名前： " + name + "、    年齢： " + age + "、    電話： " + phoneNum + "、    専攻： " + major
-											+ "、    学番： " + student_Num);
+									System.out.println("名前： " + name + "、    年齢： " + age + "、    電話： " + phoneNum
+											+ "、    専攻： " + major + "、    学番： " + student_Num);
 									System.out.println("=================================================");
 									System.out.println("このまま会員登録を進めましょうか。(Y/N)");
 
@@ -168,13 +168,13 @@ public class AcademyUI {
 										human = new StudentVO(name, age, password, phoneNum, type, uniqNum, major,
 												student_Num);
 										staff.joinStudent(userList, human);
-										if (staff.getCheckNum() == 0) {
+										if (staff.getcheckPhoneNum() == 0) {
 											uniqNo++;
 											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
 										}
-										if (staff.getCheckNum() == 1) {
+										if (staff.getcheckPhoneNum() == 1) {
 											staff.logInStaff(userPassword, userUinqNum);
 											staffFlagNum = 0;
 											continue Loop2;
@@ -195,7 +195,7 @@ public class AcademyUI {
 								}
 								break;
 							case 2: // 강의승인
-								int loop4Check = 0;
+								int loop4Check = 1;
 								accessCheck = new ArrayList<>();
 								accessCount = 0;
 								Loop4: do {
@@ -218,7 +218,7 @@ public class AcademyUI {
 												accessCheckNum++;
 											}
 										}
-										accessNum = inputInt("承認しよとする講義の番号を選んでください。(0番 : 帰り。)");
+										accessNum = inputInt("承認しよとする講義の番号を選んでください。(0番 : メニュー画面)");
 									} else {
 										System.out.println("承認待ち中の講義がないです。");
 										staff.logInStaff(userPassword, userUinqNum);
@@ -242,8 +242,26 @@ public class AcademyUI {
 									}
 								} while (loop4Check == 0);
 							case 3: // 전체강의목록
-								staff.viewAllClass(lecList);
-								break;
+								int loop5Check = 1;
+								Loop5: do {
+									staff.viewAllClass(lecList);
+									if (staff.getCheckClassListNum() == 1) {
+										staff.logInStaff(userPassword, userUinqNum);
+										staffFlagNum = 0;
+										continue Loop2;
+									} else {
+										int viewCheck = inputInt("(0番 :メニュー画面)");
+										if (viewCheck == 0) {
+											staff.logInStaff(userPassword, userUinqNum);
+											staffFlagNum = 0;
+											continue Loop2;
+										} else {
+											System.out.println("正しい番号を入力してください。");
+											loop5Check = 0;
+											continue Loop5;
+										}
+									}
+								} while (loop5Check == 0);
 							case 4: // 로그아웃
 								System.out.println("ログアウトしました。");
 								logInCheck = 0;
@@ -304,20 +322,21 @@ public class AcademyUI {
 											if (userList.get(i).getUniqNum().equals(userUinqNum)) {
 												String preName = userList.get(i).getName();
 												String pre = preName;
-												lecture = new LectureVO(lectNm, pre, score, personnel,userUinqNum,ok);
+												lecture = new LectureVO(lectNm, pre, score, personnel, userUinqNum, ok);
 											}
 										}
-										professor.addClass(lecList, lecture, userList,userUinqNum);
+										professor.addClass(lecList, lecture, userList, userUinqNum);
 										professor.loginProfessor(userList, userUinqNum, userPassword);
 										flagStaff2 = "0";
 										continue LP1;
-									} if(lectureCheck.equals("n") || lectureCheck.equals("N")) {
+									}
+									if (lectureCheck.equals("n") || lectureCheck.equals("N")) {
 										System.out.println("취소되었습니다.");
 										professor.loginProfessor(userList, userUinqNum, userPassword);
 										continue LP1;
-									}else {
+									} else {
 										System.out.println("また入力してください。");
-									
+
 									}
 								} while (flagStaff2.equals("2"));
 								break LP1;
@@ -405,18 +424,14 @@ public class AcademyUI {
 									"----------------------------------------------------------------------------------");
 
 							int lectNumCheck = inputInt("");
-							
-							if(lectNumCheck == 0) {
+
+							if (lectNumCheck == 0) {
 								logInCheck = 3;
 							} else {
-							
-								
-								
-							
 
 								System.out.println(lectNum + "を申請しました。");
 								System.out.println("承認をお待ちしてください。");
-								
+
 							}
 
 							/*
