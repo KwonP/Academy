@@ -333,29 +333,11 @@ public class AcademyUI {
 								} while (flagStaff2.equals("2"));
 								break LP1;
 							case 3:
-								
-								professor.fixProfessor(lecList, userList, userUinqNum);
-							/*	int fixt = 0;
 								do {
-									System.out.println("講義を入力してください。");
-									LectureVO lecture = null;
-									String lectNm = inputString("講義名 : ");
-									int score = inputInt("単位 : ");
-									do {
-										score = inputInt("単位 : ");
-									} while (score == 0);
-									;
-									int personnel = inputInt("学生数 :");
-									do {
-										personnel = inputInt("学生数 :");
-									} while (personnel == 0);
-
-									int ok = 1;
-									/*
-									 * if(personnel.equals(null)) { System.out.println("다시 한번 입력해주세요"); a =
-									 * inputInt("学生数 :"); personnel = new HumanVO[a]; }
-									 */
-								break LP1;
+								professor.fixProfessor(lecList, userList, userUinqNum);
+								}while(professor.getCheckNum() == 0);
+								professor.loginProfessor(userList, userUinqNum);
+								continue LP1;
 							case 4:
 								System.out.println("ログアウトしました。");
 								break;
