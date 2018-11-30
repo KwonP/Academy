@@ -36,7 +36,7 @@ public class AcademyUI {
 	String student_Num;
 	int score, personnel;
 
-	int logInCheck, accessCount, accessNum, temp;
+	int logInCheck, accessCount, accessNum, temp, classCheck;
 	int uniqNo = 0;
 	int accessCheckNum = 1;
 	List<Integer> accessCheck;
@@ -368,71 +368,102 @@ public class AcademyUI {
 
 							switch (Student_S) {
 							case 1:
+								classCheck = 0;
 
-								int lectNum1 = 1;
-
-								student.allLeadingStudent(lecList, lectNum1);
-
-								int lectNumCheck1 = inputInt("");
-
-								if (lectNumCheck1 == 0) {
-									studentLoopCheck1 = 0;
-									continue studentLoop1;
-								} else {
-									System.out.println("このまま申請しますか。 (Y/N)");
-
-									check = sc.next();
-
-									if (check.equals("y") || check.equals("Y")) {
-										student.requestStudent(classStudent, lecList, userUinqNum, lectNumCheck1);
-										studentLoopCheck1 = 0;
-										continue studentLoop1;
+								for (int i = 0; i < lecList.size(); i++) {
+									if (lecList.get(i).getOk() == 2) {
+										classCheck++;
 									}
-									if (check.equals("n") || check.equals("N")) {
-										System.out.println("入力をキャンセルしました。");
-										studentLoopCheck1 = 0;
-										continue studentLoop1;
-									}
-
 								}
 
+								if (classCheck == 0) {
+									System.out.println("申請できる講義がないです。");
+									studentLoopCheck1 = 0;
+									continue studentLoop1;
+								} else {
+									int lectNum1 = 1;
+
+									student.allLeadingStudent(lecList, lectNum1);
+
+									int lectNumCheck1 = inputInt("");
+
+									if (lectNumCheck1 == 0) {
+										studentLoopCheck1 = 0;
+										continue studentLoop1;
+									} else {
+										System.out.println("このまま申請しますか。 (Y/N)");
+
+										check = sc.next();
+
+										if (check.equals("y") || check.equals("Y")) {
+											student.requestStudent(classStudent, lecList, userUinqNum, lectNumCheck1);
+											studentLoopCheck1 = 0;
+											continue studentLoop1;
+										}
+										if (check.equals("n") || check.equals("N")) {
+											System.out.println("入力をキャンセルしました。");
+											studentLoopCheck1 = 0;
+											continue studentLoop1;
+										}
+
+									}
+									classCheck = 0;
+								}
 							case 2:
 
-								int lectNum2 = 1;
+								classCheck = 0;
 
-								student.leadingStudent(classStudent, lecList, userUinqNum, lectNum2);
+								for (int i = 0; i < lecList.size(); i++) {
+									if (lecList.get(i).getOk() == 2) {
+										classCheck++;
+									}
+								}
 
-								int lectNumCheck2 = inputInt("");
-
-								System.out.println("");
-
-								if (lectNumCheck2 == 0) {
+								if (classCheck == 0) {
+									System.out.println("キャンセルできる講義がないです。");
 									studentLoopCheck1 = 0;
 									continue studentLoop1;
 								} else {
 
-									System.out.println("このままキャンセルしますか。 (Y/N)");
+									int lectNum2 = 1;
 
-									check = sc.next();
-									if (check.equals("y") || check.equals("Y")) {
+									student.leadingStudent(classStudent, lecList, userUinqNum, lectNum2);
 
-										student.cancleStudent(classStudent, lecList, userUinqNum, lectNumCheck2);
+									int lectNumCheck2 = inputInt("");
 
+									System.out.println("");
+
+									if (lectNumCheck2 == 0) {
 										studentLoopCheck1 = 0;
 										continue studentLoop1;
-									}
-									if (check.equals("n") || check.equals("N")) {
-										System.out.println("入力をキャンセルしました。");
-										studentLoopCheck1 = 0;
-										continue studentLoop1;
-									}
+									} else {
 
+										System.out.println("このままキャンセルしますか。 (Y/N)");
+
+										check = sc.next();
+										if (check.equals("y") || check.equals("Y")) {
+
+											student.cancleStudent(classStudent, lecList, userUinqNum, lectNumCheck2);
+
+											studentLoopCheck1 = 0;
+											continue studentLoop1;
+										}
+										if (check.equals("n") || check.equals("N")) {
+											System.out.println("入力をキャンセルしました。");
+											studentLoopCheck1 = 0;
+											continue studentLoop1;
+										}
+
+									}
+									classCheck = 0;
 								}
 
 							case 3:
 								System.out.println("ログアウトしました。");
-								continue Loop1;
+								logInCheck = 0;
+								break;
 							}
+							break Loop1;
 						} while (studentLoopCheck1 == 0);
 					} else {
 						logInfail();

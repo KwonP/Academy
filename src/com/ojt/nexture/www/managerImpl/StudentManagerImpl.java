@@ -24,7 +24,7 @@ public class StudentManagerImpl implements StudentManager {
 
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("\t\t\t\t ようこそ！" + userName + "様！");
-		System.out.println("\t1．全体講義一覧　　　2．自分の講義一覧　　　3．ログアウト \n");
+		System.out.println("\t1．全体講義一覧及び申請　　　2．自分の講義一覧及びキャンセル　　　3．ログアウト \n");
 		System.out.println("----------------------------------------------------------------------------------");
 
 	}
