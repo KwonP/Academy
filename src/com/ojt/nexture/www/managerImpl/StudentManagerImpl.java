@@ -1,5 +1,6 @@
 package com.ojt.nexture.www.managerImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
@@ -10,6 +11,7 @@ public class StudentManagerImpl implements StudentManager {
 	int fixCheck, listNum;
 	String userName;
 	int lectNum1, lectNum2 = 1;
+	List<Integer> request = new ArrayList<>();
 
 	@Override
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
@@ -36,6 +38,7 @@ public class StudentManagerImpl implements StudentManager {
 				System.out.println(lectNum1 + ". 講義名 : " + lecList.get(a).getLectureName() + "  担当者 : "
 						+ lecList.get(a).getProfessor() + "  単位 : " + lecList.get(a).getScore() + "  申請可能人数 : "
 						+ lecList.get(a).getPersonnel());
+				request.add(a);
 				lectNum1++;
 			}
 		}
@@ -63,14 +66,13 @@ public class StudentManagerImpl implements StudentManager {
 //			}
 //		}
 //		
-		classStudent.add(new String[] { userUinqNum, lecList.get(lectNumCheck1 - 1).getLectureName() });
-		System.out.println(userUinqNum);
-
+		classStudent.add(new String[] { userUinqNum, lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() });
+		
 		for (int c = 0; c < classStudent.size(); c++) {
 			System.out.println(classStudent.get(c)[1]);
 		}
 
-		System.out.println(lecList.get(lectNumCheck1 - 1).getLectureName() + "を申請しました。");
+		System.out.println(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() + "を申請しました。");
 
 		return true;
 	}

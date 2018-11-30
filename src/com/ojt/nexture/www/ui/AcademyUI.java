@@ -407,21 +407,7 @@ public class AcademyUI {
 
 							int lectNum1 = 1;
 							
-							System.out.println("講義リスト一です。");
-
-							for (int a = 0; a < lecList.size(); a++) {
-								if (lecList.get(a).getOk() == 2) {
-									System.out.println(lectNum1 + ". 講義名 : " + lecList.get(a).getLectureName() + "  担当者 : "
-											+ lecList.get(a).getProfessor() + "  単位 : " + lecList.get(a).getScore() + "  申請可能人数 : "
-											+ lecList.get(a).getPersonnel());
-									request.add(a);
-									lectNum1++;
-								}
-							}
-
-							System.out.println("----------------------------------------------------------------------------------");
-							System.out.println("申請する講義の番号を選んでください。帰る時には0番を書いてください。");
-							System.out.println("----------------------------------------------------------------------------------");
+							student.allLeadingStudent(lecList, lectNum1);
 
 							int lectNumCheck1 = inputInt("");
 
