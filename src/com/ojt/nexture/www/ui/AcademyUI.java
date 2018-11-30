@@ -299,11 +299,11 @@ public class AcademyUI {
 									int score = inputInt("単位 : ");
 									do {
 										score = inputInt("単位 : ");
-									}while(score ==0);
+									} while (score == 0);
 									int personnel = inputInt("学生数 :");
 									do {
 										personnel = inputInt("学生数 :");
-									}while(personnel ==0);
+									} while (personnel == 0);
 									int ok = 1;
 									System.out.println("------------------------------------------------");
 									System.out.println("                                    講義名 : " + lectNm
@@ -344,12 +344,13 @@ public class AcademyUI {
 									int score = inputInt("単位 : ");
 									do {
 										score = inputInt("単位 : ");
-									}while(score ==0);;
+									} while (score == 0);
+									;
 									int personnel = inputInt("学生数 :");
 									do {
 										personnel = inputInt("学生数 :");
-									}while(personnel ==0);
-									
+									} while (personnel == 0);
+
 									int ok = 1;
 									/*
 									 * if(personnel.equals(null)) { System.out.println("다시 한번 입력해주세요"); a =
@@ -406,7 +407,7 @@ public class AcademyUI {
 						case 1:
 
 							int lectNum1 = 1;
-							
+
 							student.allLeadingStudent(lecList, lectNum1);
 
 							int lectNumCheck1 = inputInt("");
@@ -419,10 +420,8 @@ public class AcademyUI {
 
 								student.requestStudent(classStudent, lecList, userUinqNum, lectNumCheck1);
 								break;
-								
-							}
 
-							
+							}
 
 						case 2:
 
@@ -438,19 +437,22 @@ public class AcademyUI {
 								logInCheck = 3;
 							} else {
 								
-								classStudent.remove(classStudent.get(lectNumCheck2));
+								for (int k = 0; k < classStudent.size(); k++) {
+									if (userUinqNum.equals(classStudent.get(k)[0])) {
+										classStudent.remove(classStudent.get(lectNumCheck2 - 1));
+									}
+								}
 
 								for (int c = 0; c < classStudent.size(); c++) {
 									System.out.println(classStudent.get(c)[1]);
 								}
 
-								System.out.println(lecList.get(lectNumCheck2).getLectureName() + "をキャンセルしました。");
+								System.out.println(lecList.get(lectNumCheck2 - 1).getLectureName() + "をキャンセルしました。");
 								
-								for (int i = 0; i < classStudent.size(); i++) {
-									System.out.println(classStudent.get(i)[0] + classStudent.get(i)[1]);
-								}
-
 							}
+							
+							break;
+							
 						case 3:
 							System.out.println("ログアウトしました。");
 							logInCheck = 0;
@@ -474,7 +476,6 @@ public class AcademyUI {
 		}
 
 	}
-
 
 	public void menu() {
 		System.out.println("==============アカデミー管理システム=============== \n");
@@ -503,8 +504,6 @@ public class AcademyUI {
 		inputString = sc.next();
 		return inputString;
 	}
-	
-	
 
 	public int inputInt(String message) {
 		System.out.println(message);
