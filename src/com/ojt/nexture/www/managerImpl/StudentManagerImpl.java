@@ -59,19 +59,18 @@ public class StudentManagerImpl implements StudentManager {
 //					System.out.println("もう申請した講義です。");
 //					break;
 //				}
-//				System.out.println("dd");
 //
 //			}
 //		}
 //		
-		classStudent.add(new String[] { userUinqNum, lecList.get(lectNumCheck1).getLectureName() });
+		classStudent.add(new String[] { userUinqNum, lecList.get(lectNumCheck1 - 1).getLectureName() });
 		System.out.println(userUinqNum);
 
 		for (int c = 0; c < classStudent.size(); c++) {
 			System.out.println(classStudent.get(c)[1]);
 		}
 
-		System.out.println(lecList.get(lectNumCheck1).getLectureName() + "を申請しました。");
+		System.out.println(lecList.get(lectNumCheck1 - 1).getLectureName() + "を申請しました。");
 
 		return true;
 	}

@@ -432,10 +432,11 @@ public class AcademyUI {
 							} else {
 
 								student.requestStudent(classStudent, lecList, userUinqNum, lectNumCheck1);
-
+								break;
+								
 							}
 
-							logInCheck = 3;
+							
 
 						case 2:
 
