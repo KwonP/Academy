@@ -42,7 +42,6 @@ public class AcademyUI {
 	List<Integer> accessCheck;
 
 	List<Integer> request = new ArrayList<>();
-	List<Integer> cancle = new ArrayList<>();
 
 	public AcademyUI() {
 		boolean flag = true;

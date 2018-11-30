@@ -7,12 +7,12 @@ import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.manager.StudentManager;
 
 public class StudentManagerImpl implements StudentManager {
+
 	int checkNum;
-	int fixCheck, listNum;
+	int person, personCount = 0;
 	String userName;
 	int lectNum1, lectNum2 = 1;
 	List<Integer> request = new ArrayList<>();
-	List<Integer> cancle = new ArrayList<>();
 
 	@Override
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
@@ -60,15 +60,28 @@ public class StudentManagerImpl implements StudentManager {
 
 		for (int i = 0; i < classStudent.size(); i++) {
 			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
+				if(userUinqNum.equals(classStudent.get(i)[0]))
 				checkNum++;
 			}
 		} // 중복 여부 체크
 
 		if (checkNum == 0) {
+
 			classStudent
 					.add(new String[] { userUinqNum, lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() });
 
 			System.out.println(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() + "を申請しました。");
+
+			/*// 펄슨수 시작
+			for (int i = 0; i < classStudent.size(); i++) {
+				if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
+					personCount++;
+					if (lecList.get(request.get(lectNumCheck1 - 1)).getPersonnel() > personCount) {
+						System.out.println("人数が超過しました");
+					}
+				}
+			} // 펄슨수 끝
+*/
 		} else {
 
 			System.out.println("もう申請した講義です。");
@@ -90,7 +103,6 @@ public class StudentManagerImpl implements StudentManager {
 						System.out.println(lectNum2 + ". 講義名 : " + lecList.get(y).getLectureName() + "  担当者 : "
 								+ lecList.get(y).getProfessor() + "  単位 : " + lecList.get(y).getScore() + "  申請可能人数 : "
 								+ lecList.get(y).getPersonnel());
-						cancle.add(y);
 						lectNum2++;
 					}
 				}
