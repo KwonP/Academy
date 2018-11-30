@@ -7,11 +7,12 @@ import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.manager.StudentManager;
 
 public class StudentManagerImpl implements StudentManager {
-	int checkNum = 0;
+	int checkNum;
 	int fixCheck, listNum;
 	String userName;
 	int lectNum1, lectNum2 = 1;
 	List<Integer> request = new ArrayList<>();
+	List<Integer> cancle = new ArrayList<>();
 
 	@Override
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
@@ -55,24 +56,24 @@ public class StudentManagerImpl implements StudentManager {
 	public boolean requestStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
 			int lectNumCheck1) {
 
-//		for (int i = 0; i < classStudent.size(); i++) {
-//			for (int k = 0; k < lecList.size(); k++) {
-//
-//				if (classStudent.get(i)[1].equals(lecList.get(k).getLectureName())) {
-//					System.out.println("もう申請した講義です。");
-//					break;
-//				}
-//
-//			}
-//		}
-//		
-		classStudent.add(new String[] { userUinqNum, lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() });
-		
-		for (int c = 0; c < classStudent.size(); c++) {
-			System.out.println(classStudent.get(c)[1]);
-		}
+		checkNum = 0;
 
-		System.out.println(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() + "を申請しました。");
+		for (int i = 0; i < classStudent.size(); i++) {
+			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
+				checkNum++;
+			}
+		} // 중복 여부 체크
+
+		if (checkNum == 0) {
+			classStudent
+					.add(new String[] { userUinqNum, lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() });
+
+			System.out.println(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() + "を申請しました。");
+		} else {
+
+			System.out.println("もう申請した講義です。");
+			checkNum = 0;
+		}
 
 		return true;
 	}
@@ -89,6 +90,7 @@ public class StudentManagerImpl implements StudentManager {
 						System.out.println(lectNum2 + ". 講義名 : " + lecList.get(y).getLectureName() + "  担当者 : "
 								+ lecList.get(y).getProfessor() + "  単位 : " + lecList.get(y).getScore() + "  申請可能人数 : "
 								+ lecList.get(y).getPersonnel());
+						cancle.add(y);
 						lectNum2++;
 					}
 				}
@@ -102,9 +104,23 @@ public class StudentManagerImpl implements StudentManager {
 	}
 
 	@Override
-	public boolean cancleStudent() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean cancleStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
+			int lectNumCheck2) {
+
+		for (int k = 0; k < classStudent.size(); k++) {
+			if (userUinqNum.equals(classStudent.get(k)[0])) {
+				for (int y = 0; y < lecList.size(); y++) {
+					if (classStudent.get(k)[1].equals(lecList.get(y).getLectureName())) {
+
+						System.out.println(classStudent.get(k)[1] + "をキャンセルしました。");
+						classStudent.remove(classStudent.get(k));
+
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 }

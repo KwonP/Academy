@@ -18,6 +18,7 @@ public interface StudentManager {
 	public boolean requestStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum, int lectNumCheck1);
 	// 전체강의목록열람 및 강의 취소
 	public boolean leadingStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum, int lectNum2);
-	public boolean cancleStudent();
+	public boolean cancleStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
+			int lectNumCheck2);
 
 }
