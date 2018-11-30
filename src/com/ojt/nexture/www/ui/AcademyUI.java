@@ -274,7 +274,6 @@ public class AcademyUI {
 					} else if (logInCheck == 2) {
 						professor.loginProfessor(userList, userUinqNum);
 						int PrCheckNum = 0;
-						String fixcheck;
 						LP1: do {
 							int check = 0;
 							try {
@@ -284,9 +283,12 @@ public class AcademyUI {
 							}
 							switch (check) {
 							case 1:
-								System.out.println("担当講義閲覧");
-								professor.pj_Join(userList, lecList, userUinqNum);
-								System.out.println("");
+								do {
+									System.out.println("担当講義閲覧");
+									
+									professor.pj_Join(classStudent,userList, lecList, userUinqNum);
+									System.out.println("");
+								}while(professor.getCheckNum() == 0);
 								professor.loginProfessor(userList, userUinqNum);
 								continue LP1;
 							case 2:
