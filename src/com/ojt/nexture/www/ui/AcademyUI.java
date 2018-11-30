@@ -34,6 +34,7 @@ public class AcademyUI {
 	String department;
 	String major;
 	String student_Num;
+	int score, personnel;
 
 	int logInCheck, accessCount, accessNum, temp;
 	int uniqNo = 0;
@@ -270,8 +271,6 @@ public class AcademyUI {
 							break Loop1;
 						} while (staffFlagNum == 0);
 					} else if (logInCheck == 2) {
-
-						System.out.println("프로페서");
 						professor.loginProfessor(userList, userUinqNum);
 						int PrCheckNum = 0;
 						String fixcheck;
@@ -296,18 +295,16 @@ public class AcademyUI {
 									System.out.println("講義を入力してください。");
 									LectureVO lecture = null;
 									String lectNm = inputString("講義名 : ");
-									int score = inputInt("単位 : ");
 									do {
 										score = inputInt("単位 : ");
 									} while (score == 0);
-									int personnel = inputInt("学生数 :");
 									do {
 										personnel = inputInt("学生数 :");
 									} while (personnel == 0);
 									int ok = 1;
 									System.out.println("------------------------------------------------");
-									System.out.println("                                    講義名 : " + lectNm
-											+ ",   単位 : " + score + ",   学生数 : " + personnel);
+									System.out.println("　　　 講義名 : " + lectNm + ",   単位 : " + score
+											+ ",   学生数 : " + personnel);
 									System.out.println("------------------------------------------------");
 									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
 									String lectureCheck = null;
@@ -326,7 +323,7 @@ public class AcademyUI {
 										continue LP1;
 									}
 									if (lectureCheck.equals("n") || lectureCheck.equals("N")) {
-										System.out.println("취소되었습니다.");
+										System.out.println("キャンセルされました。");
 										professor.loginProfessor(userList, userUinqNum);
 										continue LP1;
 									} else {
@@ -336,7 +333,9 @@ public class AcademyUI {
 								} while (flagStaff2.equals("2"));
 								break LP1;
 							case 3:
-								int fixt = 0;
+								
+								professor.fixProfessor(lecList, userList, userUinqNum);
+							/*	int fixt = 0;
 								do {
 									System.out.println("講義を入力してください。");
 									LectureVO lecture = null;
@@ -356,29 +355,6 @@ public class AcademyUI {
 									 * if(personnel.equals(null)) { System.out.println("다시 한번 입력해주세요"); a =
 									 * inputInt("学生数 :"); personnel = new HumanVO[a]; }
 									 */
-									for (int i = 0; i < userList.size(); i++) {
-										if (userList.get(i).getUniqNum().equals(userUinqNum)) {
-											String preName = userList.get(i).getName();
-											String pre = preName;
-											lecture = new LectureVO(lectNm, pre, score, personnel, userUinqNum, ok);
-										}
-									}
-									System.out.println("------------------------------------------------");
-									System.out.println("                                    講義名 : " + lectNm
-											+ ",   単位 : " + score + ",   学生数 : " + personnel);
-									System.out.println("------------------------------------------------");
-									System.out.println("このまま会員登録を進めましょうか。 (Y/N)");
-
-									professor.fixProfessor(lecList, lecture, userList, userUinqNum);
-									if (professor.getCheckNum() == 1) {// 존재하는 과목일경우
-										professor.loginProfessor(userList, userUinqNum);
-										PrCheckNum = 0;
-										continue LP1;
-									}
-									if (professor.getCheckNum() == 2) { // 수정완료
-										break LP1;
-									}
-								} while (fixt == 1);
 								break LP1;
 							case 4:
 								System.out.println("ログアウトしました。");
