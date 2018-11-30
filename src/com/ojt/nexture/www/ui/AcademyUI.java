@@ -245,7 +245,7 @@ public class AcademyUI {
 							case 3: // 전체강의목록
 								int loop5Check = 1;
 								Loop5: do {
-									staff.viewAllClass(lecList);
+									staff.viewAllClass(lecList, classStudent);
 									if (staff.getCheckClassListNum() == 1) {
 										staff.logInStaff(userPassword, userUinqNum);
 										staffFlagNum = 0;

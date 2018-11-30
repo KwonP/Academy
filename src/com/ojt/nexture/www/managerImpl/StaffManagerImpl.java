@@ -13,6 +13,7 @@ public class StaffManagerImpl implements StaffManager {
 	int fixCheck, listNum, professorCheck;
 	List<Integer> viewLecList;
 	String access;
+	int classCount;
 
 	// staff ログイン
 	@Override
@@ -94,10 +95,13 @@ public class StaffManagerImpl implements StaffManager {
 
 	// 全体講義一覧
 	@Override
-	public boolean viewAllClass(List<LectureVO> lecList) {
+	public boolean viewAllClass(List<LectureVO> lecList, List<String[]> classStudent) {
 		// TODO Auto-generated method stub
 		viewLecList = new ArrayList<>();
 		checkClassListNum = 0;
+//		if (classStudent.size() == 0) {
+//			classCount = 0;
+//		}
 
 		if (lecList.size() == 0) {
 			System.out.println("講義リストがないです。");
@@ -118,6 +122,12 @@ public class StaffManagerImpl implements StaffManager {
 
 			System.out.println("------------------------------------------------------------------------");
 			for (int a = 0; a < viewLecList.size(); a++) {
+				classCount = 0;
+				for (int j = 0; j < classStudent.size(); j++) {
+					if (lecList.get(viewLecList.get(a)).getLectureName().equals(classStudent.get(j)[1])) {
+						classCount++;
+					}
+				}
 				if (lecList.get(viewLecList.get(a)).getOk() == 1) {
 					access = "承認待ち";
 				}
@@ -126,10 +136,11 @@ public class StaffManagerImpl implements StaffManager {
 				}
 				System.out.println("講義名 : " + lecList.get(viewLecList.get(a)).getLectureName() + ",     担当者 : "
 						+ lecList.get(viewLecList.get(a)).getProfessor() + ",     単位 : "
-						+ lecList.get(viewLecList.get(a)).getScore() + ",     申請可能人数 : "
+						+ lecList.get(viewLecList.get(a)).getScore() + ",     申請人数 : " + classCount + "/"
 						+ lecList.get(viewLecList.get(a)).getPersonnel() + ",     承認状況 :" + access);
-				System.out.println("------------------------------------------------------------------------");
+
 			}
+			System.out.println("------------------------------------------------------------------------");
 		}
 		return true;
 	}
