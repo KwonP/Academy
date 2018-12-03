@@ -20,40 +20,78 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	String prename;
 	String intch;
 	String intchN;
+	int tr;
+	String newlecList;
 
 	@Override
-	public void pj_Join(List<HumanVO> userList, List<LectureVO> lecList, String userUinqNum) {
+	public void pj_Join(List<String[]> classStudent, List<HumanVO> userList, List<LectureVO> lecList,
+			String userUinqNum) {
 		checkNo = 0;
 		plusenumber = 1;
-		for (int a = 0; a < lecList.size(); a++) {
-			if (lecList.get(a).getUniqNum().equals(userUinqNum)) {
-				checkNo++;
-			}
-		}
-		if (checkNo == 0) {
-			System.out.println("保存された値段がありません。");
-		} else {
-			for (int i = 0; i < lecList.size(); i++) {
-				if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
-					if (lecList.get(i).getOk() == 1) {
-						intch = Integer.toString(lecList.get(i).getOk());
-						intchN = intch;
-						intchN = "承認待ち";
-					}
-					if (lecList.get(i).getOk() == 2) {
-						intch = Integer.toString(lecList.get(i).getOk());
-						intchN = intch;
-						intchN = "承認完了";
-					}
-					System.out.println(plusenumber + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
-							+ lecList.get(i).getProfessor() + "  学生数 : " + lecList.get(i).getPersonnel() + "  単位 : "
-							+ lecList.get(i).getScore() + "  OK : " + intchN);
-					plusenumber++;
+		tr = 0;
+		do {
+			for (int a = 0; a < lecList.size(); a++) {
+				if (lecList.get(a).getUniqNum().equals(userUinqNum)) {
+					checkNo++;
 				}
-
 			}
-		}
+			if (checkNo == 0) {
+				System.out.println("保存された値段がありません。");
+			} else {
+				for (int i = 0; i < lecList.size(); i++) {
+					if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
+						if (lecList.get(i).getOk() == 1) {
+							intch = Integer.toString(lecList.get(i).getOk());
+							intchN = intch;
+							intchN = "承認待ち";
+						}
+						if (lecList.get(i).getOk() == 2) {
+							intch = Integer.toString(lecList.get(i).getOk());
+							intchN = intch;
+							intchN = "承認完了";
+						}
+						System.out.println(plusenumber + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
+								+ lecList.get(i).getProfessor() + "  学生数 : " + lecList.get(i).getPersonnel() + "  単位 : "
+								+ lecList.get(i).getScore() + "  OK : " + intchN);
+						plusenumber++;
+					}
 
+				}
+			}
+			tr = 1;
+		} while (tr == 0);
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if (plusenumber == 1) { // 강의 목록이 존재하지 않는다면
+			checkNum = 1; // 목록이 다시 나오지 않는다 (로그인 후 메뉴로 돌아간다.)
+		} else {
+			System.out.println("講義科目を入力してください。 ");
+			repre = sc.nextLine();
+			for (int z = 0; z < lecList.size(); z++) {
+				if (lecList.get(z).getLectureName().equals(repre)) {
+					newlecList = lecList.get(z).getLectureName();
+					System.out.println(newlecList);
+				} else {
+					System.out.println("값이 없습니다.");
+					break;
+				}
+			}
+			for (int a = 0; a < classStudent.size(); a++) {
+				if (classStudent.get(a)[1].equals(newlecList)) {// 입력한 값이 같으면 출력
+					for (int x = 0; x<userList.size(); x++) {
+						if (classStudent.get(a)[0].equals(userList.get(x).getUniqNum())) {// 입력한 강의와 학생이 신청한 강의의 이름이 같으면
+							System.out.println("학생이름:" + userList.get(x).getName());
+						} else {
+							System.out.println("값이 없습니다.3");
+						}
+					}
+				} else {
+					System.out.println("값이없습니다.2");
+				}
+			}
+
+		}
 	}
 
 	@Override
@@ -105,8 +143,9 @@ public class ProfessorManagerImpl implements ProfessorManager {
 
 	@Override
 	public boolean fixProfessor(List<LectureVO> lecList, List<HumanVO> userList, String userUinqNum) {
-		int tr = 0;
+		tr = 0;
 		plusenumber = 1;
+		checkNum = 0;
 		do {
 			for (int a = 0; a < lecList.size(); a++) {
 				if (lecList.get(a).getUniqNum().equals(userUinqNum)) {
@@ -139,19 +178,28 @@ public class ProfessorManagerImpl implements ProfessorManager {
 			tr = 1;
 
 		} while (tr == 0);
-		System.out.println("変更しようとする講義科目を入力してください。 ");
-		repre = sc.nextLine();
-		for (int a = 0; a < lecList.size(); a++) {
-			if (lecList.get(a).getLectureName().equals(repre)) {
 
-				do {
-					repersonnel = inputInt("学生数 :");
-				} while (repersonnel == 0);
+		if (plusenumber == 1) {
+			checkNum = 1;
+		} else {
+			System.out.println("変更しようとする講義科目を入力してください。돌아 갈경우 0를 눌러주세요 ");
+			repre = sc.nextLine();
+			int q = 0;
+			String w = Integer.toString(q);
+			if (repre.equals(w)) {
 				checkNum = 1;
-				lecList.get(a).setPersonnel(repersonnel);
-				System.out.println("修正完了しました。");
+			} else {
+				for (int a = 0; a < lecList.size(); a++) {
+					if (lecList.get(a).getLectureName().equals(repre)) {
+						do {
+							repersonnel = inputInt("学生数 :");
+						} while (repersonnel == 0);
+						checkNum = 1;
+						lecList.get(a).setPersonnel(repersonnel);
+						System.out.println("修正完了しました。");
+					}
+				}
 			}
-
 		}
 		return false;
 	}

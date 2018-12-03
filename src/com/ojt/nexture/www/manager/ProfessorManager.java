@@ -10,7 +10,7 @@ import com.ojt.nexture.www.entity.LectureVO;
 
 public interface ProfessorManager {
 
-	public void pj_Join(List<HumanVO> userList,List<LectureVO> lecList,String userUinqNum);// 担当講義閲覧
+	public void pj_Join(List<String[]> classStudent,List<HumanVO> userList,List<LectureVO> lecList,String userUinqNum);// 担当講義閲覧
 
 	public boolean fixProfessor(List<LectureVO> lecList, List<HumanVO> userList, String userUinqNum);// 情報修正
 
