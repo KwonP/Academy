@@ -194,8 +194,12 @@ public class AcademyUI {
 										continue Loop2;
 									}
 								default:
+									System.out.println("正しいメニューを選択してください。");
+									staff.logInStaff(userPassword, userUinqNum);
+									staffFlagNum = 0;
+									continue Loop2;
 								}
-								break;
+								
 							case 2: // 강의승인
 								int loop4Check = 1;
 								accessCheck = new ArrayList<>();
@@ -243,6 +247,7 @@ public class AcademyUI {
 										continue Loop4;
 									}
 								} while (loop4Check == 0);
+								
 							case 3: // 전체강의목록
 								int loop5Check = 1;
 								Loop5: do {
@@ -264,10 +269,17 @@ public class AcademyUI {
 										}
 									}
 								} while (loop5Check == 0);
+								
 							case 4: // 로그아웃
 								System.out.println("ログアウトしました。");
 								logInCheck = 0;
 								break;
+								
+							default:
+								System.out.println("正しいメニューを選択してください。");
+								staff.logInStaff(userPassword, userUinqNum);
+								staffFlagNum = 0;
+								continue Loop2;
 							}
 							break Loop1;
 						} while (staffFlagNum == 0);
@@ -285,10 +297,10 @@ public class AcademyUI {
 							case 1:
 								do {
 									System.out.println("担当講義閲覧");
-									
-									professor.pj_Join(classStudent,userList, lecList, userUinqNum);
+
+									professor.pj_Join(classStudent, userList, lecList, userUinqNum);
 									System.out.println("");
-								}while(professor.getCheckNum() == 0);
+								} while (professor.getCheckNum() == 0);
 								professor.loginProfessor(userList, userUinqNum);
 								continue LP1;
 							case 2:
