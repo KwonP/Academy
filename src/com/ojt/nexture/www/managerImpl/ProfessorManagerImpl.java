@@ -68,7 +68,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 			checkNum = 1;
 		} else {
 			System.out.println("講義科目を入力してください。帰る時には0番を書いてください。 ");
-			repre = sc.nextLine();
+			repre = inputString("選択:0 , 講義科目:  ");
 			int q = 0;
 			String w = Integer.toString(q);
 			if (repre.equals(w)) {
@@ -190,7 +190,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 			checkNum = 1;
 		} else {
 			System.out.println("変更しようとする講義科目を入力してください。帰る時には0番を書いてください。 ");
-			repre = sc.nextLine();
+			repre = inputString("選択:0 , 講義科目: ");
 			int q = 0;
 			String w = Integer.toString(q);
 			if (repre.equals(w)) {
@@ -226,5 +226,10 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		}
 		return inputInt;
 	}
-
+	public String inputString(String message) {
+		System.out.println(message);
+		String inputString = null;
+		inputString = sc.next();
+		return inputString;
+	}
 }
