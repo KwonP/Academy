@@ -9,8 +9,6 @@ import com.ojt.nexture.www.manager.StaffManager;
 
 public class StaffManagerImpl implements StaffManager {
 	int checkPhoneNum, checkClassListNum;
-	int deleteCheckFlag = 0;
-	int fixCheck, listNum, professorCheck;
 	List<Integer> viewLecList;
 	String access;
 	int classCount;
@@ -99,9 +97,6 @@ public class StaffManagerImpl implements StaffManager {
 		// TODO Auto-generated method stub
 		viewLecList = new ArrayList<>();
 		checkClassListNum = 0;
-//		if (classStudent.size() == 0) {
-//			classCount = 0;
-//		}
 
 		if (lecList.size() == 0) {
 			System.out.println("講義リストがないです。");
@@ -147,10 +142,6 @@ public class StaffManagerImpl implements StaffManager {
 
 	public int getcheckPhoneNum() {
 		return checkPhoneNum;
-	}
-
-	public int getDeleteCheckFlag() {
-		return deleteCheckFlag;
 	}
 
 	public int getCheckClassListNum() {
