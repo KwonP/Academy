@@ -442,7 +442,7 @@ public class AcademyUI {
 								for (int i = 0; i < classStudent.size(); i++) {
 									if (userUinqNum.equals(classStudent.get(i)[0])) {
 										for (int a = 0; a < lecList.size(); a++) {
-											if (classStudent.get(i)[1].equals(lecList.get(i).getLectureName())) {
+											if (classStudent.get(i)[1].equals(lecList.get(a).getLectureName())) {
 												classCheck++;
 											}
 										}
