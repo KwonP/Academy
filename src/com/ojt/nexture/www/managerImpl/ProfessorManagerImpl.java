@@ -84,49 +84,50 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				for (int z = 0; z < lecList.size(); z++) {
 					if (lecList.get(z).getLectureName().equals(repre)) { // 입력한 강의 이름이 강의 목록에 있는지 체크
 						lectListnumber = 1;
+						intNum.add(z);
 					}
-
 				}
+
 				if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
 					System.out.println("入力され講義情報がありません");
 				} else if (lectListnumber == 1) { // 입력한 강의 이름이 강의 목록에 있다면
-
-					for (int a = 0; a < classStudent.size(); a++) {
-						if (classStudent.get(a)[1].equals(repre)) { // 입력한 강의를 신청한 학생이 있는지 체크
-							checkStudent.add(classStudent.get(a)[0]); // 입력한 강의를 신청한 학생이 있다면 checkStudent에 그 학생들의
-																		// uniqNum 저장
-							lectListnumber1 = 1;
+					for (int i = 0; i < intNum.size(); i++) {
+						if (lecList.get(intNum.get(i)).getUniqNum().equals(userUinqNum)) { // 해당교수의 강의인지 체크
+							lectListnumber3 = 1;
 						}
 					}
-					if (lectListnumber1 == 0) { // 입력한 강의를 신청한 학생이 없다면
-						System.out.println("入力され学生情報がありません。");
-					} else if (lectListnumber1 == 1) { // 입력한 강의를 신청한 학생이 있다면
-						lectListnumber2 = 0;
-						for (int c = 0; c < checkStudent.size(); c++) {
-							for (int x = 0; x < userList.size(); x++) {
-								if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) { // 신청한 학생의 uniqNum를
-									intNum.add(x); // userList에서 체크
-									lectListnumber2 = 1;
-								}
+					if (lectListnumber3 == 1) {
+						intNum = new ArrayList<>();
+						for (int a = 0; a < classStudent.size(); a++) {
+							if (classStudent.get(a)[1].equals(repre)) { // 입력한 강의를 신청한 학생이 있는지 체크
+								checkStudent.add(classStudent.get(a)[0]); // 입력한 강의를 신청한 학생이 있다면 checkStudent에 그 학생들의
+																			// uniqNum 저장
+								lectListnumber1 = 1;
 							}
 						}
-						if (lectListnumber2 == 1) {
-							for (int i = 0; i < intNum.size(); i++) {
-								if (lecList.get(intNum.get(i)).getUniqNum().equals(userUinqNum)) {
-									lectListnumber3 = 1;
+						if (lectListnumber1 == 0) { // 입력한 강의를 신청한 학생이 없다면
+							System.out.println("入力され学生情報がありません。");
+						} else if (lectListnumber1 == 1) { // 입력한 강의를 신청한 학생이 있다면
+							lectListnumber2 = 0;
+							for (int c = 0; c < checkStudent.size(); c++) {
+								for (int x = 0; x < userList.size(); x++) {
+									if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) { // 신청한 학생의 uniqNum를
+										intNum.add(x); // userList에서 체크
+										lectListnumber2 = 1;
+									}
 								}
 							}
-							if (lectListnumber3 == 1) {
+							if (lectListnumber2 == 1) {
 								for (int a = 0; a < intNum.size(); a++) {
 									System.out.println("学生の名前：  " + userList.get(intNum.get(a)).getName());
 								}
-							} else {
-								System.out.println("해당 교수의 강의가 아닙니다.");
 							}
 						}
-
+					} else {
+						System.out.println("해당 교수의 강의가 아닙니다.");
 					}
 				}
+
 				checkNum = 1;
 			}
 		}
