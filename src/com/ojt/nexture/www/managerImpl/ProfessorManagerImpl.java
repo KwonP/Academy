@@ -10,7 +10,7 @@ import com.ojt.nexture.www.manager.ProfessorManager;
 
 public class ProfessorManagerImpl implements ProfessorManager {
 	Scanner sc = new Scanner(System.in);
-	int checkNo;
+	int checkNo, intNumCheck;
 	int fixCheck, listNum;
 	int checkNum = 0;
 	int professorCheck = 0;
@@ -27,6 +27,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	String newlecList;
 	ArrayList<String> checkStudent;
 	ArrayList<String> checkLectureName = new ArrayList<>();
+	List<Integer> intNum;
 
 	@Override
 	public void pj_Join(List<String[]> classStudent, List<HumanVO> userList, List<LectureVO> lecList,
@@ -38,6 +39,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		plusenumber = 1;
 		tr = 0;
 		checkStudent = new ArrayList<>();
+		intNum = new ArrayList<>();
 		do {
 			for (int a = 0; a < lecList.size(); a++) {
 				if (lecList.get(a).getUniqNum().equals(userUinqNum)) {
@@ -75,50 +77,47 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		} else {
 			System.out.println("講義科目を入力してください。帰る時には0番を書いてください。 ");
 			repre = inputString("選択:0 , 講義科目:  ");
-			int q = 0;
-			String w = Integer.toString(q);
-			if (repre.equals(w)) {
+			if (repre.equals("0")) {
 				checkNum = 1;
 			} else {
 				for (int z = 0; z < lecList.size(); z++) {
-					if (lecList.get(z).getLectureName().equals(repre)) {
-						newlecList = lecList.get(z).getLectureName();
+					if (lecList.get(z).getLectureName().equals(repre)) { // 입력한 강의 이름이 강의 목록에 있는지 체크
 						lectListnumber = 1;
 					}
-					if (lectListnumber == 0) {
-						System.out.println("入力され講義情報がありません。");
-					} else if (lectListnumber == 1) {
-						for (int a = 0; a < classStudent.size(); a++) {
-							if (classStudent.get(a)[1].equals(newlecList)) {
-								checkStudent.add(classStudent.get(a)[0]);
-								lectListnumber1 = 1;
-							}
 
+				}
+				if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
+					System.out.println("入力され講義情報がありません。1");
+				} else if (lectListnumber == 1) { // 입력한 강의 이름이 강의 목록에 있다면
+					for (int a = 0; a < classStudent.size(); a++) {
+						if (classStudent.get(a)[1].equals(repre)) { // 입력한 강의를 신청한 학생이 있는지 체크
+							checkStudent.add(classStudent.get(a)[0]); // 입력한 강의를 신청한 학생이 있다면 checkStudent에 그 학생들의
+																		// uniqNum 저장
+							lectListnumber1 = 1;
 						}
 					}
-					if (lectListnumber1 == 0) {
-						System.out.println("入力され学生情報がありません。");
-					} else if (lectListnumber1 == 1) {
+					if (lectListnumber1 == 0) { // 입력한 강의를 신청한 학생이 없다면
+						System.out.println("신청한 학생이 없습니다");
+					} else if (lectListnumber1 == 1) { // 입력한 강의를 신청한 학생이 있다면
 						lectListnumber2 = 0;
 						for (int c = 0; c < checkStudent.size(); c++) {
 							for (int x = 0; x < userList.size(); x++) {
-								if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) {
-									lectListnumber2 =1;
+								if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) { // 신청한 학생의 uniqNum를
+									intNum.add(x); // userList에서 체크
+									lectListnumber2 = 1;
 								}
-								if(lectListnumber2 == 0) {
-									System.out.println("존재하는 번호 ");
-								}
-								else if(lectListnumber2 == 1) {
-									checkLectureName.add(userList.get(x).getName());	
-								}
+
 							}
-							
+
+						}
+						if (lectListnumber2 == 1) {
+							for (int a = 0; a < intNum.size(); a++) {
+								System.out.println(userList.get(intNum.get(a)).getName());
+							}
 						}
 					}
 				}
-				for (int b = 0; b < checkLectureName.size(); b++) {
-					System.out.println("学生の名前: " + checkLectureName.get(b));
-				}
+
 				checkNum = 1;
 			}
 		}

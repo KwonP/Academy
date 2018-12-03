@@ -5,8 +5,6 @@
 
 package com.ojt.nexture.www.entity;
 
-import java.util.List;
-
 public class LectureVO {
 
 	private String lectureName;
