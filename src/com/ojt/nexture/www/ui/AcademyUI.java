@@ -475,6 +475,11 @@ public class AcademyUI {
 								System.out.println("ログアウトしました。");
 								logInCheck = 0;
 								break;
+							
+							default:
+								System.out.println("正しいメニューを選択してください。");
+								studentLoopCheck1 = 0;
+								continue studentLoop1;
 							}
 
 							break Loop1;

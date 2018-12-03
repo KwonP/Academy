@@ -8,11 +8,11 @@ import com.ojt.nexture.www.manager.StudentManager;
 
 public class StudentManagerImpl implements StudentManager {
 
-	int checkNum;
-	int person, personCount = 0;
+	int checkNum, checkNum2, personCount;
 	String userName;
 	int lectNum1, lectNum2 = 1;
 	List<Integer> request = new ArrayList<>();
+	List<Integer> cancle = new ArrayList<>();
 
 	@Override
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
@@ -57,6 +57,7 @@ public class StudentManagerImpl implements StudentManager {
 			int lectNumCheck1) {
 
 		checkNum = 0;
+		personCount = 0;
 
 		for (int i = 0; i < classStudent.size(); i++) {
 			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
@@ -72,7 +73,7 @@ public class StudentManagerImpl implements StudentManager {
 			}
 		} // 강의 신청 인원 체크
 
-		if (lecList.get(request.get(lectNumCheck1 - 1)).getPersonnel() < personCount) {
+		if (lecList.get(request.get(lectNumCheck1 - 1)).getPersonnel() <= personCount) {
 			checkNum = 1;
 		} // 강의 신청 인원 체크
 
@@ -83,14 +84,10 @@ public class StudentManagerImpl implements StudentManager {
 
 			System.out.println(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() + "を申請しました。");
 
-		} else if (checkNum == 1) {
-			System.out.println("人数が超過しました。");
-			checkNum = 0;
 		} else {
-			System.out.println("もう申請した講義です。");
+			System.out.println("人数が超過した講義とかもう申請した講義です。");
 			checkNum = 0;
 		}
-
 		return true;
 	}
 
@@ -106,6 +103,7 @@ public class StudentManagerImpl implements StudentManager {
 						System.out.println(lectNum2 + ". 講義名 : " + lecList.get(y).getLectureName() + "  担当者 : "
 								+ lecList.get(y).getProfessor() + "  単位 : " + lecList.get(y).getScore() + "  申請可能人数 : "
 								+ lecList.get(y).getPersonnel());
+						cancle.add(k);
 						lectNum2++;
 					}
 				}
@@ -122,17 +120,25 @@ public class StudentManagerImpl implements StudentManager {
 	public boolean cancleStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
 			int lectNumCheck2) {
 
-		for (int k = 0; k < classStudent.size(); k++) {
-			if (userUinqNum.equals(classStudent.get(k)[0])) {
-				for (int y = 0; y < lecList.size(); y++) {
-					if (classStudent.get(k)[1].equals(lecList.get(y).getLectureName())) {
+		checkNum2 = 0;
 
-						System.out.println(classStudent.get(k)[1] + "をキャンセルしました。");
-						classStudent.remove(classStudent.get(k));
-
-					}
-				}
+		for (int i = 0; i < classStudent.size(); i++) {
+			if (classStudent.get(i)[1].equals(lecList.get(cancle.get(lectNumCheck2 - 1)).getLectureName())) {
+				if (userUinqNum.equals(classStudent.get(i)[0]))
+					checkNum2 = 0;
 			}
+		} // 중복 여부 체크
+
+		if (checkNum == 0) {
+
+			System.out.println(classStudent.get(cancle.get(lectNumCheck2 - 1))[1] + "をキャンセルしました。");
+			classStudent.remove(classStudent.get(cancle.get(lectNumCheck2 - 1)));
+
+			for (int i = 0; i < classStudent.size(); i++) {
+				if (classStudent.get(i)[1].equals(lecList.get(cancle.get(lectNumCheck2)).getLectureName())) {
+					personCount--;
+				}
+			} // 강의 신청 인원 체크
 		}
 
 		return true;
