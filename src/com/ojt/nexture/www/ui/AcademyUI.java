@@ -462,6 +462,7 @@ public class AcademyUI {
 								logInCheck = 0;
 								break;
 							}
+
 							break Loop1;
 						} while (studentLoopCheck1 == 0);
 					} else {

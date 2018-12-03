@@ -60,10 +60,21 @@ public class StudentManagerImpl implements StudentManager {
 
 		for (int i = 0; i < classStudent.size(); i++) {
 			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
-				if(userUinqNum.equals(classStudent.get(i)[0]))
-				checkNum++;
+				if (userUinqNum.equals(classStudent.get(i)[0]))
+					checkNum = 2;
 			}
 		} // 중복 여부 체크
+
+		for (int i = 0; i < classStudent.size(); i++) {
+			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
+				personCount++;
+
+			}
+		} // 강의 신청 인원 체크
+
+		if (lecList.get(request.get(lectNumCheck1 - 1)).getPersonnel() < personCount) {
+			checkNum = 1;
+		} // 강의 신청 인원 체크
 
 		if (checkNum == 0) {
 
@@ -72,18 +83,10 @@ public class StudentManagerImpl implements StudentManager {
 
 			System.out.println(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName() + "を申請しました。");
 
-			/*// 펄슨수 시작
-			for (int i = 0; i < classStudent.size(); i++) {
-				if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
-					personCount++;
-					if (lecList.get(request.get(lectNumCheck1 - 1)).getPersonnel() > personCount) {
-						System.out.println("人数が超過しました");
-					}
-				}
-			} // 펄슨수 끝
-*/
+		} else if (checkNum == 1) {
+			System.out.println("人数が超過しました。");
+			checkNum = 0;
 		} else {
-
 			System.out.println("もう申請した講義です。");
 			checkNum = 0;
 		}
