@@ -21,16 +21,23 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	String intch;
 	String intchN;
 	int tr;
+	int lectListnumber;
+	int lectListnumber1;
+	int lectListnumber2;
 	String newlecList;
-	ArrayList<String> checkStudent = new ArrayList<>();
+	ArrayList<String> checkStudent;
 	ArrayList<String> checkLectureName = new ArrayList<>();
 
 	@Override
 	public void pj_Join(List<String[]> classStudent, List<HumanVO> userList, List<LectureVO> lecList,
 			String userUinqNum) {
 		checkNo = 0;
+		lectListnumber = 0;
+		lectListnumber1 = 0;
+		lectListnumber2 = 0;
 		plusenumber = 1;
 		tr = 0;
+		checkStudent = new ArrayList<>();
 		do {
 			for (int a = 0; a < lecList.size(); a++) {
 				if (lecList.get(a).getUniqNum().equals(userUinqNum)) {
@@ -63,8 +70,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 			tr = 1;
 		} while (tr == 0);
 
-
-		if (plusenumber == 1) { 
+		if (plusenumber == 1) {
 			checkNum = 1;
 		} else {
 			System.out.println("講義科目を入力してください。帰る時には0番を書いてください。 ");
@@ -77,20 +83,36 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				for (int z = 0; z < lecList.size(); z++) {
 					if (lecList.get(z).getLectureName().equals(repre)) {
 						newlecList = lecList.get(z).getLectureName();
-					} else {
-						System.out.println("間違えて入力されました。");
-						return;
+						lectListnumber = 1;
 					}
-				}
-				for (int a = 0; a < classStudent.size(); a++) {
-					if (classStudent.get(a)[1].equals(newlecList)) {
-						checkStudent.add(classStudent.get(a)[0]);
+					if (lectListnumber == 0) {
+						System.out.println("入力され講義情報がありません。");
+					} else if (lectListnumber == 1) {
+						for (int a = 0; a < classStudent.size(); a++) {
+							if (classStudent.get(a)[1].equals(newlecList)) {
+								checkStudent.add(classStudent.get(a)[0]);
+								lectListnumber1 = 1;
+							}
+
+						}
 					}
-				}
-				for (int c = 0; c < checkStudent.size(); c++) {
-					for (int x = 0; x < userList.size(); x++) {
-						if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) {
-							checkLectureName.add(userList.get(x).getName());
+					if (lectListnumber1 == 0) {
+						System.out.println("入力され学生情報がありません。");
+					} else if (lectListnumber1 == 1) {
+						lectListnumber2 = 0;
+						for (int c = 0; c < checkStudent.size(); c++) {
+							for (int x = 0; x < userList.size(); x++) {
+								if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) {
+									lectListnumber2 =1;
+								}
+								if(lectListnumber2 == 0) {
+									System.out.println("존재하는 번호 ");
+								}
+								else if(lectListnumber2 == 1) {
+									checkLectureName.add(userList.get(x).getName());	
+								}
+							}
+							
 						}
 					}
 				}
@@ -226,6 +248,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		}
 		return inputInt;
 	}
+
 	public String inputString(String message) {
 		System.out.println(message);
 		String inputString = null;

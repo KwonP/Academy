@@ -357,6 +357,7 @@ public class AcademyUI {
 								break;
 							default:
 								System.out.println("誤入力しました。");
+								professor.loginProfessor(userList, userUinqNum);
 								continue LP1;
 							}
 							break Loop1;
