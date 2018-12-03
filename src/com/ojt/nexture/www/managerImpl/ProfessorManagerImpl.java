@@ -62,7 +62,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 						}
 						System.out.println(plusenumber + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
 								+ lecList.get(i).getProfessor() + "  学生数 : " + lecList.get(i).getPersonnel() + "  単位 : "
-								+ lecList.get(i).getScore() + "  OK : " + intchN);
+								+ lecList.get(i).getScore() + "  承認可否 : " + intchN);
 						plusenumber++;
 					}
 
@@ -80,7 +80,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				checkNum = 1;
 			} else {
 				for (int z = 0; z < lecList.size(); z++) {
-					if (lecList.get(z).getLectureName().equals(repre)) { // 입력한 강의 이름이 강의 목록에 있는지 체크
+					if (lecList.get(z).getLectureName().equals(repre)&&lecList.get(z).getUniqNum().equals(userUinqNum)) { // 입력한 강의 이름이 강의 목록에 있는지 체크
 						lectListnumber = 1;
 					}
 
@@ -195,7 +195,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 						}
 						System.out.println(plusenumber + "." + " 講義名 : " + lecList.get(i).getLectureName() + "  担当者 : "
 								+ lecList.get(i).getProfessor() + "  学生数 : " + lecList.get(i).getPersonnel() + "  単位 : "
-								+ lecList.get(i).getScore() + "  OK : " + intchN);
+								+ lecList.get(i).getScore() + "  承認可否 : " + intchN);
 						plusenumber++;
 					}
 
