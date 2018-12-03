@@ -22,6 +22,8 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	String intchN;
 	int tr;
 	String newlecList;
+	ArrayList<String> checkStudent = new ArrayList<>();
+	ArrayList<String> checkLectureName = new ArrayList<>();
 
 	@Override
 	public void pj_Join(List<String[]> classStudent, List<HumanVO> userList, List<LectureVO> lecList,
@@ -36,7 +38,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				}
 			}
 			if (checkNo == 0) {
-				System.out.println("保存された値段がありません。");
+				System.out.println("保存された値段がありません。 ");
 			} else {
 				for (int i = 0; i < lecList.size(); i++) {
 					if (lecList.get(i).getUniqNum().equals(userUinqNum)) {
@@ -61,36 +63,42 @@ public class ProfessorManagerImpl implements ProfessorManager {
 			tr = 1;
 		} while (tr == 0);
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		if (plusenumber == 1) { // 강의 목록이 존재하지 않는다면
-			checkNum = 1; // 목록이 다시 나오지 않는다 (로그인 후 메뉴로 돌아간다.)
+		if (plusenumber == 1) { 
+			checkNum = 1;
 		} else {
-			System.out.println("講義科目を入力してください。 ");
+			System.out.println("講義科目を入力してください。帰る時には0番を書いてください。 ");
 			repre = sc.nextLine();
-			for (int z = 0; z < lecList.size(); z++) {
-				if (lecList.get(z).getLectureName().equals(repre)) {
-					newlecList = lecList.get(z).getLectureName();
-					System.out.println(newlecList);
-				} else {
-					System.out.println("값이 없습니다.");
-					break;
+			int q = 0;
+			String w = Integer.toString(q);
+			if (repre.equals(w)) {
+				checkNum = 1;
+			} else {
+				for (int z = 0; z < lecList.size(); z++) {
+					if (lecList.get(z).getLectureName().equals(repre)) {
+						newlecList = lecList.get(z).getLectureName();
+					} else {
+						System.out.println("間違えて入力されました。");
+						return;
+					}
 				}
-			}
-			for (int a = 0; a < classStudent.size(); a++) {
-				if (classStudent.get(a)[1].equals(newlecList)) {// 입력한 값이 같으면 출력
-					for (int x = 0; x<userList.size(); x++) {
-						if (classStudent.get(a)[0].equals(userList.get(x).getUniqNum())) {// 입력한 강의와 학생이 신청한 강의의 이름이 같으면
-							System.out.println("학생이름:" + userList.get(x).getName());
-						} else {
-							System.out.println("값이 없습니다.3");
+				for (int a = 0; a < classStudent.size(); a++) {
+					if (classStudent.get(a)[1].equals(newlecList)) {
+						checkStudent.add(classStudent.get(a)[0]);
+					}
+				}
+				for (int c = 0; c < checkStudent.size(); c++) {
+					for (int x = 0; x < userList.size(); x++) {
+						if (checkStudent.get(c).equals(userList.get(x).getUniqNum())) {
+							checkLectureName.add(userList.get(x).getName());
 						}
 					}
-				} else {
-					System.out.println("값이없습니다.2");
 				}
+				for (int b = 0; b < checkLectureName.size(); b++) {
+					System.out.println("学生の名前: " + checkLectureName.get(b));
+				}
+				checkNum = 1;
 			}
-
 		}
 	}
 
@@ -128,7 +136,6 @@ public class ProfessorManagerImpl implements ProfessorManager {
 
 	@Override
 	public void loginProfessor(List<HumanVO> userList, String userUinqNum) {
-		// TODO Auto-generated method stub
 		for (int i = 0; i < userList.size(); i++) {
 			if (userList.get(i).getUniqNum().equals(userUinqNum)) {
 				String pre = userList.get(i).getName();
@@ -182,7 +189,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		if (plusenumber == 1) {
 			checkNum = 1;
 		} else {
-			System.out.println("変更しようとする講義科目を入力してください。돌아 갈경우 0를 눌러주세요 ");
+			System.out.println("変更しようとする講義科目を入力してください。帰る時には0番を書いてください。 ");
 			repre = sc.nextLine();
 			int q = 0;
 			String w = Integer.toString(q);
@@ -205,7 +212,6 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	}
 
 	public int getCheckNum() {
-		// TODO Auto-generated method stub
 		return checkNum;
 	}
 
