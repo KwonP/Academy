@@ -11,10 +11,10 @@ public class StudentManagerImpl implements StudentManager {
 	int checkNum, checkNum2, personCount;
 	String userName;
 	int lectNum1, lectNum2 = 1;
-	List<Integer> request = new ArrayList<>();
+	List<Integer> request;
 	List<Integer> cancle = new ArrayList<>();
 
-	@Override
+	@Override // ログイン機能
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
 
 		for (int i = 0; i < userList.size(); i++) {
@@ -29,16 +29,24 @@ public class StudentManagerImpl implements StudentManager {
 
 	}
 
-	@Override
-	public boolean allLeadingStudent(List<LectureVO> lecList, int lectNum1) {
+	@Override // 講義リストを見る機能
+	public boolean allLeadingStudent(List<LectureVO> lecList, int lectNum1, List<String[]> classStudent) {
 
 		System.out.println("講義リスト一です。");
 
+		request = new ArrayList<>();
+
 		for (int a = 0; a < lecList.size(); a++) {
+			personCount = 0;
 			if (lecList.get(a).getOk() == 2) {
+				for (int y = 0; y < classStudent.size(); y++) {
+					if (lecList.get(a).getLectureName().equals(classStudent.get(y)[1])) {
+						personCount++;
+					}
+				}
 				System.out.println(lectNum1 + ". 講義名 : " + lecList.get(a).getLectureName() + "  担当者 : "
-						+ lecList.get(a).getProfessor() + "  単位 : " + lecList.get(a).getScore() + "  申請可能人数 : "
-						+ lecList.get(a).getPersonnel());
+						+ lecList.get(a).getProfessor() + "  単位 : " + lecList.get(a).getScore() + "  申請人数 : "
+						+ personCount + "/" + lecList.get(a).getPersonnel());
 				request.add(a);
 				lectNum1++;
 			}
@@ -52,7 +60,7 @@ public class StudentManagerImpl implements StudentManager {
 
 	}
 
-	@Override
+	@Override // 講義の申請機能
 	public boolean requestStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
 			int lectNumCheck1) {
 
@@ -62,20 +70,20 @@ public class StudentManagerImpl implements StudentManager {
 		for (int i = 0; i < classStudent.size(); i++) {
 			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
 				if (userUinqNum.equals(classStudent.get(i)[0]))
-					checkNum = 2;
+					checkNum++;
 			}
-		} // 중복 여부 체크
+		} // 重複のチェック
 
 		for (int i = 0; i < classStudent.size(); i++) {
 			if (classStudent.get(i)[1].equals(lecList.get(request.get(lectNumCheck1 - 1)).getLectureName())) {
 				personCount++;
 
 			}
-		} // 강의 신청 인원 체크
+		} // 講義を申請した人数増加
 
 		if (lecList.get(request.get(lectNumCheck1 - 1)).getPersonnel() <= personCount) {
-			checkNum = 1;
-		} // 강의 신청 인원 체크
+			checkNum++;
+		} // 講義を申請した人数チェック
 
 		if (checkNum == 0) {
 
@@ -89,9 +97,10 @@ public class StudentManagerImpl implements StudentManager {
 			checkNum = 0;
 		}
 		return true;
+
 	}
 
-	@Override
+	@Override // 自分が申請した講義リストを見る機能
 	public boolean leadingStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
 			int lectNum2) {
 		System.out.println("自分の講義リスト一です。");
@@ -101,8 +110,7 @@ public class StudentManagerImpl implements StudentManager {
 				for (int y = 0; y < lecList.size(); y++) {
 					if (classStudent.get(k)[1].equals(lecList.get(y).getLectureName())) {
 						System.out.println(lectNum2 + ". 講義名 : " + lecList.get(y).getLectureName() + "  担当者 : "
-								+ lecList.get(y).getProfessor() + "  単位 : " + lecList.get(y).getScore() + "  申請可能人数 : "
-								+ lecList.get(y).getPersonnel());
+								+ lecList.get(y).getProfessor() + "  単位 : " + lecList.get(y).getScore());
 						cancle.add(k);
 						lectNum2++;
 					}
@@ -113,10 +121,12 @@ public class StudentManagerImpl implements StudentManager {
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("申請キャンセルする講義の番号を選んでください。帰る時には0番を書いてください。");
 		System.out.println("----------------------------------------------------------------------------------");
+
 		return true;
+
 	}
 
-	@Override
+	@Override // 講義のキャンセル機能
 	public boolean cancleStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
 			int lectNumCheck2) {
 
@@ -127,7 +137,7 @@ public class StudentManagerImpl implements StudentManager {
 				if (userUinqNum.equals(classStudent.get(i)[0]))
 					checkNum2 = 0;
 			}
-		} // 중복 여부 체크
+		} // 講義を申請した方が自分か確認
 
 		if (checkNum == 0) {
 
@@ -138,10 +148,10 @@ public class StudentManagerImpl implements StudentManager {
 				if (classStudent.get(i)[1].equals(lecList.get(cancle.get(lectNumCheck2)).getLectureName())) {
 					personCount--;
 				}
-			} // 강의 신청 인원 체크
+			} // 講義を申請した人数減少
 		}
-
 		return true;
+
 	}
 
 }

@@ -41,8 +41,6 @@ public class AcademyUI {
 	int accessCheckNum = 1;
 	List<Integer> accessCheck;
 
-	List<Integer> request = new ArrayList<>();
-
 	public AcademyUI() {
 		boolean flag = true;
 		// メインメニュー表示するためのループ文
@@ -364,13 +362,14 @@ public class AcademyUI {
 							break Loop1;
 						} while (PrCheckNum == 0);
 
-					} else if (logInCheck == 3) { // 김혜원
-
+					} else if (logInCheck == 3) { 
+						
+						/* student start */
 						int studentLoopCheck1 = 1;
 						int Student_S = 0;
 						String check = null;
-
 						studentLoop1: do { // 학생 로그인 화면 부분
+							
 							student.loginStudent(userList, userUinqNum, userPassword);
 
 							try {
@@ -396,7 +395,7 @@ public class AcademyUI {
 								} else {
 									int lectNum1 = 1;
 
-									student.allLeadingStudent(lecList, lectNum1);
+									student.allLeadingStudent(lecList, lectNum1, classStudent);
 
 									int lectNumCheck1 = inputInt("");
 
@@ -413,15 +412,16 @@ public class AcademyUI {
 											studentLoopCheck1 = 0;
 											continue studentLoop1;
 										}
+										
 										if (check.equals("n") || check.equals("N")) {
 											System.out.println("入力をキャンセルしました。");
 											studentLoopCheck1 = 0;
 											continue studentLoop1;
 										}
-
 									}
 									classCheck = 0;
 								}
+								
 							case 2:
 
 								classCheck = 0;
@@ -437,36 +437,32 @@ public class AcademyUI {
 									studentLoopCheck1 = 0;
 									continue studentLoop1;
 								} else {
-
 									int lectNum2 = 1;
-
+									
 									student.leadingStudent(classStudent, lecList, userUinqNum, lectNum2);
 
 									int lectNumCheck2 = inputInt("");
-
 									System.out.println("");
 
 									if (lectNumCheck2 == 0) {
 										studentLoopCheck1 = 0;
 										continue studentLoop1;
-									} else {
-
+									} else {	
 										System.out.println("このままキャンセルしますか。 (Y/N)");
 
 										check = sc.next();
+										
 										if (check.equals("y") || check.equals("Y")) {
-
 											student.cancleStudent(classStudent, lecList, userUinqNum, lectNumCheck2);
-
 											studentLoopCheck1 = 0;
 											continue studentLoop1;
 										}
+										
 										if (check.equals("n") || check.equals("N")) {
 											System.out.println("入力をキャンセルしました。");
 											studentLoopCheck1 = 0;
 											continue studentLoop1;
 										}
-
 									}
 									classCheck = 0;
 								}
@@ -481,9 +477,11 @@ public class AcademyUI {
 								studentLoopCheck1 = 0;
 								continue studentLoop1;
 							}
-
+							
 							break Loop1;
 						} while (studentLoopCheck1 == 0);
+						/* student end */
+						
 					} else {
 						logInfail();
 						mainMenu = inputString("");
