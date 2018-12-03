@@ -24,6 +24,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	int lectListnumber;
 	int lectListnumber1;
 	int lectListnumber2;
+	int lectListnumber3;
 	String newlecList;
 	ArrayList<String> checkStudent;
 	List<Integer> intNum;
@@ -35,6 +36,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 		lectListnumber = 0;
 		lectListnumber1 = 0;
 		lectListnumber2 = 0;
+		lectListnumber3 = 0;
 		plusenumber = 1;
 		tr = 0;
 		checkStudent = new ArrayList<>();
@@ -80,7 +82,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				checkNum = 1;
 			} else {
 				for (int z = 0; z < lecList.size(); z++) {
-					if (lecList.get(z).getLectureName().equals(repre)&&lecList.get(z).getUniqNum().equals(userUinqNum)) { // 입력한 강의 이름이 강의 목록에 있는지 체크
+					if (lecList.get(z).getLectureName().equals(repre)) { // 입력한 강의 이름이 강의 목록에 있는지 체크
 						lectListnumber = 1;
 					}
 
@@ -88,6 +90,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 				if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
 					System.out.println("入力され講義情報がありません");
 				} else if (lectListnumber == 1) { // 입력한 강의 이름이 강의 목록에 있다면
+
 					for (int a = 0; a < classStudent.size(); a++) {
 						if (classStudent.get(a)[1].equals(repre)) { // 입력한 강의를 신청한 학생이 있는지 체크
 							checkStudent.add(classStudent.get(a)[0]); // 입력한 강의를 신청한 학생이 있다면 checkStudent에 그 학생들의
@@ -105,20 +108,29 @@ public class ProfessorManagerImpl implements ProfessorManager {
 									intNum.add(x); // userList에서 체크
 									lectListnumber2 = 1;
 								}
-
 							}
 						}
-
 						if (lectListnumber2 == 1) {
-							for (int a = 0; a < intNum.size(); a++) {
-								System.out.println("学生の名前：  " + userList.get(intNum.get(a)).getName());
+							for (int i = 0; i < intNum.size(); i++) {
+								if (lecList.get(intNum.get(i)).getUniqNum().equals(userUinqNum)) {
+									lectListnumber3 = 1;
+								}
+							}
+							if (lectListnumber3 == 1) {
+								for (int a = 0; a < intNum.size(); a++) {
+									System.out.println("学生の名前：  " + userList.get(intNum.get(a)).getName());
+								}
+							} else {
+								System.out.println("해당 교수의 강의가 아닙니다.");
 							}
 						}
+
 					}
 				}
 				checkNum = 1;
 			}
 		}
+
 	}
 
 	@Override
