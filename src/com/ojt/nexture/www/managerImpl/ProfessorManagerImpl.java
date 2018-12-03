@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
 import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.manager.ProfessorManager;
@@ -28,6 +29,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	String newlecList;
 	ArrayList<String> checkStudent;
 	List<Integer> intNum;
+	int fixCheck2;
 
 	@Override
 	public void pj_Join(List<String[]> classStudent, List<HumanVO> userList, List<LectureVO> lecList,
@@ -86,7 +88,8 @@ public class ProfessorManagerImpl implements ProfessorManager {
 						lectListnumber = 1;
 						intNum.add(z);
 					}
-				}if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
+				}
+				if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
 					System.out.println("入力され講義情報がありません");
 				} else if (lectListnumber == 1) { // 입력한 강의 이름이 강의 목록에 있다면
 					for (int i = 0; i < intNum.size(); i++) {
@@ -178,7 +181,8 @@ public class ProfessorManagerImpl implements ProfessorManager {
 	}
 
 	@Override
-	public boolean fixProfessor(List<LectureVO> lecList, List<HumanVO> userList, String userUinqNum) {
+	public boolean fixProfessor(List<LectureVO> lecList, List<HumanVO> userList, String userUinqNum,
+			List<String[]> classStudent) {
 		tr = 0;
 		plusenumber = 1;
 		checkNum = 0;
@@ -230,14 +234,29 @@ public class ProfessorManagerImpl implements ProfessorManager {
 						do {
 							repersonnel = inputInt("学生数 :");
 						} while (repersonnel == 0);
-						checkNum = 1;
-						lecList.get(a).setPersonnel(repersonnel);
-						System.out.println("修正完了しました。");
+
 					}
 				}
+				for (int i = 0; i < lecList.size(); i++) {
+					for (int a = 0; a < classStudent.size(); a++) {
+						if (lecList.get(i).getLectureName().equals(classStudent.get(a)[1])) {
+							fixCheck2++;
+						}
+					}
+				}
+				if (fixCheck2 > repersonnel) {
+					System.out.println("既に申請した学生数より少なく申請できません。");
+				} else {
+					checkNum = 1;
+					for (int a = 0; a < classStudent.size(); a++) {
+						lecList.get(a).setPersonnel(repersonnel);
+					}
+					System.out.println("修正完了しました。");
+				}
+				
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public int getCheckNum() {

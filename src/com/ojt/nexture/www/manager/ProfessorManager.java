@@ -12,7 +12,7 @@ public interface ProfessorManager {
 
 	public void pj_Join(List<String[]> classStudent,List<HumanVO> userList,List<LectureVO> lecList,String userUinqNum);// 担当講義閲覧
 
-	public boolean fixProfessor(List<LectureVO> lecList, List<HumanVO> userList, String userUinqNum);// 情報修正
+	public boolean fixProfessor(List<LectureVO> lecList, List<HumanVO> userList, String userUinqNum, List<String[]> classStudent);// 情報修正
 
 	public void loginProfessor(List<HumanVO> userList,String userUinqNum);// ログイン
 

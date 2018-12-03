@@ -9,8 +9,8 @@ import com.ojt.nexture.www.entity.HumanVO;
 import com.ojt.nexture.www.entity.LectureVO;
 import com.ojt.nexture.www.entity.ProfessorVO;
 import com.ojt.nexture.www.entity.StudentVO;
-import com.ojt.nexture.www.managerImpl.StaffManagerImpl;
 import com.ojt.nexture.www.managerImpl.ProfessorManagerImpl;
+import com.ojt.nexture.www.managerImpl.StaffManagerImpl;
 import com.ojt.nexture.www.managerImpl.StudentManagerImpl;
 
 public class AcademyUI {
@@ -354,7 +354,7 @@ public class AcademyUI {
 								break LP1;
 							case 3:
 								do {
-									professor.fixProfessor(lecList, userList, userUinqNum);
+									professor.fixProfessor(lecList, userList, userUinqNum, classStudent);
 								} while (professor.getCheckNum() == 0);
 								professor.loginProfessor(userList, userUinqNum);
 								continue LP1;
