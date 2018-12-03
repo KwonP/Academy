@@ -86,9 +86,7 @@ public class ProfessorManagerImpl implements ProfessorManager {
 						lectListnumber = 1;
 						intNum.add(z);
 					}
-				}
-
-				if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
+				}if (lectListnumber == 0) { // 입력한 강의 이름이 강의 목록에 없다면
 					System.out.println("入力され講義情報がありません");
 				} else if (lectListnumber == 1) { // 입력한 강의 이름이 강의 목록에 있다면
 					for (int i = 0; i < intNum.size(); i++) {
@@ -124,10 +122,9 @@ public class ProfessorManagerImpl implements ProfessorManager {
 							}
 						}
 					} else {
-						System.out.println("해당 교수의 강의가 아닙니다.");
+						System.out.println("該当教授の講義ではありません。");
 					}
 				}
-
 				checkNum = 1;
 			}
 		}
