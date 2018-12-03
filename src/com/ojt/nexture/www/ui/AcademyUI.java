@@ -194,8 +194,11 @@ public class AcademyUI {
 										continue Loop2;
 									}
 								default:
+									System.out.println("正しいメニューを選択してください。");
+									staff.logInStaff(userPassword, userUinqNum);
+									staffFlagNum = 0;
+									continue Loop2;
 								}
-								break;
 							case 2: // 강의승인
 								int loop4Check = 1;
 								accessCheck = new ArrayList<>();
