@@ -36,7 +36,7 @@ public class AcademyUI {
 	String student_Num;
 	int score, personnel;
 
-	int logInCheck, accessCount, accessNum, temp, classCheck;
+	int logInCheck, accessCount, accessNum, classCheck;
 	int uniqNo = 0;
 	int accessCheckNum = 1;
 	List<Integer> accessCheck;
@@ -197,7 +197,7 @@ public class AcademyUI {
 									staffFlagNum = 0;
 									continue Loop2;
 								}
-								
+
 							case 2: // 강의승인
 								int loop4Check = 1;
 								accessCheck = new ArrayList<>();
@@ -229,23 +229,29 @@ public class AcademyUI {
 										staffFlagNum = 0;
 										continue Loop2;
 									}
-									if (accessNum == 0) {
-										staff.logInStaff(userPassword, userUinqNum);
-										staffFlagNum = 0;
-										continue Loop2;
-									}
-									String accessString = inputString(accessNum + "の講義を承認しますか。(Y/N)");
-									if (accessString.equals("y") || accessString.equals("Y")) {
-										staff.accessClass(lecList, accessNum, accessCheck);
-										staff.logInStaff(userPassword, userUinqNum);
-										staffFlagNum = 0;
-										continue Loop2;
-									} else {
+									if (accessNum > lecList.size()) {
+										System.out.println("正しい番号を入力してください。");
 										loop4Check = 0;
 										continue Loop4;
+									} else {
+										if (accessNum == 0) {
+											staff.logInStaff(userPassword, userUinqNum);
+											staffFlagNum = 0;
+											continue Loop2;
+										}
+										String accessString = inputString(accessNum + "の講義を承認しますか。(Y/N)");
+										if (accessString.equals("y") || accessString.equals("Y")) {
+											staff.accessClass(lecList, accessNum, accessCheck);
+											staff.logInStaff(userPassword, userUinqNum);
+											staffFlagNum = 0;
+											continue Loop2;
+										} else {
+											loop4Check = 0;
+											continue Loop4;
+										}
 									}
 								} while (loop4Check == 0);
-								
+
 							case 3: // 전체강의목록
 								int loop5Check = 1;
 								Loop5: do {
@@ -267,12 +273,12 @@ public class AcademyUI {
 										}
 									}
 								} while (loop5Check == 0);
-								
+
 							case 4: // 로그아웃
 								System.out.println("ログアウトしました。");
 								logInCheck = 0;
 								break;
-								
+
 							default:
 								System.out.println("正しいメニューを選択してください。");
 								staff.logInStaff(userPassword, userUinqNum);
@@ -363,14 +369,14 @@ public class AcademyUI {
 							break Loop1;
 						} while (PrCheckNum == 0);
 
-					} else if (logInCheck == 3) { 
-						
+					} else if (logInCheck == 3) {
+
 						/* student start */
 						int studentLoopCheck1 = 1;
 						int Student_S = 0;
 						String check = null;
 						studentLoop1: do { // 학생 로그인 화면 부분
-							
+
 							student.loginStudent(userList, userUinqNum, userPassword);
 
 							try {
@@ -413,7 +419,7 @@ public class AcademyUI {
 											studentLoopCheck1 = 0;
 											continue studentLoop1;
 										}
-										
+
 										if (check.equals("n") || check.equals("N")) {
 											System.out.println("入力をキャンセルしました。");
 											studentLoopCheck1 = 0;
@@ -422,7 +428,7 @@ public class AcademyUI {
 									}
 									classCheck = 0;
 								}
-								
+
 							case 2:
 
 								classCheck = 0;
@@ -439,7 +445,7 @@ public class AcademyUI {
 									continue studentLoop1;
 								} else {
 									int lectNum2 = 1;
-									
+
 									student.leadingStudent(classStudent, lecList, userUinqNum, lectNum2);
 
 									int lectNumCheck2 = inputInt("");
@@ -448,17 +454,17 @@ public class AcademyUI {
 									if (lectNumCheck2 == 0) {
 										studentLoopCheck1 = 0;
 										continue studentLoop1;
-									} else {	
+									} else {
 										System.out.println("このままキャンセルしますか。 (Y/N)");
 
 										check = sc.next();
-										
+
 										if (check.equals("y") || check.equals("Y")) {
 											student.cancleStudent(classStudent, lecList, userUinqNum, lectNumCheck2);
 											studentLoopCheck1 = 0;
 											continue studentLoop1;
 										}
-										
+
 										if (check.equals("n") || check.equals("N")) {
 											System.out.println("入力をキャンセルしました。");
 											studentLoopCheck1 = 0;
@@ -472,17 +478,17 @@ public class AcademyUI {
 								System.out.println("ログアウトしました。");
 								logInCheck = 0;
 								break;
-							
+
 							default:
 								System.out.println("正しいメニューを選択してください。");
 								studentLoopCheck1 = 0;
 								continue studentLoop1;
 							}
-							
+
 							break Loop1;
 						} while (studentLoopCheck1 == 0);
 						/* student end */
-						
+
 					} else {
 						logInfail();
 						mainMenu = inputString("");
