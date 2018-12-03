@@ -35,6 +35,7 @@ public class AcademyUI {
 	String major;
 	String student_Num;
 	int score, personnel;
+	int checkNum;
 
 	int logInCheck, accessCount, accessNum, classCheck;
 	int uniqNo = 0;
@@ -400,16 +401,20 @@ public class AcademyUI {
 									studentLoopCheck1 = 0;
 									continue studentLoop1;
 								} else {
-									int lectNum1 = 1;
 
-									student.allLeadingStudent(lecList, lectNum1, classStudent);
+									student.allLeadingStudent(lecList, classStudent);
 
 									int lectNumCheck1 = inputInt("");
 
-									if (lectNumCheck1 == 0) {
+									if (lectNumCheck1 > classCheck) {
+										System.out.println("正しい番号を選択してください。");
 										studentLoopCheck1 = 0;
 										continue studentLoop1;
 									} else {
+										if (lectNumCheck1 == 0) {
+											studentLoopCheck1 = 0;
+											continue studentLoop1;
+										}
 										System.out.println("このまま申請しますか。 (Y/N)");
 
 										check = sc.next();
@@ -426,16 +431,21 @@ public class AcademyUI {
 											continue studentLoop1;
 										}
 									}
-									classCheck = 0;
 								}
+
+								classCheck = 0;
 
 							case 2:
 
 								classCheck = 0;
 
-								for (int i = 0; i < lecList.size(); i++) {
-									if (lecList.get(i).getOk() == 2) {
-										classCheck++;
+								for (int i = 0; i < classStudent.size(); i++) {
+									if (userUinqNum.equals(classStudent.get(i)[0])) {
+										for (int a = 0; a < lecList.size(); a++) {
+											if (classStudent.get(i)[1].equals(lecList.get(i).getLectureName())) {
+												classCheck++;
+											}
+										}
 									}
 								}
 
@@ -444,14 +454,27 @@ public class AcademyUI {
 									studentLoopCheck1 = 0;
 									continue studentLoop1;
 								} else {
-									int lectNum2 = 1;
+									checkNum = 0;
 
-									student.leadingStudent(classStudent, lecList, userUinqNum, lectNum2);
+									student.leadingStudent(classStudent, lecList, userUinqNum);
 
-									int lectNumCheck2 = inputInt("");
+									String lectNumCheck2 = inputString("");
 									System.out.println("");
 
-									if (lectNumCheck2 == 0) {
+									if (lectNumCheck2.equals("0")) {
+										studentLoopCheck1 = 0;
+										continue studentLoop1;
+									}
+
+									for (int i = 0; i < classStudent.size(); i++) {
+										if (classStudent.get(i)[1].equals(lectNumCheck2)) {
+											checkNum++;
+
+										}
+									}
+
+									if (checkNum == 0) {
+										System.out.println("正しい講義を入力してください。");
 										studentLoopCheck1 = 0;
 										continue studentLoop1;
 									} else {
@@ -471,8 +494,8 @@ public class AcademyUI {
 											continue studentLoop1;
 										}
 									}
-									classCheck = 0;
 								}
+								classCheck = 0;
 
 							case 3:
 								System.out.println("ログアウトしました。");

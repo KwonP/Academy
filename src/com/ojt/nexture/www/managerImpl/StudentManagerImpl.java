@@ -10,9 +10,9 @@ public class StudentManagerImpl implements StudentManager {
 
 	int checkNum, checkNum2, personCount;
 	String userName;
-	int lectNum1, lectNum2 = 1;
+	int lectNum1;
+	int lectNum2;
 	List<Integer> request;
-	List<Integer> cancle = new ArrayList<>();
 
 	@Override // ログイン機能
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password) {
@@ -30,10 +30,10 @@ public class StudentManagerImpl implements StudentManager {
 	}
 
 	@Override // 講義リストを見る機能
-	public boolean allLeadingStudent(List<LectureVO> lecList, int lectNum1, List<String[]> classStudent) {
+	public boolean allLeadingStudent(List<LectureVO> lecList, List<String[]> classStudent) {
 
 		System.out.println("講義リスト一です。");
-
+		lectNum1 = 1;
 		request = new ArrayList<>();
 
 		for (int a = 0; a < lecList.size(); a++) {
@@ -101,8 +101,10 @@ public class StudentManagerImpl implements StudentManager {
 	}
 
 	@Override // 自分が申請した講義リストを見る機能
-	public boolean leadingStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
-			int lectNum2) {
+	public boolean leadingStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum) {
+		
+		lectNum2 = 1;
+		
 		System.out.println("自分の講義リスト一です。");
 
 		for (int k = 0; k < classStudent.size(); k++) {
@@ -111,7 +113,6 @@ public class StudentManagerImpl implements StudentManager {
 					if (classStudent.get(k)[1].equals(lecList.get(y).getLectureName())) {
 						System.out.println(lectNum2 + ". 講義名 : " + lecList.get(y).getLectureName() + "  担当者 : "
 								+ lecList.get(y).getProfessor() + "  単位 : " + lecList.get(y).getScore());
-						cancle.add(k);
 						lectNum2++;
 					}
 				}
@@ -119,7 +120,7 @@ public class StudentManagerImpl implements StudentManager {
 		}
 
 		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("申請キャンセルする講義の番号を選んでください。帰る時には0番を書いてください。");
+		System.out.println("申請キャンセルする講義の名前を書いてください。帰る時には0番を書いてください。");
 		System.out.println("----------------------------------------------------------------------------------");
 
 		return true;
@@ -128,30 +129,21 @@ public class StudentManagerImpl implements StudentManager {
 
 	@Override // 講義のキャンセル機能
 	public boolean cancleStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
-			int lectNumCheck2) {
+			String lectNumCheck2) {
 
 		checkNum2 = 0;
 
 		for (int i = 0; i < classStudent.size(); i++) {
-			if (classStudent.get(i)[1].equals(lecList.get(cancle.get(lectNumCheck2 - 1)).getLectureName())) {
-				if (userUinqNum.equals(classStudent.get(i)[0]))
+			if (classStudent.get(i)[1].equals(lectNumCheck2)) {
+				if (userUinqNum.equals(classStudent.get(i)[0])) {
 					checkNum2 = 0;
-			}
-		} // 講義を申請した方が自分か確認
-
-		if (checkNum == 0) {
-
-			System.out.println(classStudent.get(cancle.get(lectNumCheck2 - 1))[1] + "をキャンセルしました。");
-			classStudent.remove(classStudent.get(cancle.get(lectNumCheck2 - 1)));
-
-			for (int i = 0; i < classStudent.size(); i++) {
-				if (classStudent.get(i)[1].equals(lecList.get(cancle.get(lectNumCheck2)).getLectureName())) {
+					classStudent.remove(classStudent.get(i));
+					System.out.println(lectNumCheck2 + "をキャンセルしました。");
 					personCount--;
 				}
-			} // 講義を申請した人数減少
-		}
+			}
+		} // 講義を申請した方が自分か確認 // 講義を申請した人数減少
+
 		return true;
-
 	}
-
 }

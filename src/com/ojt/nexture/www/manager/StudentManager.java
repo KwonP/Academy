@@ -14,11 +14,11 @@ public interface StudentManager {
 	public void loginStudent(List<HumanVO> userList, String uniqNum, String password);
 
 	// 전체강의목록열람 및 강의 신청
-	public boolean allLeadingStudent(List<LectureVO> lecList, int lectNum1, List<String[]> classStudent);
+	public boolean allLeadingStudent(List<LectureVO> lecList, List<String[]> classStudent);
 	public boolean requestStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum, int lectNumCheck1);
 	// 전체강의목록열람 및 강의 취소
-	public boolean leadingStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum, int lectNum2);
+	public boolean leadingStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum);
 	public boolean cancleStudent(List<String[]> classStudent, List<LectureVO> lecList, String userUinqNum,
-			int lectNumCheck2);
+			String lectNumCheck2);
 
 }
